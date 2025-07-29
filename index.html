@@ -1,0 +1,211 @@
+<!doctype html>
+<html lang="en">
+    <head>
+        <meta charset="utf-8" />
+        <title>didactic-funicular - Your AI-Generated Elixir Learning Guide</title>
+        <meta name="viewport" content="width=device-width, initial-scale=1" />
+        <link rel="stylesheet" href="common-styles.css">
+        <style>
+            /* Index page - Purple Theme with Orange Secondary */
+            :root {
+                --primary-color: #663399;
+                --primary-dark: #4a2570;
+                --primary-light: #8a5cc7;
+                --secondary-color: #ff6900;
+                --secondary-dark: #e55a00;
+                --secondary-light: #ff8533;
+            }
+            
+            .hero {
+                background: linear-gradient(135deg, var(--primary-color) 0%, var(--primary-dark) 100%);
+                color: white;
+                padding: 3rem 2rem;
+                text-align: center;
+                margin: -2rem -2rem 2rem -2rem;
+                border-radius: 0 0 12px 12px;
+            }
+            
+            .hero h1 {
+                color: white;
+                border: none;
+                margin: 0 0 1rem 0;
+                font-size: 2.5rem;
+            }
+            
+            .hero p {
+                font-size: 1.2rem;
+                opacity: 0.9;
+                max-width: 600px;
+                margin: 0 auto;
+            }
+            
+            .features {
+                display: grid;
+                grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+                gap: 2rem;
+                margin: 2rem 0;
+            }
+            
+            .feature {
+                background: var(--bg-secondary);
+                padding: 1.5rem;
+                border-radius: 8px;
+                border-left: 4px solid var(--secondary-color);
+            }
+            
+            .feature h3 {
+                color: var(--primary-color);
+                margin-top: 0;
+            }
+            
+            .cta {
+                background: linear-gradient(135deg, #e3f2fd 0%, #f1f8e9 100%);
+                border-left: 4px solid var(--secondary-color);
+                padding: 2rem;
+                margin: 2rem 0;
+                border-radius: 8px;
+                text-align: center;
+            }
+            
+            .cta h2 {
+                color: var(--primary-color);
+                margin-top: 0;
+            }
+            
+            .nav-cards {
+                display: grid;
+                grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+                gap: 1.5rem;
+                margin: 2rem 0;
+            }
+            
+            .nav-card {
+                background: white;
+                border: 2px solid var(--border-color);
+                border-radius: 8px;
+                padding: 1.5rem;
+                text-decoration: none;
+                color: var(--text-primary);
+                transition: all 0.2s ease;
+                box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+            }
+            
+            .nav-card:hover {
+                border-color: var(--secondary-color);
+                transform: translateY(-2px);
+                box-shadow: 0 4px 8px rgba(0,0,0,0.15);
+                text-decoration: none;
+            }
+            
+            .nav-card h3 {
+                color: var(--primary-color);
+                margin: 0 0 0.5rem 0;
+            }
+            
+            .nav-card p {
+                margin: 0;
+                color: var(--text-secondary);
+            }
+        </style>
+    </head>
+    <body>
+        <header>
+            <nav>
+                <a href="index.html" class="current">Home</a>
+                <a href="elixir-best-practice.html">Elixir Best Practices</a>
+                <a href="phoenix-best-practice.html">Phoenix Best Practices</a>
+                <a href="phoenix-todo-app.html">Phoenix Todo Tutorial</a>
+            </nav>
+        </header>
+
+        <main>
+            <div class="hero">
+                <h1>didactic-funicular</h1>
+                <p>Your AI-generated comprehensive guide to mastering Elixir and Phoenix development. From functional programming fundamentals to production-ready web applications.</p>
+            </div>
+
+            <h2>Welcome to Your Elixir Learning Journey</h2>
+            <p>
+                This documentation site was created by AI to help you get started with Elixir, a dynamic, functional programming language designed for building maintainable and scalable applications. Whether you're coming from object-oriented programming or are new to functional programming entirely, this guide will take you from beginner to confident Elixir developer.
+            </p>
+
+            <div class="features">
+                <div class="feature">
+                    <h3>🧪 Functional Programming Focus</h3>
+                    <p>Learn the core principles of functional programming with Elixir's elegant syntax. Master immutability, pattern matching, and the pipeline operator that makes Elixir code so readable.</p>
+                </div>
+                
+                <div class="feature">
+                    <h3>⚡ Concurrency & Fault Tolerance</h3>
+                    <p>Discover the Actor model with lightweight processes, supervision trees, and the "let it crash" philosophy that makes Elixir applications incredibly resilient.</p>
+                </div>
+                
+                <div class="feature">
+                    <h3>🌐 Web Development with Phoenix</h3>
+                    <p>Build modern web applications with Phoenix framework, including real-time features with LiveView, RESTful APIs, and production deployment strategies.</p>
+                </div>
+                
+                <div class="feature">
+                    <h3>📚 Practical Examples</h3>
+                    <p>Follow along with hands-on tutorials, including a complete Todo application that demonstrates real-world patterns and best practices.</p>
+                </div>
+            </div>
+
+            <div class="cta">
+                <h2>Start Your Learning Path</h2>
+                <p>This guide is structured to take you through a logical progression from Elixir fundamentals to building production applications. Each section builds upon the previous one, with practical examples and best practices throughout.</p>
+            </div>
+
+            <h2>Learning Path</h2>
+            <div class="nav-cards">
+                <a href="elixir-best-practice.html" class="nav-card">
+                    <h3>1. Elixir Best Practices</h3>
+                    <p>Start here to learn functional programming concepts, pattern matching, processes, GenServers, and OTP behaviors. Essential foundation for all Elixir development.</p>
+                </a>
+                
+                <a href="phoenix-best-practice.html" class="nav-card">
+                    <h3>2. Phoenix Best Practices</h3>
+                    <p>Master web development with Phoenix framework. Learn about contexts, LiveView, channels, testing, and building scalable web applications.</p>
+                </a>
+                
+                <a href="phoenix-todo-app.html" class="nav-card">
+                    <h3>3. Phoenix Todo Tutorial</h3>
+                    <p>Put it all together with a complete hands-on tutorial. Build a real Todo application from scratch using modern Phoenix patterns.</p>
+                </a>
+            </div>
+
+            <h2>What Makes This Guide Special</h2>
+            <ul>
+                <li><strong>AI-Generated Content</strong> - Comprehensive, up-to-date information synthesized from the latest Elixir and Phoenix best practices</li>
+                <li><strong>Beginner-Friendly</strong> - Assumes no prior Elixir knowledge, with clear explanations of functional programming concepts</li>
+                <li><strong>Production-Ready</strong> - Focuses on patterns and practices used in real-world applications</li>
+                <li><strong>Complete Coverage</strong> - From basic syntax to deployment, testing, monitoring, and performance optimization</li>
+                <li><strong>Hands-On Learning</strong> - Practical examples and a complete tutorial project to reinforce concepts</li>
+            </ul>
+
+            <div class="beginner-tip">
+                <strong>New to Functional Programming?</strong> Don't worry! This guide is designed for developers coming from object-oriented backgrounds. We'll help you make the mental shift to thinking functionally, with plenty of examples comparing OOP and FP approaches.
+            </div>
+
+            <h2>Prerequisites</h2>
+            <p>To get the most out of this guide, you should have:</p>
+            <ul>
+                <li>Basic programming experience in any language</li>
+                <li>Familiarity with command line/terminal</li>
+                <li>Understanding of web development concepts (for Phoenix sections)</li>
+                <li>Willingness to embrace a new programming paradigm!</li>
+            </ul>
+
+            <div class="example">
+                <strong>Ready to Start?</strong> Begin with the <a href="elixir-best-practice.html">Elixir Best Practices</a> guide to learn the fundamentals, then progress through Phoenix development and finally build your first application with the Todo tutorial.
+            </div>
+        </main>
+
+        <footer>
+            <p>
+                Welcome to the world of Elixir! 🧪✨<br />
+                <small>didactic-funicular - Your AI-powered guide to Elixir mastery</small>
+            </p>
+        </footer>
+    </body>
+</html>

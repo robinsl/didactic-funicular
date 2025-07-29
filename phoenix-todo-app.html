@@ -2,204 +2,73 @@
 <html lang="en">
     <head>
         <meta charset="utf-8" />
-        <title>Phoenix Todo Tutorial - Complete Step-by-Step Guide</title>
+        <title>Phoenix Todo Tutorial - didactic-funicular</title>
         <meta name="viewport" content="width=device-width, initial-scale=1" />
+        <link rel="stylesheet" href="common-styles.css">
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/styles/github.min.css">
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/highlight.min.js"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/languages/elixir.min.js"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/languages/erlang.min.js"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/languages/javascript.min.js"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/languages/css.min.js"></script>
         <style>
-            body {
-                font-family:
-                    -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto,
-                    sans-serif;
-                margin: 0;
-                line-height: 1.6;
-                color: #333;
-            }
-            header {
-                background: #ff6900;
-                color: #fff;
-                padding: 1rem;
-                box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-            }
-            nav {
-                display: flex;
-                flex-wrap: wrap;
-                gap: 1rem;
-            }
-            nav a {
-                color: #fff;
-                text-decoration: none;
-                font-weight: bold;
-                padding: 0.5rem 1rem;
-                border-radius: 4px;
-                transition: background-color 0.2s;
-            }
-            nav a:hover {
-                background-color: rgba(255, 255, 255, 0.1);
-            }
-            nav a.current {
-                background-color: rgba(255, 255, 255, 0.2);
-            }
-            main {
-                padding: 2rem;
-                max-width: 1000px;
-                margin: auto;
-            }
-            h1,
-            h2,
-            h3 {
-                color: #ff6900;
-            }
-            h1 {
-                border-bottom: 3px solid #ff6900;
-                padding-bottom: 0.5rem;
-            }
-            h2 {
-                margin-top: 2rem;
-                border-bottom: 1px solid #e0e0e0;
-                padding-bottom: 0.25rem;
-            }
-            pre {
-                background: #f8f9fa;
-                padding: 1rem;
-                overflow-x: auto;
-                border-radius: 6px;
-                border: 1px solid #e9ecef;
-            }
-            code {
-                font-family:
-                    "SF Mono", Monaco, "Cascadia Code", "Roboto Mono", Consolas,
-                    monospace;
-                font-size: 0.9em;
-            }
-            pre code {
-                background: none;
-                padding: 0;
-            }
-            code:not(pre code) {
-                background: #f8f9fa;
-                padding: 0.2em 0.4em;
-                border-radius: 3px;
-                border: 1px solid #e9ecef;
-            }
-            table {
-                border-collapse: collapse;
-                width: 100%;
-                margin: 1rem 0;
-                box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
-                border-radius: 6px;
-                overflow: hidden;
-            }
-            th,
-            td {
-                border: 1px solid #ddd;
-                padding: 0.75rem;
-                text-align: left;
-            }
-            th {
-                background: #f8f9fa;
-                font-weight: 600;
-            }
-            tbody tr:nth-child(even) {
-                background: #f8f9fa;
-            }
-            .beginner-tip {
-                background: linear-gradient(135deg, #e3f2fd 0%, #f1f8e9 100%);
-                border-left: 4px solid #2196f3;
-                padding: 1rem;
-                margin: 1rem 0;
-                border-radius: 6px;
-                box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
-            }
-            .warning {
-                background: linear-gradient(135deg, #fff8e1 0%, #ffecb3 100%);
-                border-left: 4px solid #ff9800;
-                padding: 1rem;
-                margin: 1rem 0;
-                border-radius: 6px;
-                box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
-            }
-            .success {
-                background: linear-gradient(135deg, #f1f8e9 0%, #e8f5e8 100%);
-                border-left: 4px solid #4caf50;
-                padding: 1rem;
-                margin: 1rem 0;
-                border-radius: 6px;
-                box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
-            }
-            .step-by-step {
-                background: linear-gradient(135deg, #f3e5f5 0%, #e1bee7 100%);
-                border-left: 4px solid #9c27b0;
-                padding: 1rem;
-                margin: 1rem 0;
-                border-radius: 6px;
-                box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
-            }
-            .checkpoint {
-                background: #f8f9fa;
-                border: 2px solid #ff6900;
-                padding: 1rem;
-                margin: 1.5rem 0;
-                border-radius: 6px;
-                box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
-            }
-            .toc {
-                background: #f8f9fa;
-                border: 1px solid #e9ecef;
-                border-radius: 6px;
-                padding: 1.5rem;
-                margin: 2rem 0;
-            }
-            .toc h3 {
-                margin-top: 0;
-                color: #495057;
-            }
-            .toc ol {
-                columns: 2;
-                column-gap: 2rem;
-                margin: 0;
-                padding-left: 1.5rem;
-                line-height: 1.8;
-            }
-            .toc li {
-                margin: 0.25rem 0;
-                break-inside: avoid;
-            }
-            .toc a {
-                color: #ff6900;
-                text-decoration: none;
-                font-weight: 500;
-            }
-            .toc a:hover {
-                text-decoration: underline;
-            }
-            footer {
-                text-align: center;
-                font-size: 0.9rem;
-                margin: 3rem 0 1rem;
-                color: #666;
-                border-top: 1px solid #e0e0e0;
-                padding-top: 2rem;
-            }
-            @media (max-width: 768px) {
-                .toc ol {
-                    columns: 1;
-                }
-                main {
-                    padding: 1rem;
-                }
-                nav {
-                    justify-content: center;
-                }
+            /* Phoenix Todo App - Orange Theme with Purple Secondary */
+            :root {
+                --primary-color: #ff6900;
+                --primary-dark: #e55a00;
+                --primary-light: #ff8533;
+                --secondary-color: #663399;
+                --secondary-dark: #4a2570;
+                --secondary-light: #8a5cc7;
             }
         </style>
+        <script>
+            document.addEventListener('DOMContentLoaded', (event) => {
+                // Configure highlight.js for Phoenix tutorial (Elixir + web technologies)
+                hljs.configure({
+                    languages: ['elixir', 'erlang', 'javascript', 'css', 'html', 'bash', 'shell', 'sql']
+                });
+                
+                // Manually set language for code blocks that might be ambiguous
+                document.querySelectorAll('pre code').forEach((block) => {
+                    const text = block.textContent;
+                    
+                    // Detect Phoenix/Elixir patterns
+                    if (text.includes('defmodule') || text.includes('use Phoenix') || text.includes('|>') || 
+                        text.includes('def ') || text.includes('mix phx') || text.includes('LiveView')) {
+                        block.className += ' language-elixir';
+                    }
+                    // Detect shell/terminal commands
+                    else if (text.includes('mix ') || text.includes('npm ') || text.includes('cd ') || 
+                             text.includes('$ ') || text.includes('brew ')) {
+                        block.className += ' language-bash';
+                    }
+                    // Detect CSS
+                    else if (text.includes('{') && text.includes(':') && text.includes(';') && 
+                             (text.includes('background') || text.includes('color') || text.includes('margin'))) {
+                        block.className += ' language-css';
+                    }
+                    // Detect HTML/HEEx templates
+                    else if (text.includes('<') && text.includes('>') && text.includes('<%')) {
+                        block.className += ' language-elixir'; // HEEx is Elixir-based
+                    }
+                    // Default to Elixir for this Phoenix tutorial
+                    else if (!block.className.includes('language-') && !block.className.includes('hljs-')) {
+                        block.className += ' language-elixir';
+                    }
+                });
+                
+                hljs.highlightAll();
+            });
+        </script>
     </head>
     <body>
         <header>
             <nav>
-                <a href="phoenix-todo-app.html" class="current"
-                    >Phoenix Todo Example</a
-                >
+                <a href="index.html">Home</a>
                 <a href="elixir-best-practice.html">Elixir Best Practices</a>
                 <a href="phoenix-best-practice.html">Phoenix Best Practices</a>
+                <a href="phoenix-todo-app.html" class="current">Phoenix Todo Tutorial</a>
             </nav>
         </header>
 
@@ -318,7 +187,7 @@
                 <strong>🎯 What we're doing:</strong> Creating a new Phoenix
                 project with LiveView enabled and PostgreSQL as the database.
 
-                <pre><code>mix phx.new live_todo --live --database postgres</code></pre>
+                <pre><code class="language-bash">mix phx.new live_todo --live --database postgres</code></pre>
 
                 <strong>📋 Command breakdown:</strong>
                 <ul>
@@ -355,7 +224,7 @@
 
             <h3>Step 2: Install Dependencies and Setup Database</h3>
             <div class="step-by-step">
-                <pre><code>cd live_todo
+                <pre><code class="language-bash">cd live_todo
 mix deps.get          # Downloads all required packages
 mix ecto.setup        # Creates database + runs migrations + seeds</code></pre>
 
@@ -655,7 +524,7 @@ end</code></pre>
                     (<code>lib/live_todo/todos/todo_list.ex</code>):
                 </p>
 
-                <pre><code>defmodule LiveTodo.Todos.TodoList do
+                <pre><code class="language-elixir">defmodule LiveTodo.Todos.TodoList do
   use Ecto.Schema
   import Ecto.Changeset
 
@@ -673,7 +542,6 @@ end</code></pre>
     todo_list
     |> cast(attrs, [:name, :description])
     |> validate_required([:name])
-
     |> validate_length(:name, min: 1, max: 100)
   end
 end</code></pre>
