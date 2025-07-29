@@ -1,0 +1,1980 @@
+<!doctype html>
+<html lang="en">
+    <head>
+        <meta charset="utf-8" />
+        <title>Elixir Best Practices - Complete Guide</title>
+        <meta name="viewport" content="width=device-width, initial-scale=1" />
+        <style>
+            body {
+                font-family:
+                    -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto,
+                    sans-serif;
+                margin: 0;
+                line-height: 1.6;
+                color: #333;
+            }
+            header {
+                background: #663399;
+                color: #fff;
+                padding: 1rem;
+                box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+            }
+            nav {
+                display: flex;
+                flex-wrap: wrap;
+                gap: 1rem;
+            }
+            nav a {
+                color: #fff;
+                text-decoration: none;
+                font-weight: bold;
+                padding: 0.5rem 1rem;
+                border-radius: 4px;
+                transition: background-color 0.2s;
+            }
+            nav a:hover {
+                background-color: rgba(255, 255, 255, 0.1);
+            }
+            nav a.current {
+                background-color: rgba(255, 255, 255, 0.2);
+            }
+            main {
+                padding: 2rem;
+                max-width: 1000px;
+                margin: auto;
+            }
+            h1,
+            h2,
+            h3 {
+                color: #663399;
+            }
+            h1 {
+                border-bottom: 3px solid #663399;
+                padding-bottom: 0.5rem;
+            }
+            h2 {
+                margin-top: 2rem;
+                border-bottom: 1px solid #e0e0e0;
+                padding-bottom: 0.25rem;
+            }
+            pre {
+                background: #f8f9fa;
+                padding: 1rem;
+                overflow-x: auto;
+                border-radius: 6px;
+                border: 1px solid #e9ecef;
+            }
+            code {
+                font-family:
+                    "SF Mono", Monaco, "Cascadia Code", "Roboto Mono", Consolas,
+                    monospace;
+                font-size: 0.9em;
+            }
+            pre code {
+                background: none;
+                padding: 0;
+            }
+            code:not(pre code) {
+                background: #f8f9fa;
+                padding: 0.2em 0.4em;
+                border-radius: 3px;
+                border: 1px solid #e9ecef;
+            }
+            table {
+                border-collapse: collapse;
+                width: 100%;
+                margin: 1rem 0;
+                box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+                border-radius: 6px;
+                overflow: hidden;
+            }
+            th,
+            td {
+                border: 1px solid #ddd;
+                padding: 0.75rem;
+                text-align: left;
+            }
+            th {
+                background: #f8f9fa;
+                font-weight: 600;
+            }
+            tbody tr:nth-child(even) {
+                background: #f8f9fa;
+            }
+            .beginner-tip {
+                background: linear-gradient(135deg, #e3f2fd 0%, #f1f8e9 100%);
+                border-left: 4px solid #2196f3;
+                padding: 1rem;
+                margin: 1rem 0;
+                border-radius: 6px;
+                box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
+            }
+            .warning {
+                background: linear-gradient(135deg, #fff8e1 0%, #ffecb3 100%);
+                border-left: 4px solid #ff9800;
+                padding: 1rem;
+                margin: 1rem 0;
+                border-radius: 6px;
+                box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
+            }
+            .example {
+                background: linear-gradient(135deg, #f1f8e9 0%, #e8f5e8 100%);
+                border-left: 4px solid #4caf50;
+                padding: 1rem;
+                margin: 1rem 0;
+                border-radius: 6px;
+                box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
+            }
+            .checklist {
+                background: #f8f9fa;
+                border-radius: 6px;
+                padding: 1rem;
+                margin: 1rem 0;
+            }
+            .checklist ul {
+                list-style: none;
+                padding: 0;
+            }
+            .checklist li {
+                margin: 0.5rem 0;
+                padding-left: 2rem;
+                position: relative;
+            }
+            .checklist li:before {
+                content: "☐";
+                position: absolute;
+                left: 0;
+                font-size: 1.2em;
+                color: #666;
+            }
+            footer {
+                text-align: center;
+                font-size: 0.9rem;
+                margin: 3rem 0 1rem;
+                color: #666;
+                border-top: 1px solid #e0e0e0;
+                padding-top: 2rem;
+            }
+        </style>
+    </head>
+    <body>
+        <header>
+            <nav>
+                <a href="phoenix-todo-app.html">Phoenix Todo Example</a>
+                <a href="elixir-best-practice.html" class="current"
+                    >Elixir Best Practices</a
+                >
+                <a href="phoenix-best-practice.html">Phoenix Best Practices</a>
+            </nav>
+        </header>
+
+        <main>
+            <h1>Elixir Best Practices - Complete Reference Guide</h1>
+            <p>
+                A comprehensive guide for senior developers new to functional
+                programming and the Elixir ecosystem.
+            </p>
+
+            <h2 id="table-of-contents">Table of Contents</h2>
+            <nav
+                style="
+                    background: #f8f9fa;
+                    padding: 1.5rem;
+                    border-radius: 6px;
+                    margin: 1rem 0;
+                    border: 1px solid #e9ecef;
+                "
+            >
+                <ol
+                    style="
+                        columns: 2;
+                        column-gap: 3rem;
+                        margin: 0;
+                        padding-left: 1.5rem;
+                        line-height: 1.8;
+                    "
+                >
+                    <li>
+                        <a
+                            href="#functional-programming"
+                            style="
+                                color: #663399;
+                                text-decoration: none;
+                                font-weight: 500;
+                            "
+                            >Functional Programming Mindset</a
+                        >
+                    </li>
+                    <li>
+                        <a
+                            href="#immutability"
+                            style="
+                                color: #663399;
+                                text-decoration: none;
+                                font-weight: 500;
+                            "
+                            >Immutability and Data Structures</a
+                        >
+                    </li>
+                    <li>
+                        <a
+                            href="#pattern-matching"
+                            style="
+                                color: #663399;
+                                text-decoration: none;
+                                font-weight: 500;
+                            "
+                            >Pattern Matching and Guards</a
+                        >
+                    </li>
+                    <li>
+                        <a
+                            href="#functions"
+                            style="
+                                color: #663399;
+                                text-decoration: none;
+                                font-weight: 500;
+                            "
+                            >Functions and Modules</a
+                        >
+                    </li>
+                    <li>
+                        <a
+                            href="#processes"
+                            style="
+                                color: #663399;
+                                text-decoration: none;
+                                font-weight: 500;
+                            "
+                            >Processes and Message Passing</a
+                        >
+                    </li>
+                    <li>
+                        <a
+                            href="#genserver"
+                            style="
+                                color: #663399;
+                                text-decoration: none;
+                                font-weight: 500;
+                            "
+                            >GenServer and OTP Behaviors</a
+                        >
+                    </li>
+                    <li>
+                        <a
+                            href="#error-handling"
+                            style="
+                                color: #663399;
+                                text-decoration: none;
+                                font-weight: 500;
+                            "
+                            >Error Handling - Let It Crash</a
+                        >
+                    </li>
+                    <li>
+                        <a
+                            href="#concurrency"
+                            style="
+                                color: #663399;
+                                text-decoration: none;
+                                font-weight: 500;
+                            "
+                            >Concurrency Patterns</a
+                        >
+                    </li>
+                    <li>
+                        <a
+                            href="#testing"
+                            style="
+                                color: #663399;
+                                text-decoration: none;
+                                font-weight: 500;
+                            "
+                            >Testing Best Practices</a
+                        >
+                    </li>
+                    <li>
+                        <a
+                            href="#performance"
+                            style="
+                                color: #663399;
+                                text-decoration: none;
+                                font-weight: 500;
+                            "
+                            >Performance and Optimization</a
+                        >
+                    </li>
+                    <li>
+                        <a
+                            href="#code-organization"
+                            style="
+                                color: #663399;
+                                text-decoration: none;
+                                font-weight: 500;
+                            "
+                            >Code Organization</a
+                        >
+                    </li>
+                    <li>
+                        <a
+                            href="#databases"
+                            style="
+                                color: #663399;
+                                text-decoration: none;
+                                font-weight: 500;
+                            "
+                            >Database Best Practices with Ecto</a
+                        >
+                    </li>
+                    <li>
+                        <a
+                            href="#supervision"
+                            style="
+                                color: #663399;
+                                text-decoration: none;
+                                font-weight: 500;
+                            "
+                            >Supervision Trees</a
+                        >
+                    </li>
+                    <li>
+                        <a
+                            href="#deployment"
+                            style="
+                                color: #663399;
+                                text-decoration: none;
+                                font-weight: 500;
+                            "
+                            >Deployment and Production</a
+                        >
+                    </li>
+                    <li>
+                        <a
+                            href="#anti-patterns"
+                            style="
+                                color: #663399;
+                                text-decoration: none;
+                                font-weight: 500;
+                            "
+                            >Common Anti-Patterns</a
+                        >
+                    </li>
+                    <li>
+                        <a
+                            href="#checklist"
+                            style="
+                                color: #663399;
+                                text-decoration: none;
+                                font-weight: 500;
+                            "
+                            >Pre-Production Checklist</a
+                        >
+                    </li>
+                </ol>
+            </nav>
+
+            <div
+                style="
+                    text-align: center;
+                    margin: 2rem 0;
+                    padding: 1rem;
+                    background: linear-gradient(
+                        135deg,
+                        #e3f2fd 0%,
+                        #f1f8e9 100%
+                    );
+                    border-radius: 6px;
+                    border-left: 4px solid #2196f3;
+                "
+            >
+                <strong>💡 Quick Navigation Tip:</strong> Use Ctrl+F (Cmd+F on
+                Mac) to search for specific topics throughout this guide.
+            </div>
+
+            <hr />
+
+            <h2 id="functional-programming">
+                1. Functional Programming Mindset
+            </h2>
+
+            <div class="beginner-tip">
+                <strong>Coming from OOP?</strong> The biggest shift is thinking
+                in terms of data transformations rather than object state
+                changes. Instead of "what does this object do?", ask "how does
+                this data flow through functions?"
+            </div>
+
+            <h3>1.1 Core Principles</h3>
+            <ul>
+                <li>
+                    <strong>Immutability</strong> – Data never changes, you
+                    create new versions
+                </li>
+                <li>
+                    <strong>Pure functions</strong> – Same input always produces
+                    same output, no side effects
+                </li>
+                <li>
+                    <strong>Function composition</strong> – Build complex
+                    behavior by combining simple functions
+                </li>
+                <li>
+                    <strong>Data transformation</strong> – Use pipelines to
+                    transform data step by step
+                </li>
+            </ul>
+
+            <div class="example">
+                <strong>OOP vs FP thinking:</strong>
+                <pre><code># OOP mindset (what you might expect)
+user.update_email("new@email.com")
+user.save()
+
+# FP mindset (what Elixir does)
+user
+|> User.changeset(%{email: "new@email.com"})
+|> Repo.update()</code></pre>
+            </div>
+
+            <h3>1.2 The Pipeline Operator |></h3>
+            <p>
+                The pipeline operator is your best friend. It makes data
+                transformations readable:
+            </p>
+
+            <pre><code># Instead of nested function calls
+String.upcase(String.trim(String.replace(input, " ", "_")))
+
+# Use pipelines for clarity
+input
+|> String.replace(" ", "_")
+|> String.trim()
+|> String.upcase()</code></pre>
+
+            <div class="warning">
+                <strong>Pipeline Gotcha:</strong> The pipeline operator passes
+                the result as the <em>first</em> argument to the next function.
+                If you need it as a different argument, use an anonymous
+                function:
+                <code>data |> Enum.map(&String.upcase/1)</code>
+            </div>
+
+            <hr />
+
+            <h2 id="immutability">2. Immutability and Data Structures</h2>
+
+            <h3>2.1 Understanding Immutability</h3>
+            <p>
+                In Elixir, data structures are immutable. When you "modify"
+                data, you're creating a new version:
+            </p>
+
+            <pre><code>list = [1, 2, 3]
+new_list = [0 | list]  # Prepends 0, creates new list
+
+IO.inspect(list)      # [1, 2, 3] - original unchanged
+IO.inspect(new_list)  # [0, 1, 2, 3] - new list</code></pre>
+
+            <h3>2.2 Efficient Data Structures</h3>
+            <table>
+                <thead>
+                    <tr>
+                        <th>Structure</th>
+                        <th>Best for</th>
+                        <th>Access Pattern</th>
+                        <th>Example Use</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>List <code>[1, 2, 3]</code></td>
+                        <td>Sequential access, prepending</td>
+                        <td>Head access O(1), tail O(n)</td>
+                        <td>Processing queues, recursive operations</td>
+                    </tr>
+                    <tr>
+                        <td>Tuple <code>{:ok, value}</code></td>
+                        <td>Fixed-size, fast access</td>
+                        <td>Index access O(1)</td>
+                        <td>Return values, coordinates</td>
+                    </tr>
+                    <tr>
+                        <td>Map <code>%{key: value}</code></td>
+                        <td>Key-value lookup</td>
+                        <td>Key access O(log n)</td>
+                        <td>Configuration, user data</td>
+                    </tr>
+                    <tr>
+                        <td>Keyword <code>[key: value]</code></td>
+                        <td>Options, small datasets</td>
+                        <td>Linear search O(n)</td>
+                        <td>Function options, config</td>
+                    </tr>
+                </tbody>
+            </table>
+
+            <div class="example">
+                <strong>Choosing the right structure:</strong>
+                <pre><code># Good - use maps for key-value data
+user = %{name: "Alice", email: "alice@example.com", age: 30}
+
+# Good - use keyword lists for options
+def process_data(data, opts \\ []) do
+  timeout = Keyword.get(opts, :timeout, 5000)
+  # ...
+end
+
+# Good - use tuples for fixed return values
+def divide(a, b) when b != 0, do: {:ok, a / b}
+def divide(_, 0), do: {:error, :division_by_zero}</code></pre>
+            </div>
+
+            <hr />
+
+            <h2 id="pattern-matching">3. Pattern Matching and Guards</h2>
+
+            <div class="beginner-tip">
+                <strong>Pattern Matching is not assignment!</strong> The
+                <code>=</code> operator in Elixir is a match operator, not
+                assignment. It tries to make the left side match the right side.
+            </div>
+
+            <h3>3.1 Basic Pattern Matching</h3>
+            <pre><code># Destructuring data
+{:ok, result} = {:ok, 42}  # result = 42
+[head | tail] = [1, 2, 3]  # head = 1, tail = [2, 3]
+
+# Matching in function heads
+def handle_response({:ok, data}), do: process_data(data)
+def handle_response({:error, reason}), do: log_error(reason)
+
+# Matching with pin operator (use existing variable)
+expected = 42
+^expected = some_function()  # Ensures some_function() returns 42</code></pre>
+
+            <h3>3.2 Advanced Pattern Matching</h3>
+            <pre><code># Matching maps
+def process_user(%{name: name, age: age}) when age >= 18 do
+  "Adult user: #{name}"
+end
+
+def process_user(%{name: name}) do
+  "Minor user: #{name}"
+end
+
+# Matching nested structures
+def handle_api_response(%{
+  "status" => "success",
+  "data" => %{"user" => %{"id" => user_id}}
+}) do
+  {:ok, user_id}
+end
+
+# Using guards for additional constraints
+def calculate_discount(amount) when amount > 100, do: amount * 0.1
+def calculate_discount(amount) when amount > 50, do: amount * 0.05
+def calculate_discount(_), do: 0</code></pre>
+
+            <h3>3.3 Common Guard Functions</h3>
+            <table>
+                <thead>
+                    <tr>
+                        <th>Guard</th>
+                        <th>Purpose</th>
+                        <th>Example</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td><code>is_atom/1</code></td>
+                        <td>Check if value is atom</td>
+                        <td><code>when is_atom(status)</code></td>
+                    </tr>
+                    <tr>
+                        <td><code>is_binary/1</code></td>
+                        <td>Check if value is string</td>
+                        <td><code>when is_binary(name)</code></td>
+                    </tr>
+                    <tr>
+                        <td><code>is_integer/1</code></td>
+                        <td>Check if value is integer</td>
+                        <td><code>when is_integer(age)</code></td>
+                    </tr>
+                    <tr>
+                        <td><code>length/1</code></td>
+                        <td>Get list length</td>
+                        <td><code>when length(items) > 0</code></td>
+                    </tr>
+                    <tr>
+                        <td><code>map_size/1</code></td>
+                        <td>Get map size</td>
+                        <td><code>when map_size(data) > 5</code></td>
+                    </tr>
+                </tbody>
+            </table>
+
+            <hr />
+
+            <h2 id="functions">4. Functions and Modules</h2>
+
+            <h3>4.1 Function Definition Best Practices</h3>
+            <ul>
+                <li>
+                    <strong>Use descriptive names</strong> –
+                    <code>calculate_tax/2</code> not <code>calc/2</code>
+                </li>
+                <li>
+                    <strong>Keep functions small</strong> – One responsibility
+                    per function
+                </li>
+                <li>
+                    <strong>Use pattern matching in function heads</strong> –
+                    More readable than case statements
+                </li>
+                <li>
+                    <strong>Put happy path first</strong> – Success cases before
+                    error cases
+                </li>
+            </ul>
+
+            <div class="example">
+                <strong>Good function design:</strong>
+                <pre><code>defmodule OrderProcessor do
+  # Public API - clear and descriptive
+  def process_order(%Order{} = order) do
+    with {:ok, validated_order} <- validate_order(order),
+         {:ok, payment_result} <- process_payment(validated_order),
+         {:ok, updated_order} <- update_inventory(validated_order) do
+      {:ok, %{order: updated_order, payment: payment_result}}
+    else
+      {:error, reason} -> {:error, reason}
+    end
+  end
+
+  # Private functions - single responsibility
+  defp validate_order(%Order{items: []}), do: {:error, :empty_order}
+  defp validate_order(%Order{} = order), do: {:ok, order}
+
+  defp process_payment(%Order{total: total}) when total > 0 do
+    # Payment processing logic
+    {:ok, %{transaction_id: generate_id(), amount: total}}
+  end
+end</code></pre>
+            </div>
+
+            <h3>4.2 Module Organization</h3>
+            <pre><code>defmodule MyApp.UserManager do
+  @moduledoc """
+  Handles user-related operations including registration,
+  authentication, and profile management.
+  """
+
+  # Module attributes (compile-time constants)
+  @max_login_attempts 3
+  @session_timeout_hours 24
+
+  # Type specifications
+  @type user_id :: String.t()
+  @type user_attrs :: %{name: String.t(), email: String.t()}
+
+  # Public API
+  @spec create_user(user_attrs()) :: {:ok, User.t()} | {:error, term()}
+  def create_user(attrs) do
+    # Implementation
+  end
+
+  # Private functions
+  defp hash_password(password) do
+    # Implementation
+  end
+end</code></pre>
+
+            <hr />
+
+            <h2 id="processes">5. Processes and Message Passing</h2>
+
+            <div class="beginner-tip">
+                <strong>Processes ≠ OS Threads:</strong> Elixir processes are
+                lightweight (2KB memory), isolated, and managed by the BEAM VM.
+                You can spawn millions of them!
+            </div>
+
+            <h3>5.1 Basic Process Operations</h3>
+            <pre><code># Spawning processes
+pid = spawn(fn ->
+  receive do
+    {:hello, caller} -> send(caller, {:hi, self()})
+  end
+end)
+
+# Sending messages
+send(pid, {:hello, self()})
+
+# Receiving messages
+receive do
+  {:hi, sender} -> IO.puts("Got greeting from #{inspect(sender)}")
+after
+  1000 -> IO.puts("No response within 1 second")
+end</code></pre>
+
+            <h3>5.2 Process Communication Patterns</h3>
+            <div class="example">
+                <strong>Request-Response Pattern:</strong>
+                <pre><code>defmodule Calculator do
+  def start do
+    spawn(__MODULE__, :loop, [])
+  end
+
+  def loop do
+    receive do
+      {:add, a, b, caller} ->
+        send(caller, {:result, a + b})
+        loop()
+
+      {:multiply, a, b, caller} ->
+        send(caller, {:result, a * b})
+        loop()
+
+      :stop ->
+        :ok
+    end
+  end
+
+  def add(pid, a, b) do
+    send(pid, {:add, a, b, self()})
+    receive do
+      {:result, result} -> result
+    end
+  end
+end</code></pre>
+            </div>
+
+            <h3>5.3 Process Monitoring</h3>
+            <pre><code># Monitor a process (get notified when it dies)
+pid = spawn(fn -> Process.sleep(1000) end)
+ref = Process.monitor(pid)
+
+receive do
+  {:DOWN, ^ref, :process, ^pid, reason} ->
+    IO.puts("Process died with reason: #{inspect(reason)}")
+end
+
+# Link processes (die together)
+spawn_link(fn ->
+  Process.sleep(500)
+  raise "Something went wrong!"
+end)</code></pre>
+
+            <hr />
+
+            <h2 id="genserver">6. GenServer and OTP Behaviors</h2>
+
+            <div class="beginner-tip">
+                <strong>What is OTP?</strong> OTP (Open Telecom Platform)
+                provides battle-tested patterns for building fault-tolerant
+                systems. GenServer is the most common behavior.
+            </div>
+
+            <h3>6.1 Basic GenServer Structure</h3>
+            <pre><code>defmodule MyApp.Counter do
+  use GenServer
+
+  # Client API
+  def start_link(initial_value \\ 0) do
+    GenServer.start_link(__MODULE__, initial_value, name: __MODULE__)
+  end
+
+  def get_count do
+    GenServer.call(__MODULE__, :get_count)
+  end
+
+  def increment do
+    GenServer.cast(__MODULE__, :increment)
+  end
+
+  def increment_by(amount) do
+    GenServer.cast(__MODULE__, {:increment_by, amount})
+  end
+
+  # Server Callbacks
+  @impl true
+  def init(initial_value) do
+    {:ok, initial_value}
+  end
+
+  @impl true
+  def handle_call(:get_count, _from, state) do
+    {:reply, state, state}
+  end
+
+  @impl true
+  def handle_cast(:increment, state) do
+    {:noreply, state + 1}
+  end
+
+  @impl true
+  def handle_cast({:increment_by, amount}, state) do
+    {:noreply, state + amount}
+  end
+end</code></pre>
+
+            <h3>6.2 GenServer Best Practices</h3>
+            <ul>
+                <li>
+                    <strong>Separate client and server code</strong> – Client
+                    functions call GenServer functions
+                </li>
+                <li>
+                    <strong>Use call for synchronous operations</strong> – When
+                    you need a response
+                </li>
+                <li>
+                    <strong>Use cast for asynchronous operations</strong> – Fire
+                    and forget
+                </li>
+                <li>
+                    <strong>Keep state simple</strong> – Complex state makes
+                    debugging harder
+                </li>
+                <li>
+                    <strong>Handle all message types</strong> – Implement
+                    handle_info for unexpected messages
+                </li>
+            </ul>
+
+            <div class="warning">
+                <strong>GenServer Bottlenecks:</strong> GenServers process
+                messages sequentially. If you have a slow operation, it blocks
+                all other messages. Use Task.Supervisor for heavy work.
+            </div>
+
+            <h3>6.3 Other OTP Behaviors</h3>
+            <table>
+                <thead>
+                    <tr>
+                        <th>Behavior</th>
+                        <th>Use Case</th>
+                        <th>Example</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>GenServer</td>
+                        <td>Stateful server processes</td>
+                        <td>Cache, session store, game state</td>
+                    </tr>
+                    <tr>
+                        <td>Supervisor</td>
+                        <td>Managing child processes</td>
+                        <td>Application supervision tree</td>
+                    </tr>
+                    <tr>
+                        <td>Task</td>
+                        <td>One-off computations</td>
+                        <td>Background jobs, async operations</td>
+                    </tr>
+                    <tr>
+                        <td>Agent</td>
+                        <td>Simple state management</td>
+                        <td>Configuration, counters</td>
+                    </tr>
+                    <tr>
+                        <td>GenStage</td>
+                        <td>Producer-consumer pipelines</td>
+                        <td>Data processing streams</td>
+                    </tr>
+                </tbody>
+            </table>
+
+            <hr />
+
+            <h2 id="error-handling">7. Error Handling - Let It Crash</h2>
+
+            <div class="beginner-tip">
+                <strong>"Let it crash" philosophy:</strong> Instead of defensive
+                programming, let processes fail fast and let supervisors restart
+                them. This leads to more robust systems.
+            </div>
+
+            <h3>7.1 Error Handling Strategies</h3>
+            <pre><code># 1. Pattern match on expected results
+case File.read("config.json") do
+  {:ok, content} -> Jason.decode(content)
+  {:error, :enoent} -> {:error, "Config file not found"}
+  {:error, reason} -> {:error, "Failed to read config: #{reason}"}
+end
+
+# 2. Use 'with' for happy path chaining
+def process_user_data(user_id) do
+  with {:ok, user} <- fetch_user(user_id),
+       {:ok, profile} <- fetch_profile(user.profile_id),
+       {:ok, settings} <- fetch_settings(user.id) do
+    {:ok, %{user: user, profile: profile, settings: settings}}
+  else
+    {:error, reason} -> {:error, reason}
+  end
+end
+
+# 3. Let it crash for unexpected errors
+def divide(a, b) when b != 0, do: a / b
+def divide(_, 0), do: raise ArgumentError, "Cannot divide by zero"</code></pre>
+
+            <h3>7.2 When to Use Each Approach</h3>
+            <table>
+                <thead>
+                    <tr>
+                        <th>Approach</th>
+                        <th>When to Use</th>
+                        <th>Example</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>Pattern matching</td>
+                        <td>
+                            Expected failures (file not found, network timeout)
+                        </td>
+                        <td>
+                            <code>File.read/1</code>,
+                            <code>HTTPoison.get/1</code>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>with statement</td>
+                        <td>Multiple operations that can fail</td>
+                        <td>API request chains, data processing pipelines</td>
+                    </tr>
+                    <tr>
+                        <td>Let it crash</td>
+                        <td>Programming errors, invalid input</td>
+                        <td>Division by zero, invalid function arguments</td>
+                    </tr>
+                    <tr>
+                        <td>try/rescue</td>
+                        <td>Interfacing with external libraries</td>
+                        <td>JSON parsing, database connections</td>
+                    </tr>
+                </tbody>
+            </table>
+
+            <hr />
+
+            <h2 id="concurrency">8. Concurrency Patterns</h2>
+
+            <h3>8.1 Task-Based Concurrency</h3>
+            <pre><code># Async/await pattern
+task1 = Task.async(fn -> fetch_user_data(user_id) end)
+task2 = Task.async(fn -> fetch_user_posts(user_id) end)
+task3 = Task.async(fn -> fetch_user_friends(user_id) end)
+
+user_data = Task.await(task1)
+posts = Task.await(task2)
+friends = Task.await(task3)
+
+# Parallel processing with timeout
+tasks = Enum.map(user_ids, fn id ->
+  Task.async(fn -> process_user(id) end)
+end)
+
+results = Task.await_many(tasks, 10_000)  # 10 second timeout</code></pre>
+
+            <h3>8.2 Producer-Consumer Pattern</h3>
+            <pre><code>defmodule DataProcessor do
+  def start_processing(data_stream) do
+    # Start multiple consumer processes
+    consumers = for i <- 1..4 do
+      spawn_link(__MODULE__, :consumer, [i])
+    end
+
+    # Distribute work to consumers
+    data_stream
+    |> Stream.with_index()
+    |> Enum.each(fn {data, index} ->
+      consumer = Enum.at(consumers, rem(index, 4))
+      send(consumer, {:process, data})
+    end)
+  end
+
+  def consumer(id) do
+    receive do
+      {:process, data} ->
+        result = expensive_operation(data)
+        IO.puts("Consumer #{id} processed: #{result}")
+        consumer(id)
+    end
+  end
+end</code></pre>
+
+            <hr />
+
+            <h2 id="testing">9. Testing Best Practices</h2>
+
+            <h3>9.1 Test Structure</h3>
+            <pre><code>defmodule MyApp.UserTest do
+  use ExUnit.Case, async: true
+  alias MyApp.User
+
+  describe "create_user/1" do
+    test "creates user with valid attributes" do
+      attrs = %{name: "Alice", email: "alice@example.com"}
+
+      assert {:ok, user} = User.create_user(attrs)
+      assert user.name == "Alice"
+      assert user.email == "alice@example.com"
+    end
+
+    test "returns error with invalid email" do
+      attrs = %{name: "Alice", email: "invalid-email"}
+
+      assert {:error, changeset} = User.create_user(attrs)
+      assert "has invalid format" in errors_on(changeset).email
+    end
+  end
+
+  describe "update_user/2" do
+    setup do
+      {:ok, user} = User.create_user(%{name: "Bob", email: "bob@example.com"})
+      %{user: user}
+    end
+
+    test "updates user with valid attributes", %{user: user} do
+      attrs = %{name: "Robert"}
+
+      assert {:ok, updated_user} = User.update_user(user, attrs)
+      assert updated_user.name == "Robert"
+    end
+  end
+end</code></pre>
+
+            <h3>9.2 Testing GenServers</h3>
+            <pre><code>defmodule MyApp.CounterTest do
+  use ExUnit.Case, async: true
+  alias MyApp.Counter
+
+  setup do
+    {:ok, pid} = Counter.start_link(0)
+    %{counter: pid}
+  end
+
+  test "increments counter", %{counter: counter} do
+    assert Counter.get_count(counter) == 0
+
+    Counter.increment(counter)
+    assert Counter.get_count(counter) == 1
+
+    Counter.increment_by(counter, 5)
+    assert Counter.get_count(counter) == 6
+  end
+end</code></pre>
+
+            <h3>9.3 Testing Best Practices</h3>
+            <ul>
+                <li>
+                    <strong>Use descriptive test names</strong> – Explain what
+                    you're testing
+                </li>
+                <li>
+                    <strong>Follow AAA pattern</strong> – Arrange, Act, Assert
+                </li>
+                <li>
+                    <strong>Test edge cases</strong> – Empty lists, nil values,
+                    boundary conditions
+                </li>
+                <li>
+                    <strong>Use setup blocks</strong> – Reduce duplication in
+                    test data
+                </li>
+                <li>
+                    <strong>Mock external dependencies</strong> – Use Mox for
+                    reliable tests
+                </li>
+            </ul>
+
+            <hr />
+
+            <h2 id="performance">10. Performance and Optimization</h2>
+
+            <h3>10.1 Common Performance Patterns</h3>
+            <pre><code># Use Stream for large datasets (lazy evaluation)
+large_file
+|> File.stream!()
+|> Stream.map(&String.trim/1)
+|> Stream.filter(&(&1 != ""))
+|> Stream.take(1000)
+|> Enum.to_list()
+
+# Tail recursion for loops
+def sum_list(list), do: sum_list(list, 0)
+
+defp sum_list([], acc), do: acc
+defp sum_list([head | tail], acc) do
+  sum_list(tail, acc + head)
+end
+
+# Use ETS for fast in-memory storage
+:ets.new(:cache, [:set, :public, :named_table])
+:ets.insert(:cache, {"key", "value"})
+[{"key", value}] = :ets.lookup(:cache, "key")</code></pre>
+
+            <h3>10.2 Profiling and Monitoring</h3>
+            <pre><code># Profile function execution time
+:timer.tc(fn -> expensive_function() end)
+
+# Memory usage
+:erlang.memory()
+
+# Process information
+Process.info(self(), [:memory, :message_queue_len])
+
+# Observer for system monitoring
+:observer.start()</code></pre>
+
+            <hr />
+
+            <h2 id="code-organization">11. Code Organization</h2>
+
+            <h3>11.1 Directory Structure</h3>
+            <pre><code>lib/
+├── my_app/
+│   ├── accounts/          # Domain contexts
+│   │   ├── user.ex
+│   │   └── session.ex
+│   ├── blog/
+│   │   ├── post.ex
+│   │   └── comment.ex
+│   ├── application.ex     # Application supervisor
+│   └── repo.ex           # Database repository
+├── my_app_web/           # Web interface
+│   ├── controllers/
+│   ├── views/
+│   └── router.ex
+└── my_app.ex            # Main application module</code></pre>
+
+            <h3>11.2 Context Pattern</h3>
+            <pre><code>defmodule MyApp.Accounts do
+  @moduledoc """
+  The Accounts context - handles user management.
+  """
+
+  alias MyApp.Accounts.User
+  alias MyApp.Repo
+
+  def list_users do
+    Repo.all(User)
+  end
+
+  def get_user!(id) do
+    Repo.get!(User, id)
+  end
+
+  def create_user(attrs \\ %{}) do
+    %User{}
+    |> User.changeset(attrs)
+    |> Repo.insert()
+  end
+end</code></pre>
+
+            <hr />
+
+            <h2 id="databases">12. Database Best Practices with Ecto</h2>
+
+            <div class="beginner-tip">
+                <strong>What is Ecto?</strong> Ecto is Elixir's database
+                toolkit. It provides a DSL for writing queries, migrations, and
+                validations. Think of it as an ORM, but more functional and
+                composable.
+            </div>
+
+            <h3>12.1 Schema Design</h3>
+            <ul>
+                <li>
+                    <strong>Keep schemas simple</strong> – Focus on data
+                    structure, not business logic
+                </li>
+                <li>
+                    <strong>Use changesets for validation</strong> – Never trust
+                    user input
+                </li>
+                <li>
+                    <strong>Avoid huge schemas</strong> – Split complex domains
+                    into multiple schemas
+                </li>
+            </ul>
+
+            <div class="example">
+                <strong>Good schema design:</strong>
+                <pre><code>defmodule MyApp.Accounts.User do
+  use Ecto.Schema
+  import Ecto.Changeset
+
+  schema "users" do
+    field :name, :string
+    field :email, :string
+    field :age, :integer
+
+    has_many :posts, MyApp.Blog.Post
+    timestamps()
+  end
+
+  def changeset(user, attrs) do
+    user
+    |> cast(attrs, [:name, :email, :age])
+    |> validate_required([:name, :email])
+    |> validate_format(:email, ~r/@/)
+    |> validate_number(:age, greater_than: 0)
+    |> unique_constraint(:email)
+  end
+end</code></pre>
+            </div>
+
+            <h3>12.2 Query Best Practices</h3>
+            <ul>
+                <li><strong>Use preloading to avoid N+1 queries</strong></li>
+                <li>
+                    <strong>Compose queries with functions</strong> – Make them
+                    reusable
+                </li>
+                <li><strong>Use transactions for consistency</strong></li>
+                <li>
+                    <strong>Always use parameterized queries</strong> – Prevent
+                    SQL injection
+                </li>
+                <li>
+                    <strong>Add database indexes</strong> – For frequently
+                    queried columns
+                </li>
+            </ul>
+
+            <pre><code># Good - preload associations
+def list_users_with_posts do
+  User
+  |> preload(:posts)
+  |> Repo.all()
+end
+
+# Composable query functions
+def by_email(query, email) do
+  where(query, [u], u.email == ^email)
+end
+
+def active_users(query) do
+  where(query, [u], u.active == true)
+end
+
+def recent_posts(query, days \\ 7) do
+  cutoff = DateTime.utc_now() |> DateTime.add(-days, :day)
+  where(query, [p], p.inserted_at >= ^cutoff)
+end
+
+# Usage - compose queries for complex filtering
+User
+|> active_users()
+|> by_email("user@example.com")
+|> preload([posts: ^recent_posts(Post)])
+|> Repo.one()
+
+# Transactions for data consistency
+def transfer_money(from_account, to_account, amount) do
+  Repo.transaction(fn ->
+    with {:ok, _} <- withdraw(from_account, amount),
+         {:ok, _} <- deposit(to_account, amount) do
+      :ok
+    else
+      {:error, reason} -> Repo.rollback(reason)
+    end
+  end)
+end</code></pre>
+
+            <h3>12.3 Migration Best Practices</h3>
+            <ul>
+                <li><strong>Always add indexes for foreign keys</strong></li>
+                <li>
+                    <strong>Use reversible migrations</strong> – Avoid data loss
+                </li>
+                <li>
+                    <strong>Add constraints at database level</strong> – Not
+                    just in changesets
+                </li>
+            </ul>
+
+            <div class="example">
+                <strong>Good migration example:</strong>
+                <pre><code>defmodule MyApp.Repo.Migrations.CreatePosts do
+  use Ecto.Migration
+
+  def change do
+    create table(:posts) do
+      add :title, :string, null: false
+      add :content, :text
+      add :published, :boolean, default: false
+      add :user_id, references(:users, on_delete: :delete_all), null: false
+      add :category_id, references(:categories, on_delete: :nilify_all)
+
+      timestamps()
+    end
+
+    # Always index foreign keys
+    create index(:posts, [:user_id])
+    create index(:posts, [:category_id])
+
+    # Index frequently queried columns
+    create index(:posts, [:published])
+    create index(:posts, [:inserted_at])
+
+    # Unique constraints
+    create unique_index(:posts, [:title, :user_id])
+  end
+end</code></pre>
+            </div>
+
+            <hr />
+
+            <h2 id="supervision">13. Supervision Trees</h2>
+
+            <h3>13.1 Supervision Strategies</h3>
+            <p>Choose the right supervision strategy for your use case:</p>
+
+            <table>
+                <thead>
+                    <tr>
+                        <th>Strategy</th>
+                        <th>When to Use</th>
+                        <th>Behavior</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td><code>:one_for_one</code></td>
+                        <td>Independent processes</td>
+                        <td>Only restart the crashed process</td>
+                    </tr>
+                    <tr>
+                        <td><code>:rest_for_one</code></td>
+                        <td>Dependent processes</td>
+                        <td>
+                            Restart crashed process and all started after it
+                        </td>
+                    </tr>
+                    <tr>
+                        <td><code>:one_for_all</code></td>
+                        <td>Tightly coupled processes</td>
+                        <td>Restart all processes if one crashes</td>
+                    </tr>
+                </tbody>
+            </table>
+
+            <div class="example">
+                <strong>Application supervisor example:</strong>
+                <pre><code>defmodule MyApp.Application do
+  use Application
+
+  def start(_type, _args) do
+    children = [
+      # Database connection pool
+      MyApp.Repo,
+
+      # Cache server
+      {MyApp.Cache, []},
+
+      # Task supervisor for background jobs
+      {Task.Supervisor, name: MyApp.TaskSupervisor},
+
+      # Web endpoint
+      MyAppWeb.Endpoint
+    ]
+
+    opts = [strategy: :one_for_one, name: MyApp.Supervisor]
+    Supervisor.start_link(children, opts)
+  end
+end</code></pre>
+            </div>
+
+            <h3>13.2 Dynamic Supervisors</h3>
+            <p>
+                Use DynamicSupervisor when you need to start/stop processes at
+                runtime:
+            </p>
+
+            <pre><code># In your application supervisor
+{DynamicSupervisor, strategy: :one_for_one, name: MyApp.GameSupervisor}
+
+# Starting children dynamically
+def start_game(game_id) do
+  child_spec = {GameServer, game_id}
+  DynamicSupervisor.start_child(MyApp.GameSupervisor, child_spec)
+end</code></pre>
+
+            <hr />
+
+            <h2 id="deployment">14. Deployment and Production</h2>
+
+            <div class="beginner-tip">
+                <strong>What's a release?</strong> A release is a self-contained
+                package of your application and the Erlang runtime. It can run
+                anywhere without needing Elixir installed.
+            </div>
+
+            <h3>14.1 Building Releases</h3>
+            <pre><code># Build for production
+MIX_ENV=prod mix release
+
+# Run the release
+_build/prod/rel/my_app/bin/my_app start
+
+# Run in daemon mode
+_build/prod/rel/my_app/bin/my_app daemon</code></pre>
+
+            <h3>14.2 Environment Configuration</h3>
+            <ul>
+                <li>
+                    <strong>Use <code>config/runtime.exs</code></strong> for
+                    environment-specific settings
+                </li>
+                <li>
+                    <strong>Never hardcode secrets</strong> – Use environment
+                    variables
+                </li>
+                <li><strong>Validate configuration on startup</strong></li>
+            </ul>
+
+            <div class="example">
+                <strong>Good runtime configuration:</strong>
+                <pre><code># config/runtime.exs
+import Config
+
+if config_env() == :prod do
+  database_url = System.fetch_env!("DATABASE_URL")
+
+  config :my_app, MyApp.Repo,
+    url: database_url,
+    pool_size: String.to_integer(System.get_env("POOL_SIZE") || "10")
+
+  secret_key_base = System.fetch_env!("SECRET_KEY_BASE")
+
+  config :my_app, MyAppWeb.Endpoint,
+    secret_key_base: secret_key_base
+end</code></pre>
+            </div>
+
+            <h3>14.3 Health Checks and Monitoring</h3>
+            <ul>
+                <li>
+                    <strong>Add health check endpoints</strong> – Simple HTTP
+                    endpoints that return app status
+                </li>
+                <li>
+                    <strong>Use structured logging</strong> – Make logs
+                    searchable and filterable
+                </li>
+                <li>
+                    <strong>Monitor key metrics</strong> – Memory usage, process
+                    count, response times
+                </li>
+                <li>
+                    <strong>Set up alerts</strong> – For critical system
+                    failures
+                </li>
+                <li>
+                    <strong>Use telemetry</strong> – For application metrics and
+                    monitoring
+                </li>
+            </ul>
+
+            <pre><code># Comprehensive health check
+def health_check(conn, _params) do
+  checks = %{
+    database: check_database(),
+    cache: check_cache(),
+    external_api: check_external_services(),
+    memory: check_memory_usage()
+  }
+
+  overall_status = if Enum.all?(checks, fn {_, status} -> status == :ok end) do
+    :healthy
+  else
+    :unhealthy
+  end
+
+  status_code = if overall_status == :healthy, do: 200, else: 503
+
+  conn
+  |> put_status(status_code)
+  |> json(%{
+    status: overall_status,
+    timestamp: DateTime.utc_now(),
+    checks: checks,
+    version: Application.spec(:my_app, :vsn)
+  })
+end
+
+# Structured logging with metadata
+require Logger
+
+def process_order(order_id) do
+  Logger.info("Processing order", order_id: order_id, user_id: order.user_id)
+
+  case OrderProcessor.process(order) do
+    {:ok, result} ->
+      Logger.info("Order processed successfully",
+        order_id: order_id,
+        processing_time_ms: result.processing_time
+      )
+      {:ok, result}
+
+    {:error, reason} ->
+      Logger.error("Order processing failed",
+        order_id: order_id,
+        error: reason,
+        user_id: order.user_id
+      )
+      {:error, reason}
+  end
+end
+
+# Telemetry for metrics
+defmodule MyApp.Telemetry do
+  def setup do
+    :telemetry.attach_many(
+      "my-app-telemetry",
+      [
+        [:my_app, :order, :processed],
+        [:my_app, :user, :registered],
+        [:phoenix, :endpoint, :stop]
+      ],
+      &handle_event/4,
+      nil
+    )
+  end
+
+  def handle_event([:my_app, :order, :processed], measurements, metadata, _config) do
+    # Send metrics to monitoring system
+    :telemetry_metrics.counter("orders.processed.total")
+    :telemetry_metrics.histogram("orders.processing_time", measurements.duration)
+  end
+end</code></pre>
+
+            <hr />
+
+            <h2 id="anti-patterns">
+                15. Common Anti-Patterns and How to Fix Them
+            </h2>
+
+            <h3>15.1 Process and Concurrency Anti-Patterns</h3>
+            <table>
+                <thead>
+                    <tr>
+                        <th>Anti-pattern</th>
+                        <th>Why it's problematic</th>
+                        <th>Better approach</th>
+                        <th>Example fix</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>Huge "God" GenServer</td>
+                        <td>
+                            Single bottleneck, hard to test, difficult to
+                            understand
+                        </td>
+                        <td>
+                            Split by responsibility, use Registry +
+                            DynamicSupervisor
+                        </td>
+                        <td>
+                            Split UserManager into UserRegistry, UserSession,
+                            UserNotifications
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>Blocking GenServer calls</td>
+                        <td>Can cause timeouts and cascading failures</td>
+                        <td>
+                            Use async patterns, Task.Supervisor for heavy work
+                        </td>
+                        <td>
+                            Spawn Task for expensive operations, send results
+                            back
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>Shared mutable state</td>
+                        <td>
+                            Race conditions, hard to debug concurrency issues
+                        </td>
+                        <td>Message passing, immutable data structures</td>
+                        <td>
+                            Use GenServer for state, send messages instead of
+                            sharing
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+
+            <h3>15.2 Error Handling Anti-Patterns</h3>
+            <table>
+                <thead>
+                    <tr>
+                        <th>Anti-pattern</th>
+                        <th>Why it's problematic</th>
+                        <th>Better approach</th>
+                        <th>Example fix</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>Swallowing errors with <code>try/catch</code></td>
+                        <td>
+                            Hides failures from supervisors, makes debugging
+                            impossible
+                        </td>
+                        <td>
+                            Let it crash, or return
+                            <code>{:error, reason}</code>
+                        </td>
+                        <td>
+                            <code>try do ... catch _ -> :ok end</code> →
+                            <code>case ... do</code>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>Deep nested <code>case</code> statements</td>
+                        <td>Hard to read and maintain</td>
+                        <td>
+                            Use pattern matching in function heads or
+                            <code>with</code>
+                        </td>
+                        <td>
+                            Break complex <code>case</code> into multiple
+                            function clauses
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>Not handling all cases</td>
+                        <td>Runtime crashes from unmatched patterns</td>
+                        <td>
+                            Always handle error cases, use catch-all clauses
+                        </td>
+                        <td>
+                            Add
+                            <code
+                                >def handle_call(_, _, state), do: {:reply,
+                                :error, state}</code
+                            >
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+
+            <h3>15.3 Security and Performance Anti-Patterns</h3>
+            <table>
+                <thead>
+                    <tr>
+                        <th>Anti-pattern</th>
+                        <th>Why it's problematic</th>
+                        <th>Better approach</th>
+                        <th>Example fix</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>Converting user input to atoms</td>
+                        <td>
+                            Atoms aren't garbage collected - memory leak
+                            vulnerability
+                        </td>
+                        <td>Use pattern matching on known values</td>
+                        <td>
+                            <code>String.to_atom(input)</code> → match on
+                            specific strings
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>Using ETS as primary storage</td>
+                        <td>
+                            No persistence, can lose data, complex consistency
+                            issues
+                        </td>
+                        <td>Use PostgreSQL or proper distributed databases</td>
+                        <td>
+                            Move critical data to Ecto schemas with migrations
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>N+1 database queries</td>
+                        <td>Poor performance, database overload</td>
+                        <td>Use preload, join queries, or batch loading</td>
+                        <td>
+                            <code>Repo.preload(users, :posts)</code> instead of
+                            loading posts per user
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+
+            <div class="example">
+                <strong>Before and After: Fixing a God GenServer</strong>
+                <pre><code># BAD - Everything in one GenServer
+defmodule UserManager do
+  use GenServer
+
+  # Handles authentication, sessions, notifications, preferences...
+  def handle_call({:authenticate, email, password}, _from, state) do
+    # 50 lines of authentication logic
+  end
+
+  def handle_call({:send_notification, user_id, message}, _from, state) do
+    # 30 lines of notification logic
+  end
+
+  def handle_call({:update_preferences, user_id, prefs}, _from, state) do
+    # 40 lines of preference logic
+  end
+end
+
+# GOOD - Split by responsibility
+defmodule UserAuth do
+  use GenServer
+  # Only handles authentication
+end
+
+defmodule UserNotifications do
+  use GenServer
+  # Only handles notifications
+end
+
+defmodule UserPreferences do
+  use GenServer
+  # Only handles user preferences
+end</code></pre>
+            </div>
+
+            <hr />
+
+            <h2 id="checklist">16. Pre-Production Checklist</h2>
+            <p>
+                Before deploying your Elixir application to production, make
+                sure you've checked all these boxes:
+            </p>
+
+            <div class="checklist">
+                <h3>Code Quality</h3>
+                <ul>
+                    <li>
+                        <code>mix test --cover</code> shows ≥ 85% test coverage
+                    </li>
+                    <li>
+                        <code>mix credo --strict</code> passes (code quality and
+                        style checker)
+                    </li>
+                    <li>
+                        <code>mix dialyzer</code> passes (static type analysis)
+                    </li>
+                    <li><code>mix format --check-formatted</code> passes</li>
+                    <li>
+                        All public functions have <code>@spec</code> annotations
+                    </li>
+                    <li>No hardcoded configuration values in code</li>
+                    <li>Documentation generated with <code>mix docs</code></li>
+                    <li>All compiler warnings resolved</li>
+                </ul>
+            </div>
+
+            <div class="checklist">
+                <h3>Security</h3>
+                <ul>
+                    <li>All secrets stored in environment variables</li>
+                    <li>
+                        No <code>String.to_atom/1</code> calls on user input
+                    </li>
+                    <li>Input validation on all external APIs</li>
+                    <li>HTTPS enforced in production</li>
+                    <li>
+                        Dependencies are up to date (<code
+                            >mix hex.outdated</code
+                        >)
+                    </li>
+                    <li>Database queries use parameterized statements</li>
+                    <li>CSRF protection enabled for web endpoints</li>
+                    <li>Rate limiting implemented for public APIs</li>
+                    <li>Security headers configured (HSTS, CSP, etc.)</li>
+                </ul>
+            </div>
+
+            <div class="checklist">
+                <h3>Performance</h3>
+                <ul>
+                    <li>Database queries are optimized (no N+1 queries)</li>
+                    <li>Appropriate indexes on database columns</li>
+                    <li>Static assets are compressed and cached</li>
+                    <li>Memory usage tested under load</li>
+                    <li>Connection pooling configured for external services</li>
+                    <li>Database connection pool size tuned for load</li>
+                    <li>ETS tables used appropriately for caching</li>
+                    <li>Long-running processes use Task.Supervisor</li>
+                </ul>
+            </div>
+
+            <div class="checklist">
+                <h3>Observability</h3>
+                <ul>
+                    <li>Health check endpoint implemented</li>
+                    <li>Structured logging with appropriate levels</li>
+                    <li>Key metrics exported (response times, error rates)</li>
+                    <li>
+                        Error tracking service integrated (Sentry, Bugsnag,
+                        etc.)
+                    </li>
+                    <li>Log aggregation configured</li>
+                    <li>Telemetry events defined for business metrics</li>
+                    <li>Dashboard created for monitoring key metrics</li>
+                    <li>Alerts configured for critical failures</li>
+                </ul>
+            </div>
+
+            <div class="checklist">
+                <h3>Deployment</h3>
+                <ul>
+                    <li>
+                        Release builds successfully with
+                        <code>MIX_ENV=prod mix release</code>
+                    </li>
+                    <li>All required environment variables documented</li>
+                    <li>Database migrations can run safely</li>
+                    <li>Rollback plan documented</li>
+                    <li>Load testing completed</li>
+                    <li>Monitoring and alerting configured</li>
+                    <li>Blue-green or rolling deployment strategy defined</li>
+                    <li>Backup and recovery procedures tested</li>
+                    <li>SSL certificates configured and auto-renewal setup</li>
+                </ul>
+            </div>
+
+            <div class="checklist">
+                <h3>OTP and Supervision</h3>
+                <ul>
+                    <li>Supervision tree properly structured</li>
+                    <li>
+                        GenServers handle all message types (including
+                        unexpected ones)
+                    </li>
+                    <li>
+                        Process restart strategies appropriate for each
+                        supervisor
+                    </li>
+                    <li>No single points of failure in the supervision tree</li>
+                    <li>Process registry used for dynamic processes</li>
+                    <li>Graceful shutdown implemented for all processes</li>
+                </ul>
+            </div>
+
+            <hr />
+
+            <h2>🎉 Conclusion</h2>
+
+            <p>
+                Congratulations! You've made it through the complete Elixir best
+                practices guide. Remember, these practices aren't rules set in
+                stone – they're guidelines that have proven useful in building
+                robust, maintainable Elixir applications.
+            </p>
+
+            <div class="beginner-tip">
+                <strong>Keep Learning!</strong> The Elixir ecosystem is
+                constantly evolving. Stay connected with the community through
+                forums, conferences, and open source projects. The best way to
+                master these practices is to apply them in real projects.
+            </div>
+
+            <h3>Next Steps for Your Elixir Journey</h3>
+            <ul>
+                <li>
+                    <strong>Build a small project</strong> – Apply these
+                    principles in a real application
+                </li>
+                <li>
+                    <strong
+                        >Read the
+                        <a href="phoenix-best-practice.html"
+                            >Phoenix Best Practices</a
+                        >
+                        guide</strong
+                    >
+                    – Learn web development with Phoenix
+                </li>
+                <li>
+                    <strong
+                        >Try the
+                        <a href="phoenix-todo-app.html"
+                            >Phoenix Todo Tutorial</a
+                        ></strong
+                    >
+                    – Hands-on practice
+                </li>
+                <li>
+                    <strong>Join the community</strong> –
+                    <a href="https://elixirforum.com">ElixirForum</a>, Discord,
+                    and local meetups
+                </li>
+                <li>
+                    <strong>Explore advanced topics</strong> – Distributed
+                    systems, LiveView, Nerves for IoT
+                </li>
+                <li>
+                    <strong>Contribute to open source</strong> – Many Elixir
+                    projects welcome contributions
+                </li>
+                <li>
+                    <strong>Read "Designing Elixir Systems with OTP"</strong> –
+                    Excellent book for advanced patterns
+                </li>
+            </ul>
+
+            <div class="example">
+                <strong>Remember the three pillars of BEAM:</strong>
+                <ul>
+                    <li>
+                        <strong>Let it crash</strong> – Embrace failure and
+                        recovery through supervision
+                    </li>
+                    <li>
+                        <strong>Share nothing</strong> – Isolate state in
+                        processes, communicate via messages
+                    </li>
+                    <li>
+                        <strong>Everything is a process</strong> – Use
+                        lightweight concurrency liberally
+                    </li>
+                </ul>
+            </div>
+
+            <div class="beginner-tip">
+                <strong>Learning Path Recommendation:</strong>
+                <ol>
+                    <li>
+                        Master the basics: pattern matching, immutability, and
+                        function composition
+                    </li>
+                    <li>Understand processes and message passing</li>
+                    <li>Learn GenServer and basic OTP behaviors</li>
+                    <li>Build a small CLI application or API</li>
+                    <li>Explore Phoenix for web development</li>
+                    <li>Study supervision trees and fault tolerance</li>
+                    <li>
+                        Dive into distributed systems and advanced OTP patterns
+                    </li>
+                </ol>
+            </div>
+        </main>
+
+        <footer>
+            <p>
+                Happy coding with Elixir! 🧪✨<br />
+                <small
+                    >This guide was created for developers learning Elixir in
+                    2025. For updates and corrections, please check the latest
+                    version.</small
+                >
+            </p>
+        </footer>
+    </body>
+</html>

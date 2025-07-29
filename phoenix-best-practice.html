@@ -1,0 +1,1700 @@
+<!doctype html>
+<html lang="en">
+    <head>
+        <meta charset="utf-8" />
+        <title>Phoenix Best Practices - Complete Guide (2025)</title>
+        <meta name="viewport" content="width=device-width, initial-scale=1" />
+        <style>
+            body {
+                font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+                margin: 0;
+                line-height: 1.6;
+                color: #333;
+            }
+            header {
+                background: #ff6900;
+                color: #fff;
+                padding: 1rem;
+                box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+            }
+            nav {
+                display: flex;
+                flex-wrap: wrap;
+                gap: 1rem;
+            }
+            nav a {
+                color: #fff;
+                text-decoration: none;
+                font-weight: bold;
+                padding: 0.5rem 1rem;
+                border-radius: 4px;
+                transition: background-color 0.2s;
+            }
+            nav a:hover {
+                background-color: rgba(255, 255, 255, 0.1);
+            }
+            nav a.current {
+                background-color: rgba(255, 255, 255, 0.2);
+            }
+            main {
+                padding: 2rem;
+                max-width: 1000px;
+                margin: auto;
+            }
+            h1, h2, h3 {
+                color: #ff6900;
+            }
+            h1 {
+                border-bottom: 3px solid #ff6900;
+                padding-bottom: 0.5rem;
+            }
+            h2 {
+                margin-top: 2rem;
+                border-bottom: 1px solid #e0e0e0;
+                padding-bottom: 0.25rem;
+            }
+            pre {
+                background: #f8f9fa;
+                padding: 1rem;
+                overflow-x: auto;
+                border-radius: 6px;
+                border: 1px solid #e9ecef;
+            }
+            code {
+                font-family: "SF Mono", Monaco, "Cascadia Code", "Roboto Mono", Consolas, monospace;
+                font-size: 0.9em;
+            }
+            pre code {
+                background: none;
+                padding: 0;
+            }
+            code:not(pre code) {
+                background: #f8f9fa;
+                padding: 0.2em 0.4em;
+                border-radius: 3px;
+                border: 1px solid #e9ecef;
+            }
+            table {
+                border-collapse: collapse;
+                width: 100%;
+                margin: 1rem 0;
+                box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+                border-radius: 6px;
+                overflow: hidden;
+            }
+            th, td {
+                border: 1px solid #ddd;
+                padding: 0.75rem;
+                text-align: left;
+            }
+            th {
+                background: #f8f9fa;
+                font-weight: 600;
+            }
+            tbody tr:nth-child(even) {
+                background: #f8f9fa;
+            }
+            .beginner-tip {
+                background: linear-gradient(135deg, #fff3e0 0%, #ffe0b2 100%);
+                border-left: 4px solid #ff9800;
+                padding: 1rem;
+                margin: 1rem 0;
+                border-radius: 6px;
+                box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
+            }
+            .warning {
+                background: linear-gradient(135deg, #ffebee 0%, #ffcdd2 100%);
+                border-left: 4px solid #f44336;
+                padding: 1rem;
+                margin: 1rem 0;
+                border-radius: 6px;
+                box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
+            }
+            .example {
+                background: linear-gradient(135deg, #e8f5e8 0%, #c8e6c9 100%);
+                border-left: 4px solid #4caf50;
+                padding: 1rem;
+                margin: 1rem 0;
+                border-radius: 6px;
+                box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
+            }
+            .step-by-step {
+                background: linear-gradient(135deg, #f3e5f5 0%, #e1bee7 100%);
+                border-left: 4px solid #9c27b0;
+                padding: 1rem;
+                margin: 1rem 0;
+                border-radius: 6px;
+                box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
+            }
+            .toc {
+                background: #f8f9fa;
+                border: 1px solid #e9ecef;
+                border-radius: 6px;
+                padding: 1.5rem;
+                margin: 2rem 0;
+            }
+            .toc h3 {
+                margin-top: 0;
+                color: #495057;
+            }
+            .toc ol {
+                columns: 2;
+                column-gap: 2rem;
+            }
+            .toc li {
+                margin: 0.25rem 0;
+                break-inside: avoid;
+            }
+            .toc a {
+                color: #ff6900;
+                text-decoration: none;
+            }
+            .toc a:hover {
+                text-decoration: underline;
+            }
+            .checklist {
+                background: #f8f9fa;
+                border-radius: 6px;
+                padding: 1rem;
+                margin: 1rem 0;
+            }
+            .checklist ul {
+                list-style: none;
+                padding: 0;
+            }
+            .checklist li {
+                margin: 0.5rem 0;
+                padding-left: 2rem;
+                position: relative;
+            }
+            .checklist li:before {
+                content: "☐";
+                position: absolute;
+                left: 0;
+                font-size: 1.2em;
+                color: #666;
+            }
+            footer {
+                text-align: center;
+                font-size: 0.9rem;
+                margin: 3rem 0 1rem;
+                color: #666;
+                border-top: 1px solid #e0e0e0;
+                padding-top: 2rem;
+            }
+            @media (max-width: 768px) {
+                .toc ol {
+                    columns: 1;
+                }
+                main {
+                    padding: 1rem;
+                }
+                nav {
+                    justify-content: center;
+                }
+            }
+        </style>
+    </head>
+    <body>
+        <header>
+            <nav>
+                <a href="phoenix-todo-app.html">Phoenix Todo Example</a>
+                <a href="elixir-best-practice.html">Elixir Best Practices</a>
+                <a href="phoenix-best-practice-final.html" class="current">Phoenix Best Practices</a>
+            </nav>
+        </header>
+
+        <main>
+            <h1>Phoenix 1.7+ Best Practices – Complete Guide (2025)</h1>
+
+            <p>
+                Welcome to Phoenix! This comprehensive guide will help you build secure,
+                maintainable, and high-performance Phoenix applications. Whether you want
+                to build traditional server-rendered websites or real-time applications
+                with LiveView, these practices will set you up for success.
+            </p>
+
+            <div class="beginner-tip">
+                <strong>New to Phoenix?</strong> Phoenix is a web framework built on Elixir
+                that excels at building both traditional web applications and real-time features.
+                Think of it like Rails for Ruby or Django for Python, but with superpowers
+                for handling thousands of concurrent users efficiently.
+            </div>
+
+            <div class="toc">
+                <h3>📚 Table of Contents</h3>
+                <ol>
+                    <li><a href="#project-structure">Project Structure & Contexts</a></li>
+                    <li><a href="#routing">Routing & Pipelines</a></li>
+                    <li><a href="#liveview">LiveView Guidelines</a></li>
+                    <li><a href="#controllers">Controllers & Traditional Views</a></li>
+                    <li><a href="#database">Ecto & Database Best Practices</a></li>
+                    <li><a href="#auth">Authentication & Authorization</a></li>
+                    <li><a href="#error-handling">Error Handling</a></li>
+                    <li><a href="#testing">Testing Your Phoenix Application</a></li>
+                    <li><a href="#assets">Assets & Frontend</a></li>
+                    <li><a href="#configuration">Configuration Management</a></li>
+                    <li><a href="#deployment">Deployment & Production</a></li>
+                    <li><a href="#security">Security Best Practices</a></li>
+                    <li><a href="#performance">Performance Optimization</a></li>
+                    <li><a href="#checklist">Pre-Production Checklist</a></li>
+                </ol>
+            </div>
+
+            <h2>Getting Started</h2>
+            <p>Before diving in, make sure you have:</p>
+            <ul>
+                <li><strong>Phoenix 1.7+</strong> installed (<code>mix archive.install hex phx_new</code>)</li>
+                <li><strong>PostgreSQL</strong> running locally (or another supported database)</li>
+                <li><strong>Node.js</strong> for asset compilation</li>
+                <li><strong>Basic Elixir knowledge</strong> (pattern matching, pipe operator, GenServer basics)</li>
+            </ul>
+
+            <div class="step-by-step">
+                <strong>Quick Start:</strong>
+                <pre><code># Create a new Phoenix app with LiveView
+mix phx.new my_app --live
+cd my_app
+mix deps.get
+mix ecto.setup
+mix phx.server</code></pre>
+                Visit <code>http://localhost:4000</code> and you're ready to go!
+            </div>
+
+            <hr />
+
+            <h2 id="project-structure">1. Project Structure & Contexts</h2>
+
+            <div class="beginner-tip">
+                <strong>What are contexts?</strong> Think of contexts as the "business logic layer"
+                of your application. They're like service classes in other frameworks, but with
+                a specific structure. A context groups related functionality together (like
+                everything related to user accounts).
+            </div>
+
+            <h3>1.1 The Two-Layer Architecture</h3>
+            <ul>
+                <li>
+                    <strong>Business Logic Layer (<code>lib/my_app/</code>)</strong> –
+                    This is where your application's core logic lives. Database operations,
+                    business rules, calculations, etc.
+                </li>
+                <li>
+                    <strong>Web Layer (<code>lib/my_app_web/</code>)</strong> –
+                    This handles HTTP requests, renders templates, manages user sessions, etc.
+                    It's the "presentation layer."
+                </li>
+            </ul>
+
+            <div class="example">
+                <strong>Good separation example:</strong>
+                <pre><code># Business logic (lib/my_app/accounts.ex)
+defmodule MyApp.Accounts do
+  def create_user(attrs) do
+    %User{}
+    |> User.changeset(attrs)
+    |> validate_unique_email()
+    |> hash_password()
+    |> Repo.insert()
+  end
+end
+
+# Web layer (lib/my_app_web/controllers/user_controller.ex)
+defmodule MyAppWeb.UserController do
+  def create(conn, %{"user" => user_params}) do
+    case Accounts.create_user(user_params) do
+      {:ok, user} ->
+        redirect(conn, to: ~p"/users/#{user}")
+      {:error, changeset} ->
+        render(conn, :new, changeset: changeset)
+    end
+  end
+end</code></pre>
+            </div>
+
+            <h3>1.2 Context Guidelines</h3>
+            <ul>
+                <li><strong>Generate contexts with mix generators</strong> – Use <code>mix phx.gen.context</code></li>
+                <li><strong>Keep contexts focused</strong> – One context per business domain</li>
+                <li><strong>Avoid cross-context dependencies</strong> – Contexts should be independent</li>
+                <li><strong>Use public APIs</strong> – Other contexts should only call public functions</li>
+            </ul>
+
+            <pre><code># Generate a complete context
+mix phx.gen.context Accounts User users name:string email:string
+
+# This creates:
+# - lib/my_app/accounts.ex (context module)
+# - lib/my_app/accounts/user.ex (schema)
+# - priv/repo/migrations/*_create_users.exs (migration)
+# - test files</code></pre>
+
+            <hr />
+
+            <h2 id="routing">2. Routing & Pipelines</h2>
+
+            <div class="beginner-tip">
+                <strong>What are pipelines?</strong> Pipelines are a sequence of plugs that
+                process requests before they reach your controllers or LiveViews. Think of
+                them as middleware in other frameworks.
+            </div>
+
+            <h3>2.1 Pipeline Best Practices</h3>
+            <ul>
+                <li><strong>Keep pipelines focused</strong> – Each pipeline should have a clear purpose</li>
+                <li><strong>Order matters</strong> – Put authentication before authorization</li>
+                <li><strong>Use descriptive names</strong> – <code>:authenticated</code> is better than <code>:auth</code></li>
+            </ul>
+
+            <div class="example">
+                <strong>Well-organized router:</strong>
+                <pre><code>defmodule MyAppWeb.Router do
+  use MyAppWeb, :router
+
+  # Public pages - no authentication needed
+  pipeline :browser do
+    plug :accepts, ["html"]
+    plug :fetch_session
+    plug :fetch_live_flash
+    plug :put_root_layout, html: {MyAppWeb.Layouts, :root}
+    plug :protect_from_forgery
+    plug :put_secure_browser_headers
+  end
+
+  # Authenticated pages
+  pipeline :authenticated do
+    plug :browser
+    plug MyAppWeb.Plugs.RequireAuth
+  end
+
+  # Admin only pages
+  pipeline :admin do
+    plug :authenticated
+    plug MyAppWeb.Plugs.RequireAdmin
+  end
+
+  scope "/", MyAppWeb do
+    pipe_through :browser
+
+    get "/", PageController, :home
+    get "/login", SessionController, :new
+    post "/login", SessionController, :create
+  end
+
+  scope "/dashboard", MyAppWeb do
+    pipe_through :authenticated
+
+    live "/", DashboardLive
+    resources "/posts", PostController
+  end
+
+  scope "/admin", MyAppWeb.Admin do
+    pipe_through :admin
+
+    live "/", AdminDashboardLive
+    resources "/users", UserController
+  end
+end</code></pre>
+            </div>
+
+            <h3>2.2 Custom Plugs</h3>
+            <p>Create reusable plugs for common functionality:</p>
+
+            <pre><code>defmodule MyAppWeb.Plugs.RequireAuth do
+  import Plug.Conn
+  import Phoenix.Controller
+
+  def init(opts), do: opts
+
+  def call(conn, _opts) do
+    if get_session(conn, :user_id) do
+      conn
+    else
+      conn
+      |> put_flash(:error, "You must be logged in")
+      |> redirect(to: "/login")
+      |> halt()
+    end
+  end
+end</code></pre>
+
+            <hr />
+
+            <h2 id="liveview">3. LiveView Guidelines</h2>
+
+            <div class="beginner-tip">
+                <strong>What is LiveView?</strong> LiveView lets you build rich, interactive
+                web applications without writing JavaScript. It maintains a stateful connection
+                between the client and server, updating the page in real-time.
+            </div>
+
+            <h3>3.1 LiveView Structure</h3>
+            <p>Organize your LiveView modules for clarity and maintainability:</p>
+
+            <div class="example">
+                <pre><code>defmodule MyAppWeb.PostsLive.Index do
+  use MyAppWeb, :live_view
+
+  # Mount function - called when LiveView starts
+  def mount(_params, _session, socket) do
+    posts = Blog.list_posts()
+    {:ok, assign(socket, posts: posts)}
+  end
+
+  # Handle navigation parameters
+  def handle_params(params, _url, socket) do
+    {:noreply, apply_action(socket, socket.assigns.live_action, params)}
+  end
+
+  # Handle user events
+  def handle_event("delete", %{"id" => id}, socket) do
+    post = Blog.get_post!(id)
+    {:ok, _} = Blog.delete_post(post)
+
+    {:noreply, assign(socket, posts: Blog.list_posts())}
+  end
+
+  # Handle info messages from other processes
+  def handle_info({:post_created, post}, socket) do
+    {:noreply, update(socket, :posts, fn posts -> [post | posts] end)}
+  end
+
+  # Private helper functions
+  defp apply_action(socket, :index, _params) do
+    assign(socket, page_title: "Posts")
+  end
+end</code></pre>
+            </div>
+
+            <h3>3.2 LiveView Best Practices</h3>
+            <ul>
+                <li><strong>Keep state minimal</strong> – Only store what you need in socket assigns</li>
+                <li><strong>Use temporary assigns</strong> for large lists that don't need to persist</li>
+                <li><strong>Handle errors gracefully</strong> – Always pattern match on context function results</li>
+                <li><strong>Use components</strong> – Break large templates into reusable components</li>
+            </ul>
+
+            <pre><code># Use temporary assigns for large datasets
+def mount(_params, _session, socket) do
+  {:ok, assign(socket, posts: [], page: 1), temporary_assigns: [posts: []]}
+end
+
+# Always handle errors
+def handle_event("save", %{"post" => post_params}, socket) do
+  case Blog.create_post(post_params) do
+    {:ok, post} ->
+      {:noreply,
+       socket
+       |> put_flash(:info, "Post created!")
+       |> push_navigate(to: ~p"/posts/#{post}")}
+
+    {:error, changeset} ->
+      {:noreply, assign(socket, changeset: changeset)}
+  end
+end</code></pre>
+
+            <h3>3.3 LiveView Components</h3>
+            <p>Create reusable function components for better maintainability:</p>
+
+            <pre><code>defmodule MyAppWeb.Components.PostCard do
+  use Phoenix.Component
+
+  attr :post, :map, required: true
+  attr :current_user, :map, default: nil
+
+  def post_card(assigns) do
+    ~H"""
+    &lt;div class="bg-white shadow rounded-lg p-6"&gt;
+      &lt;h3 class="text-lg font-semibold"&gt;&lt;%= @post.title %&gt;&lt;/h3&gt;
+      &lt;p class="text-gray-600 mt-2"&gt;&lt;%= @post.excerpt %&gt;&lt;/p&gt;
+
+      &lt;div class="mt-4 flex justify-between items-center"&gt;
+        &lt;span class="text-sm text-gray-500"&gt;
+          by &lt;%= @post.author.name %&gt;
+        &lt;/span&gt;
+
+        &lt;div :if={can_edit?(@current_user, @post)}&gt;
+          &lt;.link href={~p"/posts/#{@post}/edit"} class="text-blue-600 hover:underline"&gt;
+            Edit
+          &lt;/.link&gt;
+        &lt;/div&gt;
+      &lt;/div&gt;
+    &lt;/div&gt;
+    """
+  end
+
+  defp can_edit?(user, post) do
+    user && (user.id == post.author_id || user.role == :admin)
+  end
+end</code></pre>
+
+            <hr />
+
+            <h2 id="controllers">4. Controllers & Traditional Views</h2>
+
+            <h3>4.1 Keep Controllers Thin</h3>
+            <p>Controllers should orchestrate, not implement business logic:</p>
+
+            <div class="example">
+                <strong>Good controller:</strong>
+                <pre><code>defmodule MyAppWeb.PostController do
+  use MyAppWeb, :controller
+
+  def index(conn, params) do
+    posts = Blog.list_posts(params)
+    render(conn, :index, posts: posts)
+  end
+
+  def create(conn, %{"post" => post_params}) do
+    case Blog.create_post(post_params) do
+      {:ok, post} ->
+        conn
+        |> put_flash(:info, "Post created successfully.")
+        |> redirect(to: ~p"/posts/#{post}")
+
+      {:error, changeset} ->
+        render(conn, :new, changeset: changeset)
+    end
+  end
+end</code></pre>
+
+                <strong>Avoid this:</strong>
+                <pre><code># Don't put business logic in controllers
+def create(conn, %{"post" => post_params}) do
+  # This should be in a context function
+  post = %Post{}
+  |> Post.changeset(post_params)
+  |> validate_title_uniqueness()
+  |> maybe_publish()
+  |> Repo.insert()
+  # ... more business logic
+end</code></pre>
+            </div>
+
+            <h3>4.2 Error Handling with Fallback Controllers</h3>
+            <p>Use action fallback for consistent error handling:</p>
+
+            <pre><code>defmodule MyAppWeb.PostController do
+  use MyAppWeb, :controller
+
+  action_fallback MyAppWeb.FallbackController
+
+  def show(conn, %{"id" => id}) do
+    # If Blog.get_post returns {:error, :not_found},
+    # it will be handled by the fallback controller
+    with {:ok, post} <- Blog.get_post(id) do
+      render(conn, :show, post: post)
+    end
+  end
+end
+
+defmodule MyAppWeb.FallbackController do
+  use MyAppWeb, :controller
+
+  def call(conn, {:error, :not_found}) do
+    conn
+    |> put_status(:not_found)
+    |> put_view(MyAppWeb.ErrorHTML)
+    |> render(:"404")
+  end
+
+  def call(conn, {:error, :unauthorized}) do
+    conn
+    |> put_status(:forbidden)
+    |> put_view(MyAppWeb.ErrorHTML)
+    |> render(:"403")
+  end
+end</code></pre>
+
+            <hr />
+
+            <h2 id="database">5. Ecto & Database Best Practices</h2>
+
+            <div class="beginner-tip">
+                <strong>Ecto in Phoenix:</strong> Ecto is deeply integrated with Phoenix.
+                Your contexts use Ecto to interact with the database, and your schemas
+                define the structure of your data.
+            </div>
+
+            <h3>5.1 Schema Best Practices</h3>
+            <ul>
+                <li><strong>Keep schemas focused</strong> – One table per schema</li>
+                <li><strong>Use proper field types</strong> – <code>:utc_datetime</code> for timestamps</li>
+                <li><strong>Add database constraints</strong> – Enforce data integrity at the DB level</li>
+            </ul>
+
+            <div class="example">
+                <pre><code>defmodule MyApp.Blog.Post do
+  use Ecto.Schema
+  import Ecto.Changeset
+
+  schema "posts" do
+    field :title, :string
+    field :content, :string
+    field :published_at, :utc_datetime
+    field :status, Ecto.Enum, values: [:draft, :published, :archived]
+
+    belongs_to :author, MyApp.Accounts.User
+    has_many :comments, MyApp.Blog.Comment
+
+    timestamps()
+  end
+
+  def changeset(post, attrs) do
+    post
+    |> cast(attrs, [:title, :content, :status, :author_id])
+    |> validate_required([:title, :content, :author_id])
+    |> validate_length(:title, min: 1, max: 255)
+    |> foreign_key_constraint(:author_id)
+    |> maybe_set_published_at()
+  end
+
+  defp maybe_set_published_at(changeset) do
+    case get_change(changeset, :status) do
+      :published -> put_change(changeset, :published_at, DateTime.utc_now())
+      _ -> changeset
+    end
+  end
+end</code></pre>
+            </div>
+
+            <h3>5.2 Migration Best Practices</h3>
+            <ul>
+                <li><strong>Make migrations reversible</strong> – Always think about rollbacks</li>
+                <li><strong>Add indexes for foreign keys</strong> – Performance matters</li>
+                <li><strong>Use constraints</strong> – Prevent invalid data at the database level</li>
+            </ul>
+
+            <pre><code>defmodule MyApp.Repo.Migrations.CreatePosts do
+  use Ecto.Migration
+
+  def change do
+    create table(:posts) do
+      add :title, :string, null: false
+      add :content, :text
+      add :published_at, :utc_datetime
+      add :status, :string, default: "draft", null: false
+      add :author_id, references(:users, on_delete: :delete_all), null: false
+
+      timestamps()
+    end
+
+    # Add indexes for performance
+    create index(:posts, [:author_id])
+    create index(:posts, [:status])
+    create index(:posts, [:published_at])
+
+    # Add constraints for data integrity
+    create constraint(:posts, :title_must_be_present, check: "length(trim(title)) > 0")
+    create constraint(:posts, :valid_status, check: "status in ('draft', 'published', 'archived')")
+  end
+end</code></pre>
+
+            <h3>5.3 Context Query Patterns</h3>
+            <p>Structure your context functions for reusability:</p>
+
+            <pre><code>defmodule MyApp.Blog do
+  import Ecto.Query
+
+  def list_posts(filters \\ %{}) do
+    Post
+    |> filter_by_status(filters[:status])
+    |> filter_by_author(filters[:author_id])
+    |> order_by(desc: :inserted_at)
+    |> preload([:author, :comments])
+    |> Repo.all()
+  end
+
+  def get_post(id) do
+    case Repo.get(Post, id) do
+      nil -> {:error, :not_found}
+      post -> {:ok, Repo.preload(post, [:author, :comments])}
+    end
+  end
+
+  def create_post(attrs) do
+    %Post{}
+    |> Post.changeset(attrs)
+    |> Repo.insert()
+  end
+
+  # Private query builders
+  defp filter_by_status(query, nil), do: query
+  defp filter_by_status(query, status), do: where(query, [p], p.status == ^status)
+
+  defp filter_by_author(query, nil), do: query
+  defp filter_by_author(query, author_id), do: where(query, [p], p.author_id == ^author_id)
+end</code></pre>
+
+            <hr />
+
+            <h2 id="auth">6. Authentication & Authorization</h2>
+
+            <h3>6.1 Start with phx.gen.auth</h3>
+            <p>Phoenix provides a solid authentication foundation:</p>
+
+            <pre><code># Generate authentication system
+mix phx.gen.auth Accounts User users</code></pre>
+
+            <p>This generates:</p>
+            <ul>
+                <li>User schema with password hashing</li>
+                <li>Registration and login controllers</li>
+                <li>Email confirmation and password reset</li>
+                <li>Session management</li>
+                <li>Authentication plugs</li>
+            </ul>
+
+            <h3>6.2 Authorization Patterns</h3>
+            <p>Implement authorization consistently across your app:</p>
+
+            <div class="example">
+                <pre><code># Create a policy module
+defmodule MyApp.Policies.PostPolicy do
+  def can_edit?(user, post) do
+    user.id == post.author_id || user.role in [:admin, :moderator]
+  end
+
+  def can_delete?(user, post) do
+    user.id == post.author_id || user.role == :admin
+  end
+
+  def can_publish?(user, _post) do
+    user.role in [:author, :admin, :moderator]
+  end
+end
+
+# Use in controllers
+defmodule MyAppWeb.PostController do
+  alias MyApp.Policies.PostPolicy
+
+  def edit(conn, %{"id" => id}) do
+    user = conn.assigns.current_user
+
+    with {:ok, post} <- Blog.get_post(id),
+         true <- PostPolicy.can_edit?(user, post) do
+      changeset = Blog.change_post(post)
+      render(conn, :edit, post: post, changeset: changeset)
+    else
+      false ->
+        conn
+        |> put_flash(:error, "You don't have permission to edit this post")
+        |> redirect(to: ~p"/posts")
+
+      {:error, :not_found} ->
+        conn
+        |> put_status(:not_found)
+        |> render(MyAppWeb.ErrorHTML, :"404")
+    end
+  end
+end</code></pre>
+            </div>
+
+            <hr />
+
+            <h2 id="error-handling">7. Error Handling</h2>
+
+            <div class="beginner-tip">
+                <strong>Phoenix Error Handling:</strong> Phoenix provides several layers of error
+                handling - from individual controller actions to application-wide error pages.
+            </div>
+
+            <h3>7.1 Custom Error Pages</h3>
+            <p>Create user-friendly error pages:</p>
+
+            <pre><code># lib/my_app_web/controllers/error_html.ex
+defmodule MyAppWeb.ErrorHTML do
+  use MyAppWeb, :html
+
+  def render("404.html", _assigns) do
+    ~H"""
+    &lt;div class="text-center"&gt;
+      &lt;h1 class="text-4xl font-bold text-gray-900"&gt;404&lt;/h1&gt;
+      &lt;p class="text-xl text-gray-600 mt-4"&gt;Page not found&lt;/p&gt;
+      &lt;.link href={~p"/"} class="mt-6 inline-block text-blue-600 hover:underline"&gt;
+        Go back home
+      &lt;/.link&gt;
+    &lt;/div&gt;
+    """
+  end
+
+  def render("500.html", _assigns) do
+    ~H"""
+    &lt;div class="text-center"&gt;
+      &lt;h1 class="text-4xl font-bold text-gray-900"&gt;500&lt;/h1&gt;
+      &lt;p class="text-xl text-gray-600 mt-4"&gt;Internal server error&lt;/p&gt;
+      &lt;p class="text-gray-500 mt-2"&gt;We're working to fix this issue.&lt;/p&gt;
+    &lt;/div&gt;
+    """
+  end
+end</code></pre>
+
+            <h3>7.2 Structured Error Handling</h3>
+            <p>Use consistent error patterns across your application:</p>
+
+             <pre><code># Define common error types in your contexts
+defmodule MyApp.Blog do
+  @type error_reason :: :not_found | :unauthorized | :validation_failed
+  @type result(success) :: {:ok, success} | {:error, error_reason}
+
+  @spec get_post(integer()) :: result(Post.t())
+  def get_post(id) when is_integer(id) do
+    case Repo.get(Post, id) do
+      nil -> {:error, :not_found}
+      post -> {:ok, post}
+    end
+  end
+
+  @spec update_post(Post.t(), map()) :: result(Post.t())
+  def update_post(post, attrs) do
+    changeset = Post.changeset(post, attrs)
+    
+    case Repo.update(changeset) do
+      {:ok, post} -> {:ok, post}
+      {:error, changeset} -> {:error, :validation_failed}
+    end
+  end
+end</code></pre>
+
+            <h3>7.3 Error Logging and Monitoring</h3>
+            <p>Set up proper error logging for production debugging:</p>
+
+            <pre><code># config/prod.exs
+config :logger, level: :info
+
+# Add structured logging
+config :logger, :console,
+  format: "$time $metadata[$level] $message\n",
+  metadata: [:request_id, :user_id]
+
+# In your application code
+defmodule MyAppWeb.PostController do
+  require Logger
+
+  def show(conn, %{"id" => id}) do
+    case Blog.get_post(id) do
+      {:ok, post} ->
+        render(conn, :show, post: post)
+      
+      {:error, :not_found} ->
+        Logger.info("Post not found", post_id: id, user_id: get_current_user_id(conn))
+        
+        conn
+        |> put_status(:not_found)
+        |> render(MyAppWeb.ErrorHTML, :"404")
+    end
+  end
+end</code></pre>
+
+            <hr />
+
+            <h2 id="testing">8. Testing Your Phoenix Application</h2>
+
+            <div class="beginner-tip">
+                <strong>Phoenix Testing:</strong> Phoenix comes with ExUnit built-in and provides
+                test helpers for controllers, LiveViews, and contexts. Testing in Phoenix follows
+                the same patterns as regular Elixir testing but with web-specific helpers.
+            </div>
+
+            <h3>8.1 Test Structure</h3>
+            <p>Phoenix organizes tests to mirror your application structure:</p>
+
+            <pre><code>test/
+├── my_app/                    # Context tests
+│   ├── accounts_test.exs
+│   └── blog_test.exs
+├── my_app_web/               # Web layer tests
+│   ├── controllers/
+│   │   └── post_controller_test.exs
+│   ├── live/
+│   │   └── posts_live_test.exs
+│   └── plugs/
+│       └── require_auth_test.exs
+└── support/                  # Test helpers
+    ├── conn_case.ex
+    ├── data_case.ex
+    └── fixtures.ex</code></pre>
+
+            <h3>8.2 Context Testing</h3>
+            <p>Test your business logic thoroughly:</p>
+
+            <div class="example">
+                <pre><code>defmodule MyApp.BlogTest do
+  use MyApp.DataCase
+  alias MyApp.Blog
+
+  describe "posts" do
+    test "list_posts/0 returns all posts" do
+      post = insert(:post)
+      assert Blog.list_posts() == [post]
+    end
+
+    test "get_post/1 returns the post with given id" do
+      post = insert(:post)
+      assert {:ok, found_post} = Blog.get_post(post.id)
+      assert found_post.id == post.id
+    end
+
+    test "get_post/1 returns error when post doesn't exist" do
+      assert {:error, :not_found} = Blog.get_post(999)
+    end
+
+    test "create_post/1 with valid data creates a post" do
+      user = insert(:user)
+      attrs = %{title: "Test Post", content: "Content", author_id: user.id}
+      
+      assert {:ok, post} = Blog.create_post(attrs)
+      assert post.title == "Test Post"
+      assert post.author_id == user.id
+    end
+
+    test "create_post/1 with invalid data returns error changeset" do
+      assert {:error, changeset} = Blog.create_post(%{})
+      assert %{title: ["can't be blank"]} = errors_on(changeset)
+    end
+  end
+end</code></pre>
+            </div>
+
+            <h3>8.3 Controller Testing</h3>
+            <p>Test your web layer endpoints:</p>
+
+            <pre><code>defmodule MyAppWeb.PostControllerTest do
+  use MyAppWeb.ConnCase
+  alias MyApp.Blog
+
+  describe "index" do
+    test "lists all posts", %{conn: conn} do
+      post = insert(:post)
+      conn = get(conn, ~p"/posts")
+      
+      assert html_response(conn, 200) =~ post.title
+    end
+  end
+
+  describe "create post" do
+    test "redirects to show when data is valid", %{conn: conn} do
+      user = insert(:user)
+      conn = log_in_user(conn, user)
+      
+      post_attrs = %{title: "Test Post", content: "Test content"}
+      conn = post(conn, ~p"/posts", post: post_attrs)
+      
+      assert %{id: id} = redirected_params(conn)
+      assert redirected_to(conn) == ~p"/posts/#{id}"
+      
+      conn = get(conn, ~p"/posts/#{id}")
+      assert html_response(conn, 200) =~ "Test Post"
+    end
+
+    test "renders errors when data is invalid", %{conn: conn} do
+      user = insert(:user)
+      conn = log_in_user(conn, user)
+      
+      conn = post(conn, ~p"/posts", post: %{})
+      assert html_response(conn, 200) =~ "can&#39;t be blank"
+    end
+  end
+end</code></pre>
+
+            <h3>8.4 LiveView Testing</h3>
+            <p>Test interactive LiveView functionality:</p>
+
+            <pre><code>defmodule MyAppWeb.PostsLiveTest do
+  use MyAppWeb.ConnCase
+  import Phoenix.LiveViewTest
+
+  describe "Index" do
+    test "lists all posts", %{conn: conn} do
+      post = insert(:post)
+      {:ok, _index_live, html} = live(conn, ~p"/posts")
+      
+      assert html =~ "Posts"
+      assert html =~ post.title
+    end
+
+    test "saves new post", %{conn: conn} do
+      user = insert(:user)
+      conn = log_in_user(conn, user)
+      
+      {:ok, index_live, _html} = live(conn, ~p"/posts")
+      
+      assert index_live |> element("a", "New Post") |> render_click() =~
+               "New Post"
+      
+      assert_patch(index_live, ~p"/posts/new")
+      
+      assert index_live
+             |> form("#post-form", post: %{title: "", content: ""})
+             |> render_change() =~ "can&#39;t be blank"
+      
+      {:ok, _, html} =
+        index_live
+        |> form("#post-form", post: %{title: "Test Post", content: "Content"})
+        |> render_submit()
+        |> follow_redirect(conn, ~p"/posts")
+      
+      assert html =~ "Post created successfully"
+      assert html =~ "Test Post"
+    end
+
+    test "deletes post in listing", %{conn: conn} do
+      post = insert(:post)
+      user = insert(:user, role: :admin)
+      conn = log_in_user(conn, user)
+      
+      {:ok, index_live, _html} = live(conn, ~p"/posts")
+      
+      assert index_live |> element("#posts-#{post.id} a", "Delete") |> render_click()
+      refute has_element?(index_live, "#posts-#{post.id}")
+    end
+  end
+end</code></pre>
+
+            <h3>8.5 Test Factories with ExMachina</h3>
+            <p>Use factories to create test data easily:</p>
+
+            <pre><code># Add to mix.exs
+{:ex_machina, "~> 2.7", only: :test}
+
+# test/support/factory.ex
+defmodule MyApp.Factory do
+  use ExMachina.Ecto, repo: MyApp.Repo
+
+  def user_factory do
+    %MyApp.Accounts.User{
+      name: sequence(:name, &"User #{&1}"),
+      email: sequence(:email, &"user#{&1}@example.com"),
+      role: :user
+    }
+  end
+
+  def post_factory do
+    %MyApp.Blog.Post{
+      title: sequence(:title, &"Post Title #{&1}"),
+      content: "This is the post content.",
+      status: :published,
+      author: build(:user)
+    }
+  end
+
+  def admin_factory do
+    build(:user, role: :admin)
+  end
+end
+
+# In your tests
+test "admin can delete any post" do
+  admin = insert(:admin)
+  post = insert(:post)
+  
+  # Test admin deletion logic
+end</code></pre>
+
+            <hr />
+
+            <h2 id="assets">9. Assets & Frontend</h2>
+
+            <div class="beginner-tip">
+                <strong>Phoenix Assets:</strong> Phoenix 1.7+ uses esbuild for JavaScript and
+                Tailwind CSS by default. The asset pipeline is much simpler than previous versions.
+            </div>
+
+            <h3>9.1 Asset Pipeline Overview</h3>
+            <p>Phoenix 1.7+ uses a streamlined asset pipeline:</p>
+
+            <pre><code>assets/
+├── css/
+│   └── app.css          # Main CSS file (imports Tailwind)
+├── js/
+│   └── app.js           # Main JavaScript file
+└── vendor/              # Third-party assets
+
+# Built assets go to:
+priv/static/assets/</code></pre>
+
+            <h3>9.2 Adding JavaScript Libraries</h3>
+            <p>Install and use JavaScript libraries:</p>
+
+            <pre><code># Install via npm
+cd assets && npm install alpinejs
+
+# Add to assets/js/app.js
+import Alpine from 'alpinejs'
+window.Alpine = Alpine
+Alpine.start()
+
+# Use in templates
+&lt;div x-data="{ open: false }"&gt;
+  &lt;button @click="open = !open"&gt;Toggle&lt;/button&gt;
+  &lt;div x-show="open"&gt;Content&lt;/div&gt;
+&lt;/div&gt;</code></pre>
+
+            <h3>9.3 Custom CSS with Tailwind</h3>
+            <p>Extend Tailwind with custom styles:</p>
+
+            <pre><code>/* assets/css/app.css */
+@import "tailwindcss/base";
+@import "tailwindcss/components";
+@import "tailwindcss/utilities";
+
+/* Custom component classes */
+@layer components {
+  .btn-primary {
+    @apply bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded;
+  }
+  
+  .card {
+    @apply bg-white shadow-lg rounded-lg p-6 border border-gray-200;
+  }
+}
+
+/* Custom utilities */
+@layer utilities {
+  .text-shadow {
+    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.1);
+  }
+}</code></pre>
+
+            <h3>9.4 Optimizing Assets for Production</h3>
+            <p>Configure asset optimization:</p>
+
+            <pre><code># config/prod.exs
+config :esbuild, MyApp.Assets,
+  args: ~w(js/app.js --bundle --target=es2017 --outdir=../priv/static/assets --external:/fonts/* --external:/images/*),
+  cd: Path.expand("../assets", __DIR__),
+  env: %{"NODE_PATH" => Path.expand("../deps", __DIR__)}
+
+# Enable gzip compression
+config :phoenix, :serve_endpoints, true
+
+# Configure static file caching
+config :my_app, MyAppWeb.Endpoint,
+  cache_static_manifest: "priv/static/cache_manifest.json"</code></pre>
+
+            <hr />
+
+            <h2 id="configuration">10. Configuration Management</h2>
+
+            <h3>10.1 Environment-Based Configuration</h3>
+            <p>Phoenix uses a layered configuration system:</p>
+
+            <pre><code>config/
+├── config.exs          # Base configuration
+├── dev.exs            # Development overrides
+├── prod.exs           # Production overrides
+├── test.exs           # Test overrides
+└── runtime.exs        # Runtime configuration (reads env vars)</code></pre>
+
+            <div class="example">
+                <strong>Proper configuration structure:</strong>
+                <pre><code># config/config.exs - Base configuration
+import Config
+
+config :my_app,
+  ecto_repos: [MyApp.Repo]
+
+config :my_app, MyAppWeb.Endpoint,
+  url: [host: "localhost"],
+  render_errors: [
+    formats: [html: MyAppWeb.ErrorHTML, json: MyAppWeb.ErrorJSON],
+    layout: false
+  ],
+  pubsub_server: MyApp.PubSub,
+  live_view: [signing_salt: "your-secret"]
+
+# Import environment specific config
+import_config "#{config_env()}.exs"
+
+# config/runtime.exs - Runtime configuration
+import Config
+
+if config_env() == :prod do
+  database_url =
+    System.get_env("DATABASE_URL") ||
+      raise """
+      environment variable DATABASE_URL is missing.
+      """
+
+  config :my_app, MyApp.Repo,
+    url: database_url,
+    pool_size: String.to_integer(System.get_env("POOL_SIZE") || "10")
+
+  secret_key_base =
+    System.get_env("SECRET_KEY_BASE") ||
+      raise """
+      environment variable SECRET_KEY_BASE is missing.
+      """
+
+  config :my_app, MyAppWeb.Endpoint,
+    http: [
+      ip: {0, 0, 0, 0, 0, 0, 0, 0},
+      port: String.to_integer(System.get_env("PORT") || "4000")
+    ],
+    secret_key_base: secret_key_base
+end</code></pre>
+            </div>
+
+            <h3>10.2 Managing Secrets</h3>
+            <p>Never commit secrets to version control:</p>
+
+            <div class="warning">
+                <strong>Security Warning:</strong> Never put secrets in your config files that
+                get committed to git. Always use environment variables or external secret management.
+            </div>
+
+            <pre><code># .env (for development - add to .gitignore)
+DATABASE_URL=ecto://postgres:postgres@localhost/myapp_dev
+SECRET_KEY_BASE=your-secret-key-here
+SENDGRID_API_KEY=your-sendgrid-key
+
+# Use with tools like direnv or dotenv
+# Or load manually in dev.exs:
+if File.exists?(".env") do
+  File.read!(".env")
+  |> String.split("\n")
+  |> Enum.each(fn line ->
+    case String.split(line, "=", parts: 2) do
+      [key, value] -> System.put_env(key, value)
+      _ -> :ok
+    end
+  end)
+end</code></pre>
+
+            <hr />
+
+            <h2 id="deployment">11. Deployment & Production</h2>
+
+            <h3>11.1 Release-Based Deployment</h3>
+            <p>Use Elixir releases for production deployment:</p>
+
+            <pre><code># Build a release
+MIX_ENV=prod mix release
+
+# The release includes:
+# - Your application and dependencies
+# - Erlang VM
+# - Configuration
+# - Start scripts
+
+# Deploy and run
+_build/prod/rel/my_app/bin/my_app start</code></pre>
+
+            <h3>11.2 Docker Deployment</h3>
+            <p>Create a production-ready Dockerfile:</p>
+
+            <pre><code># Dockerfile
+FROM elixir:1.15-alpine AS build
+
+# Install build dependencies
+RUN apk add --no-cache build-base npm git python3
+
+WORKDIR /app
+
+# Install hex and rebar
+RUN mix local.hex --force && \
+    mix local.rebar --force
+
+# Set build ENV
+ENV MIX_ENV=prod
+
+# Install mix dependencies
+COPY mix.exs mix.lock ./
+RUN mix deps.get --only=prod
+RUN mkdir config
+COPY config/config.exs config/prod.exs config/runtime.exs config/
+RUN mix deps.compile
+
+# Build assets
+COPY assets/package.json assets/package-lock.json ./assets/
+RUN npm --prefix ./assets ci --progress=false --no-audit --loglevel=error
+
+COPY priv priv
+COPY assets assets
+RUN mix assets.deploy
+
+# Compile and build release
+COPY lib lib
+RUN mix compile
+RUN mix release
+
+# Start a new build stage for the runtime image
+FROM alpine:3.18 AS app
+RUN apk add --no-cache openssl ncurses-libs libstdc++
+
+WORKDIR /app
+RUN chown nobody:nobody /app
+USER nobody:nobody
+
+COPY --from=build --chown=nobody:nobody /app/_build/prod/rel/my_app ./
+
+ENV HOME=/app
+
+CMD ["bin/my_app", "start"]</code></pre>
+
+            <h3>11.3 Health Checks and Monitoring</h3>
+            <p>Add health check endpoints:</p>
+
+            <pre><code># Add to router
+scope "/health", MyAppWeb do
+  pipe_through :api
+  
+  get "/", HealthController, :check
+end
+
+# Health controller
+defmodule MyAppWeb.HealthController do
+  use MyAppWeb, :controller
+
+  def check(conn, _params) do
+    # Check database connectivity
+    case Ecto.Adapters.SQL.query(MyApp.Repo, "SELECT 1", []) do
+      {:ok, _} ->
+        json(conn, %{status: "ok", timestamp: DateTime.utc_now()})
+      
+      {:error, _} ->
+        conn
+        |> put_status(:service_unavailable)
+        |> json(%{status: "error", message: "Database unavailable"})
+    end
+  end
+end</code></pre>
+
+            <hr />
+
+            <h2 id="security">12. Security Best Practices</h2>
+
+            <div class="warning">
+                <strong>Security is Critical:</strong> These practices help protect your application
+                and users. Don't skip security considerations, even in development.
+            </div>
+
+            <h3>12.1 Built-in Security Features</h3>
+            <p>Phoenix includes several security features by default:</p>
+
+            <ul>
+                <li><strong>CSRF Protection</strong> - Enabled by default in forms</li>
+                <li><strong>XSS Protection</strong> - Templates are HTML-escaped by default</li>
+                <li><strong>Secure Headers</strong> - Added automatically</li>
+                <li><strong>Content Security Policy</strong> - Configurable</li>
+            </ul>
+
+            <pre><code># Security headers are added by default
+plug :put_secure_browser_headers
+
+# Custom CSP configuration
+config :my_app, MyAppWeb.Endpoint,
+  http: [port: 4000],
+  secret_key_base: "...",
+  render_errors: [...],
+  pubsub_server: MyApp.PubSub,
+  live_view: [signing_salt: "..."],
+  # Add custom security headers
+  force_ssl: [rewrite_on: [:x_forwarded_proto]],
+  secure_cookie_flag: true</code></pre>
+
+            <h3>12.2 Input Validation and Sanitization</h3>
+            <p>Always validate and sanitize user input:</p>
+
+            <pre><code>defmodule MyApp.Blog.Post do
+  use Ecto.Schema
+  import Ecto.Changeset
+
+  def changeset(post, attrs) do
+    post
+    |> cast(attrs, [:title, :content, :tags])
+    |> validate_required([:title, :content])
+    |> validate_length(:title, min: 1, max: 255)
+    |> validate_length(:content, min: 10, max: 50_000)
+    |> validate_format(:title, ~r/^[a-zA-Z0-9\s\-_.,!?]+$/, 
+         message: "contains invalid characters")
+    |> sanitize_content()
+  end
+
+  defp sanitize_content(changeset) do
+    case get_change(changeset, :content) do
+      nil -> changeset
+      content ->
+        # Use HtmlSanitizeEx for HTML content
+        sanitized = HtmlSanitizeEx.markdown_html(content)
+        put_change(changeset, :content, sanitized)
+    end
+  end
+end</code></pre>
+
+            <h3>12.3 Rate Limiting</h3>
+            <p>Implement rate limiting to prevent abuse:</p>
+
+            <pre><code># Add hammer to mix.exs
+{:hammer, "~> 6.0"}
+
+# Create rate limiting plug
+defmodule MyAppWeb.Plugs.RateLimit do
+  import Plug.Conn
+  import Phoenix.Controller
+
+  def init(opts), do: opts
+
+  def call(conn, opts) do
+    limit = Keyword.get(opts, :limit, 100)
+    window = Keyword.get(opts, :window, 60_000) # 1 minute
+
+    case Hammer.check_rate("#{get_client_ip(conn)}", window, limit) do
+      {:allow, _count} ->
+        conn
+
+      {:deny, _limit} ->
+        conn
+        |> put_status(:too_many_requests)
+        |> json(%{error: "Rate limit exceeded"})
+        |> halt()
+    end
+  end
+
+  defp get_client_ip(conn) do
+    conn.remote_ip
+    |> :inet_parse.ntoa()
+    |> to_string()
+  end
+end
+
+# Use in router
+pipeline :api_limited do
+  plug :api
+  plug MyAppWeb.Plugs.RateLimit, limit: 100, window: 60_000
+end</code></pre>
+
+            <hr />
+
+            <h2 id="performance">13. Performance Optimization</h2>
+
+            <h3>13.1 Database Performance</h3>
+            <p>Optimize your database queries:</p>
+
+            <div class="example">
+                <pre><code># Use preloading to avoid N+1 queries
+def list_posts_with_authors do
+  Post
+  |> preload([:author, :comments])
+  |> Repo.all()
+end
+
+# Use select to limit fields
+def list_post_titles do
+  Post
+  |> select([p], %{id: p.id, title: p.title})
+  |> Repo.all()
+end
+
+# Use pagination for large datasets
+def list_posts(page \\ 1, per_page \\ 20) do
+  offset = (page - 1) * per_page
+  
+  Post
+  |> limit(^per_page)
+  |> offset(^offset)
+  |> order_by(desc: :inserted_at)
+  |> Repo.all()
+end
+
+# Add database indexes for frequently queried fields
+create index(:posts, [:author_id])
+create index(:posts, [:status, :published_at])
+create index(:posts, [:inserted_at])</code></pre>
+            </div>
+
+            <h3>13.2 Caching Strategies</h3>
+            <p>Implement caching for expensive operations:</p>
+
+            <pre><code># Use Cachex for application-level caching
+# Add to mix.exs
+{:cachex, "~> 3.4"}
+
+# Add to application.ex
+children = [
+  {Cachex, name: :app_cache}
+]
+
+# Use in contexts
+defmodule MyApp.Blog do
+  def get_popular_posts do
+    Cachex.fetch(:app_cache, "popular_posts", fn ->
+      posts = 
+        Post
+        |> where([p], p.view_count > 1000)
+        |> order_by(desc: :view_count)
+        |> limit(10)
+        |> Repo.all()
+      
+      # Cache for 1 hour
+      {:commit, posts, ttl: :timer.hours(1)}
+    end)
+  end
+
+  def increment_view_count(post_id) do
+    # Invalidate cache when data changes
+    Cachex.del(:app_cache, "popular_posts")
+    
+    Post
+    |> where(id: ^post_id)
+    |> Repo.update_all(inc: [view_count: 1])
+  end
+end</code></pre>
+
+            <h3>13.3 LiveView Performance</h3>
+            <p>Optimize LiveView for better performance:</p>
+
+            <pre><code># Use temporary assigns for large lists
+def mount(_params, _session, socket) do
+  {:ok, 
+   socket
+   |> assign(:posts, [])
+   |> assign(:page, 1),
+   temporary_assigns: [posts: []]}
+end
+
+# Stream updates for real-time data
+def handle_info({:new_post, post}, socket) do
+  {:noreply, stream_insert(socket, :posts, post, at: 0)}
+end
+
+# Use phx-update="stream" in templates
+&lt;div id="posts" phx-update="stream"&gt;
+  &lt;div :for={{id, post} &lt;- @streams.posts} id={id}&gt;
+    &lt;%= post.title %&gt;
+  &lt;/div&gt;
+&lt;/div&gt;
+
+# Debounce expensive operations
+def handle_event("search", %{"query" => query}, socket) do
+  Process.send_after(self(), {:perform_search, query}, 300)
+  {:noreply, assign(socket, :search_query, query)}
+end
+
+def handle_info({:perform_search, query}, socket) do
+  if socket.assigns.search_query == query do
+    results = Blog.search_posts(query)
+    {:noreply, assign(socket, :search_results, results)}
+  else
+    {:noreply, socket}
+  end
+end</code></pre>
+
+            <hr />
+
+            <h2 id="checklist">14. Pre-Production Checklist</h2>
+
+            <div class="checklist">
+                <h3>🚀 Deployment Readiness Checklist</h3>
+                <ul>
+                    <li>All secrets moved to environment variables</li>
+                    <li>Database migrations tested and reversible</li>
+                    <li>Error pages customized and user-friendly</li>
+                    <li>Health check endpoint implemented</li>
+                    <li>Logging configured for production</li>
+                    <li>Rate limiting implemented on public endpoints</li>
+                    <li>HTTPS configured and enforced</li>
+                    <li>Database indexes added for performance</li>
+                    <li>Asset optimization enabled</li>
+                    <li>Backup strategy implemented</li>
+                </ul>
+            </div>
+
+            <div class="checklist">
+                <h3>🔒 Security Checklist</h3>
+                <ul>
+                    <li>All user inputs validated and sanitized</li>
+                    <li>Authentication and authorization implemented</li>
+                    <li>CSRF protection enabled</li>
+                    <li>SQL injection prevention verified</li>
+                    <li>XSS protection in place</li>
+                    <li>Secure headers configured</li>
+                    <li>Dependencies updated to latest secure versions</li>
+                    <li>Sensitive data encrypted at rest</li>
+                    <li>API endpoints properly secured</li>
+                    <li>File upload restrictions implemented</li>
+                </ul>
+            </div>
+
+            <div class="checklist">
+                <h3>⚡ Performance Checklist</h3>
+                <ul>
+                    <li>Database queries optimized (no N+1 problems)</li>
+                    <li>Appropriate database indexes created</li>
+                    <li>Caching implemented for expensive operations</li>
+                    <li>Asset compression and minification enabled</li>
+                    <li>CDN configured for static assets</li>
+                    <li>Database connection pooling configured</li>
+                    <li>Memory usage monitored and optimized</li>
+                    <li>Load testing performed</li>
+                    <li>Monitoring and alerting set up</li>
+                    <li>Performance benchmarks established</li>
+                </ul>
+            </div>
+
+            <div class="checklist">
+                <h3>🧪 Testing Checklist</h3>
+                <ul>
+                    <li>Unit tests for all contexts</li>
+                    <li>Integration tests for controllers</li>
+                    <li>LiveView interaction tests</li>
+                    <li>Authentication and authorization tests</li>
+                    <li>Error handling tests</li>
+                    <li>Database constraint tests</li>
+                    <li>API endpoint tests</li>
+                    <li>Test coverage above 80%</li>
+                    <li>CI/CD pipeline configured</li>
+                    <li>Staging environment testing completed</li>
+                </ul>
+            </div>
+
+            <hr />
+
+            <h2>🎯 Quick Reference Commands</h2>
+
+            <div class="example">
+                <strong>Essential Phoenix Commands:</strong>
+                <pre><code># Create new Phoenix app
+mix phx.new my_app --live
+
+# Generate authentication
+mix phx.gen.auth Accounts User users
+
+# Generate context with schema
+mix phx.gen.context Blog Post posts title:string content:text
+
+# Generate LiveView
+mix phx.gen.live Blog Post posts title:string content:text
+
+# Generate controller
+mix phx.gen.html Blog Post posts title:string content:text
+
+# Database operations
+mix ecto.create          # Create database
+mix ecto.migrate         # Run migrations
+mix ecto.rollback        # Rollback last migration
+mix ecto.reset           # Drop, create, and migrate
+
+# Development
+mix phx.server           # Start development server
+mix test                 # Run tests
+mix test --cover         # Run tests with coverage
+mix format               # Format code
+
+# Production
+MIX_ENV=prod mix compile # Compile for production
+MIX_ENV=prod mix release # Build release</code></pre>
+            </div>
+
+            <div class="step-by-step">
+                <strong>🚀 Getting Started Workflow:</strong>
+                <ol>
+                    <li>Create new Phoenix app: <code>mix phx.new my_app --live</code></li>
+                    <li>Set up database: <code>mix ecto.setup</code></li>
+                    <li>Generate authentication: <code>mix phx.gen.auth Accounts User users</code></li>
+                    <li>Create your first context: <code>mix phx.gen.live Blog Post posts title:string content:text</code></li>
+                    <li>Run migrations: <code>mix ecto.migrate</code></li>
+                    <li>Start server: <code>mix phx.server</code></li>
+                    <li>Visit <code>http://localhost:4000</code> and start building!</li>
+                </ol>
+            </div>

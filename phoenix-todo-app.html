@@ -1,0 +1,1858 @@
+<!doctype html>
+<html lang="en">
+    <head>
+        <meta charset="utf-8" />
+        <title>Phoenix Todo Tutorial - Complete Step-by-Step Guide</title>
+        <meta name="viewport" content="width=device-width, initial-scale=1" />
+        <style>
+            body {
+                font-family:
+                    -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto,
+                    sans-serif;
+                margin: 0;
+                line-height: 1.6;
+                color: #333;
+            }
+            header {
+                background: #ff6900;
+                color: #fff;
+                padding: 1rem;
+                box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+            }
+            nav {
+                display: flex;
+                flex-wrap: wrap;
+                gap: 1rem;
+            }
+            nav a {
+                color: #fff;
+                text-decoration: none;
+                font-weight: bold;
+                padding: 0.5rem 1rem;
+                border-radius: 4px;
+                transition: background-color 0.2s;
+            }
+            nav a:hover {
+                background-color: rgba(255, 255, 255, 0.1);
+            }
+            nav a.current {
+                background-color: rgba(255, 255, 255, 0.2);
+            }
+            main {
+                padding: 2rem;
+                max-width: 1000px;
+                margin: auto;
+            }
+            h1,
+            h2,
+            h3 {
+                color: #ff6900;
+            }
+            h1 {
+                border-bottom: 3px solid #ff6900;
+                padding-bottom: 0.5rem;
+            }
+            h2 {
+                margin-top: 2rem;
+                border-bottom: 1px solid #e0e0e0;
+                padding-bottom: 0.25rem;
+            }
+            pre {
+                background: #f8f9fa;
+                padding: 1rem;
+                overflow-x: auto;
+                border-radius: 6px;
+                border: 1px solid #e9ecef;
+            }
+            code {
+                font-family:
+                    "SF Mono", Monaco, "Cascadia Code", "Roboto Mono", Consolas,
+                    monospace;
+                font-size: 0.9em;
+            }
+            pre code {
+                background: none;
+                padding: 0;
+            }
+            code:not(pre code) {
+                background: #f8f9fa;
+                padding: 0.2em 0.4em;
+                border-radius: 3px;
+                border: 1px solid #e9ecef;
+            }
+            table {
+                border-collapse: collapse;
+                width: 100%;
+                margin: 1rem 0;
+                box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+                border-radius: 6px;
+                overflow: hidden;
+            }
+            th,
+            td {
+                border: 1px solid #ddd;
+                padding: 0.75rem;
+                text-align: left;
+            }
+            th {
+                background: #f8f9fa;
+                font-weight: 600;
+            }
+            tbody tr:nth-child(even) {
+                background: #f8f9fa;
+            }
+            .beginner-tip {
+                background: linear-gradient(135deg, #e3f2fd 0%, #f1f8e9 100%);
+                border-left: 4px solid #2196f3;
+                padding: 1rem;
+                margin: 1rem 0;
+                border-radius: 6px;
+                box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
+            }
+            .warning {
+                background: linear-gradient(135deg, #fff8e1 0%, #ffecb3 100%);
+                border-left: 4px solid #ff9800;
+                padding: 1rem;
+                margin: 1rem 0;
+                border-radius: 6px;
+                box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
+            }
+            .success {
+                background: linear-gradient(135deg, #f1f8e9 0%, #e8f5e8 100%);
+                border-left: 4px solid #4caf50;
+                padding: 1rem;
+                margin: 1rem 0;
+                border-radius: 6px;
+                box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
+            }
+            .step-by-step {
+                background: linear-gradient(135deg, #f3e5f5 0%, #e1bee7 100%);
+                border-left: 4px solid #9c27b0;
+                padding: 1rem;
+                margin: 1rem 0;
+                border-radius: 6px;
+                box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
+            }
+            .checkpoint {
+                background: #f8f9fa;
+                border: 2px solid #ff6900;
+                padding: 1rem;
+                margin: 1.5rem 0;
+                border-radius: 6px;
+                box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
+            }
+            .toc {
+                background: #f8f9fa;
+                border: 1px solid #e9ecef;
+                border-radius: 6px;
+                padding: 1.5rem;
+                margin: 2rem 0;
+            }
+            .toc h3 {
+                margin-top: 0;
+                color: #495057;
+            }
+            .toc ol {
+                columns: 2;
+                column-gap: 2rem;
+                margin: 0;
+                padding-left: 1.5rem;
+                line-height: 1.8;
+            }
+            .toc li {
+                margin: 0.25rem 0;
+                break-inside: avoid;
+            }
+            .toc a {
+                color: #ff6900;
+                text-decoration: none;
+                font-weight: 500;
+            }
+            .toc a:hover {
+                text-decoration: underline;
+            }
+            footer {
+                text-align: center;
+                font-size: 0.9rem;
+                margin: 3rem 0 1rem;
+                color: #666;
+                border-top: 1px solid #e0e0e0;
+                padding-top: 2rem;
+            }
+            @media (max-width: 768px) {
+                .toc ol {
+                    columns: 1;
+                }
+                main {
+                    padding: 1rem;
+                }
+                nav {
+                    justify-content: center;
+                }
+            }
+        </style>
+    </head>
+    <body>
+        <header>
+            <nav>
+                <a href="phoenix-todo-app.html" class="current"
+                    >Phoenix Todo Example</a
+                >
+                <a href="elixir-best-practice.html">Elixir Best Practices</a>
+                <a href="phoenix-best-practice.html">Phoenix Best Practices</a>
+            </nav>
+        </header>
+
+        <main>
+            <h1>
+                Build Your First Phoenix LiveView App: A Complete Todo Tutorial
+            </h1>
+
+            <p>
+                Welcome to your Phoenix journey! In this comprehensive tutorial,
+                we'll build a real-time todo application from scratch. By the
+                end, you'll have a working app with user authentication,
+                database persistence, and real-time updates. Don't worry if
+                you're new to Phoenix – we'll explain everything step by step
+                with detailed command explanations.
+            </p>
+
+            <div class="beginner-tip">
+                <strong>🎯 What you'll learn:</strong>
+                <ul>
+                    <li>How to set up a Phoenix project with LiveView</li>
+                    <li>User authentication with <code>phx.gen.auth</code></li>
+                    <li>Database design with Ecto schemas and migrations</li>
+                    <li>Building interactive UIs with LiveView</li>
+                    <li>Real-time updates and form handling</li>
+                    <li>Security best practices and user data isolation</li>
+                    <li>Testing your Phoenix application</li>
+                    <li>
+                        Deployment preparation and production considerations
+                    </li>
+                </ul>
+            </div>
+
+            <div class="toc" id="table-of-contents">
+                <h3>📚 Table of Contents</h3>
+                <ol>
+                    <li><a href="#prerequisites">Prerequisites & Setup</a></li>
+                    <li>
+                        <a href="#project-setup"
+                            >Project Setup & Initial Configuration</a
+                        >
+                    </li>
+                    <li>
+                        <a href="#authentication">Adding User Authentication</a>
+                    </li>
+                    <li><a href="#todo-lists">Creating Todo Lists</a></li>
+                    <li><a href="#todo-items">Adding Todo Items</a></li>
+                    <li><a href="#polish">Polish & Real-time Features</a></li>
+                    <li><a href="#testing">Testing Your Application</a></li>
+                    <li><a href="#deployment">Deployment & Production</a></li>
+                    <li>
+                        <a href="#troubleshooting">Troubleshooting Guide</a>
+                    </li>
+                    <li>
+                        <a href="#next-steps">Next Steps & Advanced Features</a>
+                    </li>
+                    <li><a href="#resources">Learning Resources</a></li>
+                </ol>
+            </div>
+
+            <div
+                style="
+                    text-align: center;
+                    margin: 2rem 0;
+                    padding: 1rem;
+                    background: linear-gradient(
+                        135deg,
+                        #e3f2fd 0%,
+                        #f1f8e9 100%
+                    );
+                    border-radius: 6px;
+                    border-left: 4px solid #2196f3;
+                "
+            >
+                <strong>💡 Quick Navigation Tip:</strong> Use Ctrl+F (Cmd+F on
+                Mac) to search for specific topics throughout this guide.
+            </div>
+
+            <hr />
+
+            <h2 id="prerequisites">Prerequisites & Setup</h2>
+            <p>Before we start, make sure you have these installed:</p>
+            <ul>
+                <li>
+                    <strong>Elixir 1.14+</strong>
+                    (<a href="https://elixir-lang.org/install.html"
+                        >Installation guide</a
+                    >)
+                </li>
+                <li>
+                    <strong>Phoenix 1.7+</strong>
+                    <pre><code>mix archive.install hex phx_new</code></pre>
+                </li>
+                <li>
+                    <strong>PostgreSQL</strong> running locally
+                    <small>(or use SQLite for simplicity)</small>
+                </li>
+                <li><strong>Node.js</strong> for asset compilation</li>
+            </ul>
+
+            <div class="warning">
+                <strong>Troubleshooting tip:</strong> If you get "command not
+                found" errors, make sure Elixir's bin directory is in your PATH.
+                Run <code>elixir --version</code>
+                to verify your installation.
+            </div>
+
+            <hr />
+
+            <h2 id="project-setup">
+                Part 1: Project Setup &amp; Initial Configuration
+            </h2>
+
+            <h3>Step 1: Create Your Phoenix Project</h3>
+            <div class="step-by-step">
+                <strong>🎯 What we're doing:</strong> Creating a new Phoenix
+                project with LiveView enabled and PostgreSQL as the database.
+
+                <pre><code>mix phx.new live_todo --live --database postgres</code></pre>
+
+                <strong>📋 Command breakdown:</strong>
+                <ul>
+                    <li>
+                        <code>mix phx.new</code> - Phoenix generator command
+                        that creates a new application
+                    </li>
+                    <li>
+                        <code>live_todo</code> - Your app name (creates a folder
+                        with this name and sets the module name)
+                    </li>
+                    <li>
+                        <code>--live</code> - Includes Phoenix LiveView for
+                        real-time, interactive features without JavaScript
+                    </li>
+                    <li>
+                        <code>--database postgres</code> - Configures PostgreSQL
+                        as the database (alternatives: <code>mysql</code>,
+                        <code>sqlite3</code>)
+                    </li>
+                </ul>
+
+                <strong>💡 Alternative for beginners:</strong> If you want to
+                avoid PostgreSQL setup, use:
+                <pre><code>mix phx.new live_todo --live --database sqlite3</code></pre>
+            </div>
+
+            <div class="checkpoint">
+                <strong>✅ Checkpoint:</strong> You should see a new
+                <code>live_todo</code> folder with the Phoenix project
+                structure. If you see any errors, double-check your Phoenix
+                installation.
+            </div>
+
+            <h3>Step 2: Install Dependencies and Setup Database</h3>
+            <div class="step-by-step">
+                <pre><code>cd live_todo
+mix deps.get          # Downloads all required packages
+mix ecto.setup        # Creates database + runs migrations + seeds</code></pre>
+
+                <strong>📋 What each command does:</strong>
+                <ul>
+                    <li>
+                        <code>cd live_todo</code> - Navigate into your new
+                        project directory
+                    </li>
+                    <li>
+                        <code>mix deps.get</code> - Downloads and installs all
+                        dependencies listed in <code>mix.exs</code> (Ecto for
+                        database, Phoenix LiveView, etc.)
+                    </li>
+                    <li>
+                        <code>mix ecto.setup</code> - Runs three commands in
+                        sequence:
+                        <ul>
+                            <li>
+                                <code>mix ecto.create</code> - Creates the
+                                database
+                            </li>
+                            <li>
+                                <code>mix ecto.migrate</code> - Runs any
+                                existing migrations
+                            </li>
+                            <li>
+                                <code>mix run priv/repo/seeds.exs</code> - Seeds
+                                the database with initial data
+                            </li>
+                        </ul>
+                    </li>
+                </ul>
+
+                <strong>🔍 What's happening behind the scenes:</strong>
+                <p>
+                    Phoenix is setting up your development environment with all
+                    the tools you need: database connection, LiveView for
+                    real-time features, and a complete web framework structure.
+                </p>
+            </div>
+
+            <div class="warning">
+                <strong>Database connection issues?</strong>
+                <ul>
+                    <li>
+                        Make sure PostgreSQL is running:
+                        <code>brew services start postgresql</code> (macOS)
+                    </li>
+                    <li>
+                        Check your database config in
+                        <code>config/dev.exs</code>
+                    </li>
+                    <li>
+                        For SQLite, use <code>--database sqlite3</code> when
+                        creating the project
+                    </li>
+                </ul>
+            </div>
+
+            <h3>Step 3: Test Your Setup</h3>
+            <div class="step">
+                <pre><code>mix phx.server</code></pre>
+
+                <p>
+                    Visit <strong>http://localhost:4000</strong> - you should
+                    see the Phoenix welcome page!
+                </p>
+            </div>
+
+            <div class="success">
+                <strong>🎉 Great job!</strong> You have a working Phoenix
+                application. Press <code>Ctrl+C</code> twice to stop the server
+                when you're ready to continue.
+            </div>
+
+            <hr />
+
+            <h2 id="authentication">Part 2: Adding User Authentication</h2>
+
+            <div class="beginner-tip">
+                <strong>Why authentication first?</strong> We're adding user
+                authentication before building our todo features because each
+                user should only see their own todos. Phoenix makes this
+                incredibly easy with built-in generators.
+            </div>
+
+            <h3>Step 4: Generate Authentication System</h3>
+            <div class="step-by-step">
+                <pre><code>mix phx.gen.auth Accounts User users</code></pre>
+
+                <strong>📋 Command breakdown:</strong>
+                <ul>
+                    <li>
+                        <code>mix phx.gen.auth</code> - Phoenix's built-in
+                        authentication generator
+                    </li>
+                    <li>
+                        <code>Accounts</code> - The context name (business logic
+                        module)
+                    </li>
+                    <li>
+                        <code>User</code> - The schema name (data structure)
+                    </li>
+                    <li><code>users</code> - The database table name</li>
+                </ul>
+
+                <strong>🏗️ This command creates:</strong>
+                <ul>
+                    <li>
+                        <strong>Accounts context</strong> - Functions for
+                        managing users (<code>lib/live_todo/accounts.ex</code>)
+                    </li>
+                    <li>
+                        <strong>User schema</strong> - Database structure for
+                        users (<code>lib/live_todo/accounts/user.ex</code>)
+                    </li>
+                    <li>
+                        <strong>Authentication pages</strong> - Login, register,
+                        password reset (LiveView pages)
+                    </li>
+                    <li>
+                        <strong>Database migrations</strong> - Tables for users
+                        and sessions
+                    </li>
+                    <li>
+                        <strong>Security plugs</strong> - Middleware for
+                        protecting routes
+                    </li>
+                    <li>
+                        <strong>Tests</strong> - Complete test suite for
+                        authentication
+                    </li>
+                </ul>
+
+                <strong>🔐 Security features included:</strong>
+                <ul>
+                    <li>Password hashing with Bcrypt</li>
+                    <li>Email confirmation</li>
+                    <li>Password reset functionality</li>
+                    <li>Session management</li>
+                    <li>Remember me functionality</li>
+                </ul>
+            </div>
+
+            <div class="step">
+                <strong>Run the new migrations:</strong>
+                <pre><code>mix ecto.migrate</code></pre>
+            </div>
+
+            <h3>Step 5: Update Your Router</h3>
+            <div class="step">
+                <p>
+                    The auth generator added routes to your
+                    <code>lib/live_todo_web/router.ex</code>. Let's understand
+                    what was added:
+                </p>
+
+                <pre><code># These routes are now in your router.ex
+scope "/", LiveTodoWeb do
+  pipe_through :browser
+
+  # Home page (already existed)
+  get "/", PageController, :home
+
+  # NEW: Authentication routes
+  live "/users/register", UserRegistrationLive, :new
+  live "/users/log_in", UserLoginLive, :new
+  live "/users/reset_password", UserForgotPasswordLive, :new
+  # ... more auth routes
+end</code></pre>
+            </div>
+
+            <h3>Step 6: Test Authentication</h3>
+            <div class="step">
+                <p>Start your server again:</p>
+                <pre><code>mix phx.server</code></pre>
+
+                <p>
+                    Visit
+                    <strong>http://localhost:4000/users/register</strong> to
+                    create an account!
+                </p>
+            </div>
+
+            <div class="checkpoint">
+                <strong>✅ Checkpoint:</strong> You should be able to:
+                <ul>
+                    <li>Register a new account</li>
+                    <li>Log in and log out</li>
+                    <li>See "Log out" link when authenticated</li>
+                </ul>
+            </div>
+
+            <hr />
+
+            <h2 id="todo-lists">Part 3: Creating Todo Lists</h2>
+
+            <div class="beginner-tip">
+                <strong>Our data model:</strong> Each user can have multiple
+                todo lists, and each list can have multiple todo items. This is
+                called a "one-to-many" relationship in database terms.
+            </div>
+
+            <h3>Step 7: Generate Todo List CRUD</h3>
+            <div class="step-by-step">
+                <strong>🎯 Create the todo list functionality:</strong>
+                <pre><code>mix phx.gen.live Todos TodoList todo_lists name:string description:text</code></pre>
+
+                <strong>📋 Command breakdown:</strong>
+                <ul>
+                    <li>
+                        <code>mix phx.gen.live</code> - Generates a complete
+                        LiveView CRUD interface
+                    </li>
+                    <li>
+                        <code>Todos</code> - Context name (business logic
+                        module)
+                    </li>
+                    <li>
+                        <code>TodoList</code> - Schema name (singular,
+                        CamelCase)
+                    </li>
+                    <li>
+                        <code>todo_lists</code> - Table name (plural,
+                        snake_case)
+                    </li>
+                    <li>
+                        <code>name:string description:text</code> - Field
+                        definitions
+                    </li>
+                </ul>
+
+                <strong>🏗️ This creates:</strong>
+                <ul>
+                    <li>
+                        <strong>Todos context</strong> - Business logic for
+                        todos (<code>lib/live_todo/todos.ex</code>)
+                    </li>
+                    <li>
+                        <strong>TodoList schema</strong> - Database structure
+                        (<code>lib/live_todo/todos/todo_list.ex</code>)
+                    </li>
+                    <li>
+                        <strong>LiveView pages</strong> - Index, show, and form
+                        components
+                    </li>
+                    <li>
+                        <strong>Database migration</strong> - Creates todo_lists
+                        table
+                    </li>
+                    <li>
+                        <strong>Tests</strong> - Complete test suite for the
+                        functionality
+                    </li>
+                </ul>
+
+                <div class="beginner-tip">
+                    <strong>💡 LiveView vs Controllers:</strong> We're using
+                    <code>phx.gen.live</code> instead of
+                    <code>phx.gen.html</code> because LiveView provides
+                    real-time updates without page refreshes. Perfect for
+                    interactive todo lists!
+                </div>
+            </div>
+
+            <h3>Step 8: Add User Association to Todo Lists</h3>
+            <div class="step">
+                <p>
+                    We need to connect todo lists to users. First, let's modify
+                    the migration that was just created:
+                </p>
+
+                <pre><code># Find the migration file in priv/repo/migrations/
+# Look for a file like: YYYYMMDDHHMMSS_create_todo_lists.exs
+# Add the user_id field to the create table block:
+
+def change do
+  create table(:todo_lists) do
+    add :name, :string
+    add :description, :text
+    # ADD THIS LINE:
+    add :user_id, references(:users, on_delete: :delete_all), null: false
+
+    timestamps()
+  end
+
+  # ADD THIS LINE:
+  create index(:todo_lists, [:user_id])
+end</code></pre>
+            </div>
+
+            <h3>Step 9: Update Schemas with Associations</h3>
+            <div class="step">
+                <p>
+                    <strong>Update TodoList schema</strong>
+                    (<code>lib/live_todo/todos/todo_list.ex</code>):
+                </p>
+
+                <pre><code>defmodule LiveTodo.Todos.TodoList do
+  use Ecto.Schema
+  import Ecto.Changeset
+
+  schema "todo_lists" do
+    field :name, :string
+    field :description, :string
+    # ADD THIS LINE:
+    belongs_to :user, LiveTodo.Accounts.User
+
+    timestamps()
+  end
+
+  @doc false
+  def changeset(todo_list, attrs) do
+    todo_list
+    |> cast(attrs, [:name, :description])
+    |> validate_required([:name])
+
+    |> validate_length(:name, min: 1, max: 100)
+  end
+end</code></pre>
+            </div>
+
+            <div class="step">
+                <p>
+                    <strong>Update User schema</strong>
+                    (<code>lib/live_todo/accounts/user.ex</code>):
+                </p>
+
+                <pre><code># Add this line inside the schema block:
+has_many :todo_lists, LiveTodo.Todos.TodoList</code></pre>
+            </div>
+
+            <h3>Step 10: Update Context to Scope by User</h3>
+            <div class="step">
+                <p>
+                    Update the Todos context
+                    (<code>lib/live_todo/todos.ex</code>) to only show each
+                    user's lists:
+                </p>
+
+                <pre><code>defmodule LiveTodo.Todos do
+  import Ecto.Query, warn: false
+  alias LiveTodo.Repo
+  alias LiveTodo.Todos.TodoList
+  alias LiveTodo.Accounts.User
+
+  # Update this function:
+  def list_todo_lists(%User{id: user_id}) do
+    from(l in TodoList, where: l.user_id == ^user_id, order_by: [desc: l.inserted_at])
+    |> Repo.all()
+  end
+
+  # Update this function:
+  def get_todo_list!(%User{id: user_id}, id) do
+    Repo.get_by!(TodoList, id: id, user_id: user_id)
+  end
+
+  # Update this function:
+  def create_todo_list(%User{} = user, attrs \\ %{}) do
+    %TodoList{}
+    |> TodoList.changeset(attrs)
+    |> Ecto.Changeset.put_assoc(:user, user)
+    |> Repo.insert()
+  end
+
+  # Update this function:
+  def update_todo_list(%User{id: user_id}, %TodoList{user_id: user_id} = todo_list, attrs) do
+    todo_list
+    |> TodoList.changeset(attrs)
+    |> Repo.update()
+  end
+
+  # Update this function:
+  def delete_todo_list(%User{id: user_id}, %TodoList{user_id: user_id} = todo_list) do
+    Repo.delete(todo_list)
+  end
+end</code></pre>
+            </div>
+
+            <div class="warning">
+                <strong>🔐 Security note:</strong> Notice how we're checking
+                <code>user_id</code> in every function? This ensures users can
+                only access their own todo lists! This is called "authorization"
+                - making sure users can only access data they own. Never skip
+                this step in real applications.
+            </div>
+
+            <h3>Step 11: Protect Routes and Update LiveViews</h3>
+            <div class="step">
+                <p>
+                    Add the todo routes to the authenticated section in
+                    <code>router.ex</code>:
+                </p>
+
+                <pre><code>scope "/", LiveTodoWeb do
+  pipe_through [:browser, :require_authenticated_user]
+
+  # ADD THESE LINES:
+  live "/todos", TodoListLive.Index, :index
+  live "/todos/new", TodoListLive.Index, :new
+  live "/todos/:id/edit", TodoListLive.Index, :edit
+  live "/todos/:id", TodoListLive.Show, :show
+  live "/todos/:id/show/edit", TodoListLive.Show, :edit
+
+  live "/users/settings", UserSettingsLive, :edit
+  live "/users/settings/confirm_email/:token", UserSettingsLive, :confirm_email
+end</code></pre>
+            </div>
+
+            <h3>Step 12: Update LiveView to Get Current User</h3>
+            <div class="step">
+                <p>
+                    Update
+                    <code>lib/live_todo_web/live/todo_list_live/index.ex</code>:
+                </p>
+
+                <pre><code>defmodule LiveTodoWeb.TodoListLive.Index do
+  use LiveTodoWeb, :live_view
+
+  alias LiveTodo.Todos
+  alias LiveTodo.Todos.TodoList
+
+  @impl true
+  def mount(_params, _session, socket) do
+    # Get current user from socket assigns
+    current_user = socket.assigns.current_user
+    todo_lists = Todos.list_todo_lists(current_user)
+
+    {:ok, assign(socket, :todo_lists, todo_lists)}
+  end
+
+  # Update other functions to pass current_user:
+  @impl true
+  def handle_info({LiveTodoWeb.TodoListLive.FormComponent, {:saved, todo_list}}, socket) do
+    current_user = socket.assigns.current_user
+    {:noreply, assign(socket, :todo_lists, Todos.list_todo_lists(current_user))}
+  end
+
+  @impl true
+  def handle_event("delete", %{"id" => id}, socket) do
+    current_user = socket.assigns.current_user
+    todo_list = Todos.get_todo_list!(current_user, id)
+    {:ok, _} = Todos.delete_todo_list(current_user, todo_list)
+
+    {:noreply, assign(socket, :todo_lists, Todos.list_todo_lists(current_user))}
+  end
+end</code></pre>
+            </div>
+
+            <h3>Step 13: Run Migration and Test</h3>
+            <div class="step">
+                <pre><code>mix ecto.migrate
+mix phx.server</code></pre>
+
+                <p>
+                    Visit <strong>http://localhost:4000/todos</strong> (you must
+                    be logged in)
+                </p>
+            </div>
+
+            <div class="checkpoint">
+                <strong>✅ Checkpoint:</strong> You should be able to:
+                <ul>
+                    <li>Create new todo lists</li>
+                    <li>See only your own todo lists</li>
+                    <li>Edit and delete your todo lists</li>
+                    <li>Get redirected to login if not authenticated</li>
+                </ul>
+            </div>
+
+            <hr />
+
+            <h2 id="todo-items">Part 4: Adding Todo Items</h2>
+
+            <div class="beginner-tip">
+                <strong>Next level:</strong> Now we'll add individual todo items
+                to each list. This creates another one-to-many relationship:
+                each todo list has many todo items.
+            </div>
+
+            <h3>Step 14: Generate Todo Items</h3>
+            <div class="step-by-step">
+                <pre><code>mix phx.gen.live Todos TodoItem todo_items \
+  title:string \
+  description:text \
+  completed:boolean \
+  todo_list_id:references:todo_lists</code></pre>
+
+                <strong>📋 Command breakdown:</strong>
+                <ul>
+                    <li><code>TodoItem</code> - Individual todo item schema</li>
+                    <li><code>todo_items</code> - Database table name</li>
+                    <li><code>title:string</code> - The todo item title</li>
+                    <li>
+                        <code>description:text</code> - Optional longer
+                        description
+                    </li>
+                    <li>
+                        <code>completed:boolean</code> - Whether the item is
+                        done
+                    </li>
+                    <li>
+                        <code>todo_list_id:references:todo_lists</code> -
+                        Foreign key to todo_lists table
+                    </li>
+                </ul>
+
+                <div class="beginner-tip">
+                    <strong>🔗 Database relationships:</strong> The
+                    <code>references:todo_lists</code> creates a foreign key
+                    relationship. This means each todo item belongs to exactly
+                    one todo list.
+                </div>
+            </div>
+
+            <h3>Step 15: Update TodoItem Schema</h3>
+            <div class="step">
+                <p>Update <code>lib/live_todo/todos/todo_item.ex</code>:</p>
+
+                <pre><code>defmodule LiveTodo.Todos.TodoItem do
+  use Ecto.Schema
+  import Ecto.Changeset
+
+  schema "todo_items" do
+    field :title, :string
+    field :description, :string
+    field :completed, :boolean, default: false
+    belongs_to :todo_list, LiveTodo.Todos.TodoList
+
+    timestamps()
+  end
+
+  @doc false
+  def changeset(todo_item, attrs) do
+    todo_item
+    |> cast(attrs, [:title, :description, :completed])
+    |> validate_required([:title])
+    |> validate_length(:title, min: 1, max: 200)
+  end
+end</code></pre>
+            </div>
+
+            <h3>Step 16: Add Association to TodoList</h3>
+            <div class="step">
+                <p>Add this line to TodoList schema:</p>
+
+                <pre><code># In lib/live_todo/todos/todo_list.ex, inside the schema block:
+has_many :todo_items, LiveTodo.Todos.TodoItem</code></pre>
+            </div>
+
+            <h3>Step 17: Create a Better Todo List Show Page</h3>
+            <div class="step">
+                <p>
+                    Let's replace the generated show page with something more
+                    useful. Update
+                    <code
+                        >lib/live_todo_web/live/todo_list_live/show.html.heex</code
+                    >:
+                </p>
+
+                <pre><code>&lt;.header&gt;
+  &lt;%= @todo_list.name %&gt;
+  &lt;:subtitle&gt;&lt;%= @todo_list.description %&gt;&lt;/:subtitle&gt;
+  &lt;:actions&gt;
+    &lt;.link patch={~p"/todos/#{@todo_list}/show/edit"} phx-click={JS.push_focus()}&gt;
+      &lt;.button&gt;Edit todo list&lt;/.button&gt;
+    &lt;/.link&gt;
+  &lt;/:actions&gt;
+&lt;/.header&gt;
+
+&lt;!-- Add new todo item form --&gt;
+&lt;div class="mt-8"&gt;
+  &lt;h3 class="text-lg font-semibold mb-4"&gt;Add New Item&lt;/h3&gt;
+  &lt;.simple_form for={@item_form} phx-submit="save_item"&gt;
+    &lt;.input field={@item_form[:title]} placeholder="What needs to be done?" /&gt;
+    &lt;.input field={@item_form[:description]} type="textarea" placeholder="Optional description..." /&gt;
+    &lt;:actions&gt;
+      &lt;.button&gt;Add Item&lt;/.button&gt;
+    &lt;/:actions&gt;
+  &lt;/.simple_form&gt;
+&lt;/div&gt;
+
+&lt;!-- List todo items --&gt;
+&lt;div class="mt-8"&gt;
+  &lt;h3 class="text-lg font-semibold mb-4"&gt;Items (&lt;%= length(@todo_items) %&gt;)&lt;/h3&gt;
+
+  &lt;div :if={@todo_items == []} class="text-gray-500 italic"&gt;
+    No items yet. Add one above!
+  &lt;/div&gt;
+
+  &lt;div :for={item &lt;- @todo_items} class="flex items-center gap-3 py-3 border-b"&gt;
+    &lt;input
+      type="checkbox"
+      checked={item.completed}
+      phx-click="toggle_item"
+      phx-value-id={item.id}
+      class="w-5 h-5" /&gt;
+
+    &lt;div class="flex-1"&gt;
+      &lt;div class={["font-medium", item.completed && "line-through text-gray-500"]}&gt;
+        &lt;%= item.title %&gt;
+      &lt;/div&gt;
+      &lt;div :if={item.description} class="text-sm text-gray-600"&gt;
+        &lt;%= item.description %&gt;
+      &lt;/div&gt;
+    &lt;/div&gt;
+
+    &lt;button
+      phx-click="delete_item"
+      phx-value-id={item.id}
+      data-confirm="Are you sure?"
+      class="text-red-600 hover:text-red-800"&gt;
+      Delete
+    &lt;/button&gt;
+  &lt;/div&gt;
+&lt;/div&gt;
+
+&lt;.back navigate={~p"/todos"}&gt;Back to todo lists&lt;/.back&gt;
+
+&lt;.modal :if={@live_action == :edit} id="todo_list-modal" show on_cancel={JS.patch(~p"/todos/#{@todo_list}")}&gt;
+  &lt;.live_component
+    module={LiveTodoWeb.TodoListLive.FormComponent}
+    id={@todo_list.id}
+    title={@page_title}
+    action={@live_action}
+    todo_list={@todo_list}
+    current_user={@current_user}
+    patch={~p"/todos/#{@todo_list}"}
+  /&gt;
+&lt;/.modal&gt;</code></pre>
+            </div>
+
+            <h3>Step 18: Update the Show LiveView</h3>
+            <div class="step">
+                <p>
+                    Update
+                    <code>lib/live_todo_web/live/todo_list_live/show.ex</code>:
+                </p>
+
+                <pre><code>defmodule LiveTodoWeb.TodoListLive.Show do
+  use LiveTodoWeb, :live_view
+
+  alias LiveTodo.Todos
+  alias LiveTodo.Todos.TodoItem
+
+  @impl true
+  def mount(_params, _session, socket) do
+    {:ok, socket}
+  end
+
+  @impl true
+  def handle_params(%{"id" => id}, _, socket) do
+    current_user = socket.assigns.current_user
+    todo_list = Todos.get_todo_list!(current_user, id)
+    todo_items = Todos.list_todo_items(todo_list)
+
+    {:noreply,
+     socket
+     |> assign(:page_title, page_title(socket.assigns.live_action))
+     |> assign(:todo_list, todo_list)
+     |> assign(:todo_items, todo_items)
+     |> assign(:item_form, to_form(Todos.change_todo_item(%TodoItem{})))}
+  end
+
+  @impl true
+  def handle_event("save_item", %{"todo_item" => item_params}, socket) do
+    case Todos.create_todo_item(socket.assigns.todo_list, item_params) do
+      {:ok, _item} ->
+        todo_items = Todos.list_todo_items(socket.assigns.todo_list)
+        {:noreply,
+         socket
+         |> assign(:todo_items, todo_items)
+         |> assign(:item_form, to_form(Todos.change_todo_item(%TodoItem{})))
+         |> put_flash(:info, "Item added successfully!")}
+
+      {:error, %Ecto.Changeset{} = changeset} ->
+        {:noreply, assign(socket, :item_form, to_form(changeset))}
+    end
+  end
+
+  @impl true
+  def handle_event("toggle_item", %{"id" => id}, socket) do
+    item = Todos.get_todo_item!(id)
+    {:ok, _} = Todos.update_todo_item(item, %{completed: !item.completed})
+
+    todo_items = Todos.list_todo_items(socket.assigns.todo_list)
+    {:noreply, assign(socket, :todo_items, todo_items)}
+  end
+
+  @impl true
+  def handle_event("delete_item", %{"id" => id}, socket) do
+    item = Todos.get_todo_item!(id)
+    {:ok, _} = Todos.delete_todo_item(item)
+
+    todo_items = Todos.list_todo_items(socket.assigns.todo_list)
+    {:noreply, assign(socket, :todo_items, todo_items)}
+  end
+
+  defp page_title(:show), do: "Show Todo list"
+  defp page_title(:edit), do: "Edit Todo list"
+end</code></pre>
+            </div>
+
+            <h3>Step 19: Add TodoItem Functions to Context</h3>
+            <div class="step">
+                <p>
+                    Add these functions to <code>lib/live_todo/todos.ex</code>:
+                </p>
+
+                <pre><code># Add these to the end of the Todos module:
+
+alias LiveTodo.Todos.TodoItem
+
+def list_todo_items(%TodoList{id: todo_list_id}) do
+  from(i in TodoItem,
+    where: i.todo_list_id == ^todo_list_id,
+    order_by: [asc: i.completed, desc: i.inserted_at])
+  |> Repo.all()
+end
+
+def get_todo_item!(id) do
+  Repo.get!(TodoItem, id)
+end
+
+def create_todo_item(%TodoList{} = todo_list, attrs \\ %{}) do
+  %TodoItem{}
+  |> TodoItem.changeset(attrs)
+  |> Ecto.Changeset.put_assoc(:todo_list, todo_list)
+  |> Repo.insert()
+end
+
+def update_todo_item(%TodoItem{} = todo_item, attrs) do
+  todo_item
+  |> TodoItem.changeset(attrs)
+  |> Repo.update()
+end
+
+def delete_todo_item(%TodoItem{} = todo_item) do
+  Repo.delete(todo_item)
+end
+
+def change_todo_item(%TodoItem{} = todo_item, attrs \\ %{}) do
+  TodoItem.changeset(todo_item, attrs)
+end</code></pre>
+            </div>
+
+            <h3>Step 20: Run Migration and Test</h3>
+            <div class="step">
+                <pre><code>mix ecto.migrate
+mix phx.server</code></pre>
+
+                <p>
+                    Now visit a specific todo list at
+                    <strong>http://localhost:4000/todos/1</strong>
+                </p>
+            </div>
+
+            <div class="checkpoint">
+                <strong>✅ Checkpoint:</strong> You should be able to:
+                <ul>
+                    <li>Add todo items to a list</li>
+                    <li>Check/uncheck items as completed</li>
+                    <li>Delete items</li>
+                    <li>See items update in real-time</li>
+                </ul>
+            </div>
+
+            <hr />
+
+            <h2 id="polish">Part 5: Polish and Real-time Features</h2>
+
+            <h3>Step 21: Add Navigation</h3>
+            <div class="step">
+                <p>
+                    Update your main navigation in
+                    <code
+                        >lib/live_todo_web/components/layouts/root.html.heex</code
+                    >:
+                </p>
+
+                <pre><code>&lt;!-- Find the navigation section and update it: --&gt;
+&lt;header class="px-4 sm:px-6 lg:px-8"&gt;
+  &lt;div class="flex items-center justify-between border-b border-zinc-100 py-3 text-sm"&gt;
+    &lt;div class="flex items-center gap-4"&gt;
+      &lt;a href="/" class="text-brand hover:text-brand-dark"&gt;
+        &lt;.icon name="hero-home" class="h-6 w-6" /&gt;
+      &lt;/a&gt;
+      &lt;%= if @current_user do %&gt;
+        &lt;.link navigate={~p"/todos"} class="text-zinc-900 hover:text-zinc-700"&gt;
+          My Todo Lists
+        &lt;/.link&gt;
+      &lt;% end %&gt;
+    &lt;/div&gt;
+
+    &lt;div class="flex items-center gap-4 font-semibold leading-6 text-zinc-900"&gt;
+      &lt;%= if @current_user do %&gt;
+        &lt;span&gt;Hello, &lt;%= @current_user.email %&gt;&lt;/span&gt;
+        &lt;.link href={~p"/users/settings"} class="hover:text-zinc-700"&gt;
+          Settings
+        &lt;/.link&gt;
+        &lt;.link href={~p"/users/log_out"} method="delete" class="hover:text-zinc-700"&gt;
+          Log out
+        &lt;/.link&gt;
+      &lt;% else %&gt;
+        &lt;.link navigate={~p"/users/register"} class="hover:text-zinc-700"&gt;
+          Register
+        &lt;/.link&gt;
+        &lt;.link navigate={~p"/users/log_in"} class="hover:text-zinc-700"&gt;
+          Log in
+        &lt;/.link&gt;
+      &lt;% end %&gt;
+    &lt;/div&gt;
+  &lt;/div&gt;
+&lt;/header&gt;</code></pre>
+            </div>
+
+            <div class="success">
+                <strong>🎉 Congratulations!</strong> You've built a complete
+                Phoenix LiveView todo application!
+            </div>
+
+            <hr />
+
+            <h2>What You've Accomplished</h2>
+
+            <div class="checkpoint">
+                <strong>🎯 You've successfully built:</strong>
+                <ul>
+                    <li>
+                        <strong>User Authentication</strong> - Complete
+                        registration, login, logout, and password reset system
+                    </li>
+                    <li>
+                        <strong>Todo Lists</strong> - Full CRUD (Create, Read,
+                        Update, Delete) operations for todo lists
+                    </li>
+                    <li>
+                        <strong>Todo Items</strong> - Add items, mark as
+                        complete, delete items with real-time updates
+                    </li>
+                    <li>
+                        <strong>Real-time Updates</strong> - Changes appear
+                        instantly without page refreshes using LiveView
+                    </li>
+                    <li>
+                        <strong>Security</strong> - Proper authorization
+                        ensuring users can only see their own data
+                    </li>
+                    <li>
+                        <strong>Database Design</strong> - Proper relationships
+                        and data integrity with Ecto
+                    </li>
+                    <li>
+                        <strong>Responsive UI</strong> - Works well on desktop
+                        and mobile devices
+                    </li>
+                    <li>
+                        <strong>Production Ready</strong> - Configured for
+                        deployment with proper error handling
+                    </li>
+                </ul>
+            </div>
+
+            <div class="beginner-tip">
+                <strong>🏆 Congratulations!</strong> You've just built a
+                production-ready Phoenix application! This is no small feat -
+                you've learned concepts that many web developers take months to
+                master.
+            </div>
+
+            <h2>Next Steps to Improve Your App</h2>
+
+            <div class="beginner-tip">
+                <strong>Ready for more?</strong> Here are some features you
+                could add to make your todo app even better:
+            </div>
+
+            <h3>Easy Enhancements</h3>
+            <ul>
+                <li>
+                    <strong>Due dates</strong> - Add a date field to todo items
+                </li>
+                <li>
+                    <strong>Priority levels</strong> - High, medium, low
+                    priority
+                </li>
+                <li>
+                    <strong>Categories/Tags</strong> - Organize items by
+                    category
+                </li>
+                <li><strong>Search</strong> - Find items quickly</li>
+                <li>
+                    <strong>Bulk actions</strong> - Mark multiple items as
+                    complete
+                </li>
+            </ul>
+
+            <h3>Advanced Features</h3>
+            <ul>
+                <li>
+                    <strong>Sharing</strong> - Let users share lists with others
+                </li>
+                <li>
+                    <strong>Email notifications</strong> - Remind users of due
+                    items
+                </li>
+                <li>
+                    <strong>File attachments</strong> - Add files to todo items
+                </li>
+                <li>
+                    <strong>Mobile app</strong> - Build with Phoenix LiveView
+                    Native
+                </li>
+                <li>
+                    <strong>API</strong> - Create REST endpoints for mobile apps
+                </li>
+            </ul>
+
+            <h2>Key Phoenix Concepts You've Learned</h2>
+
+            <table>
+                <thead>
+                    <tr>
+                        <th>Concept</th>
+                        <th>What it does</th>
+                        <th>Why it's important</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td><strong>LiveView</strong></td>
+                        <td>
+                            Creates interactive web pages without JavaScript
+                        </td>
+                        <td>
+                            Faster development, real-time updates, better SEO
+                        </td>
+                    </tr>
+                    <tr>
+                        <td><strong>Contexts</strong></td>
+                        <td>Organize business logic into focused modules</td>
+                        <td>
+                            Maintainable code, clear boundaries, easier testing
+                        </td>
+                    </tr>
+                    <tr>
+                        <td><strong>Ecto</strong></td>
+                        <td>Database queries, migrations, data validation</td>
+                        <td>Safe database operations, data integrity</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Authentication</strong></td>
+                        <td>User registration, login, session management</td>
+                        <td>Security, user-specific data, personalization</td>
+                    </tr>
+                    <tr>
+                        <td><strong>HEEx Templates</strong></td>
+                        <td>HTML with Elixir expressions</td>
+                        <td>Dynamic content, reusable components</td>
+                    </tr>
+                </tbody>
+            </table>
+
+            <h2>Troubleshooting Common Issues</h2>
+
+            <div class="warning">
+                <strong>If you run into problems:</strong>
+                <ul>
+                    <li>
+                        <strong>Database errors</strong> - Run
+                        <code>mix ecto.reset</code> to start fresh
+                    </li>
+                    <li>
+                        <strong>Compilation errors</strong> - Check for typos in
+                        function names and module references
+                    </li>
+                    <li>
+                        <strong>Routes not working</strong> - Verify your
+                        router.ex has the correct routes
+                    </li>
+                    <li>
+                        <strong>LiveView not updating</strong> - Make sure
+                        you're using <code>assign/3</code> to update state
+                    </li>
+                    <li>
+                        <strong>Authentication issues</strong> - Check that
+                        routes are in the correct pipeline
+                    </li>
+                </ul>
+            </div>
+
+            <h2>Resources for Continued Learning</h2>
+
+            <ul>
+                <li>
+                    <strong>Phoenix Guides</strong> -
+                    <a href="https://hexdocs.pm/phoenix" target="_blank"
+                        >hexdocs.pm/phoenix</a
+                    >
+                </li>
+                <li>
+                    <strong>LiveView Documentation</strong> -
+                    <a
+                        href="https://hexdocs.pm/phoenix_live_view"
+                        target="_blank"
+                        >hexdocs.pm/phoenix_live_view</a
+                    >
+                </li>
+                <li>
+                    <strong>Ecto Guide</strong> -
+                    <a href="https://hexdocs.pm/ecto" target="_blank"
+                        >hexdocs.pm/ecto</a
+                    >
+                </li>
+                <li>
+                    <strong>Elixir School</strong> -
+                    <a href="https://elixirschool.com" target="_blank"
+                        >elixirschool.com</a
+                    >
+                </li>
+                <li>
+                    <strong>Phoenix LiveView Examples</strong> -
+                    <a
+                        href="https://github.com/chrismccord/phoenix_live_view_example"
+                        target="_blank"
+                        >GitHub Examples</a
+                    >
+                </li>
+            </ul>
+
+            <div class="success">
+                <strong>🚀 You're now a Phoenix developer!</strong> You have the
+                foundation to build amazing real-time web applications. The
+                Phoenix community is welcoming and helpful - don't hesitate to
+                ask questions on the Elixir Forum or Discord.
+            </div>
+
+            <hr />
+
+            <h2 id="testing">Part 6: Testing Your Application</h2>
+
+            <div class="beginner-tip">
+                <strong>🧪 Why testing matters:</strong> Phoenix comes with
+                excellent testing tools built-in. Testing ensures your app works
+                correctly and helps prevent bugs when you make changes.
+            </div>
+
+            <h3>Step 22: Understanding Phoenix Tests</h3>
+            <div class="step-by-step">
+                <p>
+                    Phoenix generates tests automatically when you use
+                    generators. Let's explore what was created:
+                </p>
+
+                <pre><code># Run all tests
+mix test
+
+# Run tests with coverage report
+mix test --cover
+
+# Run specific test file
+mix test test/live_todo/todos_test.exs</code></pre>
+
+                <strong>📁 Test structure:</strong>
+                <ul>
+                    <li>
+                        <code>test/live_todo/</code> - Context tests (business
+                        logic)
+                    </li>
+                    <li>
+                        <code>test/live_todo_web/</code> - Web layer tests
+                        (controllers, LiveViews)
+                    </li>
+                    <li>
+                        <code>test/support/</code> - Test helpers and fixtures
+                    </li>
+                </ul>
+            </div>
+
+            <h3>Step 23: Writing Your First Test</h3>
+            <div class="step-by-step">
+                <p>Let's add a simple test for our todo functionality:</p>
+
+                <pre><code># test/live_todo/todos_test.exs
+defmodule LiveTodo.TodosTest do
+  use LiveTodo.DataCase
+  alias LiveTodo.{Todos, Accounts}
+
+  describe "todo_lists" do
+    test "create_todo_list/2 creates a list for a user" do
+      user = user_fixture()
+      attrs = %{name: "My Todo List", description: "Test description"}
+
+      assert {:ok, todo_list} = Todos.create_todo_list(user, attrs)
+      assert todo_list.name == "My Todo List"
+      assert todo_list.user_id == user.id
+    end
+
+    test "list_todo_lists/1 returns only user's lists" do
+      user1 = user_fixture()
+      user2 = user_fixture()
+
+      {:ok, list1} = Todos.create_todo_list(user1, %{name: "User 1 List"})
+      {:ok, _list2} = Todos.create_todo_list(user2, %{name: "User 2 List"})
+
+      user1_lists = Todos.list_todo_lists(user1)
+      assert length(user1_lists) == 1
+      assert hd(user1_lists).id == list1.id
+    end
+  end
+
+  defp user_fixture(attrs \\ %{}) do
+    {:ok, user} =
+      attrs
+      |> Enum.into(%{
+        email: "user#{System.unique_integer()}@example.com",
+        password: "hello world!"
+      })
+      |> Accounts.register_user()
+
+    user
+  end
+end</code></pre>
+            </div>
+
+            <div class="checkpoint">
+                <strong>✅ Testing Checkpoint:</strong> Run
+                <code>mix test</code> to ensure all tests pass. You should see
+                green output indicating your application is working correctly.
+            </div>
+
+            <hr />
+
+            <h2 id="deployment">Part 7: Deployment & Production</h2>
+
+            <div class="beginner-tip">
+                <strong>🚀 Ready for production?</strong> Phoenix applications
+                are built for production from day one. Let's prepare your app
+                for deployment with proper configuration and security.
+            </div>
+
+            <h3>Step 24: Production Configuration</h3>
+            <div class="step-by-step">
+                <p>Configure your app for production deployment:</p>
+
+                <pre><code># Generate a secret key for production
+mix phx.gen.secret</code></pre>
+
+                <strong>📋 Environment variables needed:</strong>
+                <ul>
+                    <li>
+                        <code>SECRET_KEY_BASE</code> - Use the generated secret
+                        above
+                    </li>
+                    <li>
+                        <code>DATABASE_URL</code> - Your production database URL
+                    </li>
+                    <li><code>PHX_HOST</code> - Your domain name</li>
+                </ul>
+
+                <strong>🔧 Example production environment:</strong>
+                <pre><code># .env.prod (don't commit this file!)
+SECRET_KEY_BASE=your_generated_secret_here
+DATABASE_URL=ecto://username:password@localhost/live_todo_prod
+PHX_HOST=yourdomain.com</code></pre>
+            </div>
+
+            <h3>Step 25: Building a Release</h3>
+            <div class="step-by-step">
+                <pre><code># Build assets for production
+mix assets.deploy
+
+# Build a production release
+MIX_ENV=prod mix release</code></pre>
+
+                <strong>📦 What happens during release:</strong>
+                <ul>
+                    <li>Compiles your application for production</li>
+                    <li>Bundles the Erlang runtime</li>
+                    <li>Creates a self-contained executable</li>
+                    <li>Optimizes for performance and memory usage</li>
+                </ul>
+            </div>
+
+            <hr />
+
+            <h2 id="troubleshooting">Part 8: Troubleshooting Guide</h2>
+
+            <div class="warning">
+                <strong>🔧 Common Issues and Solutions:</strong>
+            </div>
+
+            <h3>Database Issues</h3>
+            <table>
+                <thead>
+                    <tr>
+                        <th>Problem</th>
+                        <th>Solution</th>
+                        <th>Command</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>Database connection refused</td>
+                        <td>Start PostgreSQL service</td>
+                        <td>
+                            <code>brew services start postgresql</code> (macOS)
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>Migration errors</td>
+                        <td>Reset database</td>
+                        <td><code>mix ecto.reset</code></td>
+                    </tr>
+                    <tr>
+                        <td>Permission denied</td>
+                        <td>Check database credentials</td>
+                        <td>Edit <code>config/dev.exs</code></td>
+                    </tr>
+                </tbody>
+            </table>
+
+            <h3>LiveView Issues</h3>
+            <table>
+                <thead>
+                    <tr>
+                        <th>Problem</th>
+                        <th>Solution</th>
+                        <th>Check</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>Page not updating</td>
+                        <td>Verify socket assigns</td>
+                        <td>Use <code>assign(socket, key: value)</code></td>
+                    </tr>
+                    <tr>
+                        <td>Form not submitting</td>
+                        <td>Check event handlers</td>
+                        <td>Ensure <code>handle_event</code> exists</td>
+                    </tr>
+                    <tr>
+                        <td>Authentication not working</td>
+                        <td>Check pipeline configuration</td>
+                        <td>Verify routes use correct pipeline</td>
+                    </tr>
+                </tbody>
+            </table>
+
+            <h3>General Debugging Tips</h3>
+            <div class="step-by-step">
+                <strong>🔍 Debugging techniques:</strong>
+                <ul>
+                    <li>
+                        <strong>Use <code>IO.inspect/2</code></strong> - Add
+                        <code>|> IO.inspect(label: "Debug")</code> to pipelines
+                    </li>
+                    <li>
+                        <strong>Check logs</strong> - Look at the terminal where
+                        <code>mix phx.server</code> is running
+                    </li>
+                    <li>
+                        <strong>Use IEx</strong> - Start with
+                        <code>iex -S mix phx.server</code> for interactive
+                        debugging
+                    </li>
+                    <li>
+                        <strong>Browser DevTools</strong> - Check Network tab
+                        for failed requests
+                    </li>
+                </ul>
+
+                <pre><code># Example debugging in a LiveView
+def handle_event("save_item", params, socket) do
+  params |> IO.inspect(label: "Received params")
+
+  case Todos.create_todo_item(socket.assigns.todo_list, params["todo_item"]) do
+    {:ok, item} ->
+      item |> IO.inspect(label: "Created item")
+      # ... rest of function
+  end
+end</code></pre>
+            </div>
+
+            <hr />
+
+            <h2 id="next-steps">Part 9: Next Steps & Advanced Features</h2>
+
+            <div class="success">
+                <strong>🎉 Congratulations!</strong> You've built a complete
+                Phoenix LiveView application! Here are some ideas to take it
+                further:
+            </div>
+
+            <h3>Easy Enhancements</h3>
+            <div class="step-by-step">
+                <strong>🔧 Features you can add today:</strong>
+                <ul>
+                    <li>
+                        <strong>Due dates</strong> - Add a
+                        <code>due_date</code> field to todo items
+                    </li>
+                    <li>
+                        <strong>Priority levels</strong> - Add an enum field for
+                        High/Medium/Low priority
+                    </li>
+                    <li>
+                        <strong>Categories</strong> - Create a categories table
+                        and associate items
+                    </li>
+                    <li>
+                        <strong>Search functionality</strong> - Add a search
+                        form that filters items
+                    </li>
+                    <li>
+                        <strong>Bulk actions</strong> - Select multiple items
+                        and mark as complete
+                    </li>
+                </ul>
+
+                <strong>💡 Implementation hints:</strong>
+                <pre><code># Add due date to todo items
+mix ecto.gen.migration add_due_date_to_todo_items
+
+# In the migration:
+add :due_date, :date
+add :priority, :string, default: "medium"</code></pre>
+            </div>
+
+            <h3>Advanced Features</h3>
+            <div class="step-by-step">
+                <strong>🚀 Challenge yourself with:</strong>
+                <ul>
+                    <li>
+                        <strong>Real-time collaboration</strong> - Multiple
+                        users editing the same list
+                    </li>
+                    <li>
+                        <strong>File attachments</strong> - Upload files to todo
+                        items
+                    </li>
+                    <li>
+                        <strong>Email notifications</strong> - Send reminders
+                        for due items
+                    </li>
+                    <li>
+                        <strong>Mobile app</strong> - Build with Phoenix
+                        LiveView Native
+                    </li>
+                    <li>
+                        <strong>API endpoints</strong> - Create REST API for
+                        mobile apps
+                    </li>
+                    <li>
+                        <strong>Drag and drop</strong> - Reorder items with
+                        JavaScript hooks
+                    </li>
+                </ul>
+            </div>
+
+            <h3>Learning Path Recommendations</h3>
+            <div class="beginner-tip">
+                <strong>📚 Continue your Phoenix journey:</strong>
+                <ol>
+                    <li>
+                        <strong>Master the basics</strong> - Review
+                        <a href="elixir-best-practice.html"
+                            >Elixir Best Practices</a
+                        >
+                    </li>
+                    <li>
+                        <strong>Deepen Phoenix knowledge</strong> - Study
+                        <a href="phoenix-best-practice.html"
+                            >Phoenix Best Practices</a
+                        >
+                    </li>
+                    <li>
+                        <strong>Build more projects</strong> - Try a blog,
+                        e-commerce site, or chat app
+                    </li>
+                    <li>
+                        <strong>Learn advanced patterns</strong> - GenServers,
+                        PubSub, distributed systems
+                    </li>
+                    <li>
+                        <strong>Contribute to open source</strong> - Many
+                        Phoenix projects welcome contributors
+                    </li>
+                </ol>
+            </div>
+
+            <hr />
+
+            <h2 id="resources">Part 10: Learning Resources</h2>
+
+            <h3>Official Documentation</h3>
+            <ul>
+                <li>
+                    <strong>Phoenix Guides</strong> -
+                    <a href="https://hexdocs.pm/phoenix" target="_blank"
+                        >hexdocs.pm/phoenix</a
+                    >
+                </li>
+                <li>
+                    <strong>LiveView Documentation</strong> -
+                    <a
+                        href="https://hexdocs.pm/phoenix_live_view"
+                        target="_blank"
+                        >hexdocs.pm/phoenix_live_view</a
+                    >
+                </li>
+                <li>
+                    <strong>Ecto Guide</strong> -
+                    <a href="https://hexdocs.pm/ecto" target="_blank"
+                        >hexdocs.pm/ecto</a
+                    >
+                </li>
+            </ul>
+
+            <h3>Community Resources</h3>
+            <ul>
+                <li>
+                    <strong>Elixir Forum</strong> -
+                    <a href="https://elixirforum.com" target="_blank"
+                        >elixirforum.com</a
+                    >
+                </li>
+                <li>
+                    <strong>Elixir School</strong> -
+                    <a href="https://elixirschool.com" target="_blank"
+                        >elixirschool.com</a
+                    >
+                </li>
+                <li>
+                    <strong>Phoenix LiveView Examples</strong> -
+                    <a
+                        href="https://github.com/chrismccord/phoenix_live_view_example"
+                        target="_blank"
+                        >GitHub Examples</a
+                    >
+                </li>
+            </ul>
+
+            <h3>Books and Courses</h3>
+            <ul>
+                <li>
+                    <strong>"Programming Phoenix LiveView"</strong> by Bruce
+                    Tate and Sophie DeBenedetto
+                </li>
+                <li><strong>"Phoenix in Action"</strong> by Geoffrey Lessel</li>
+                <li><strong>"Elixir in Action"</strong> by Saša Jurić</li>
+            </ul>
+
+            <div class="success">
+                <strong>🚀 You're now a Phoenix developer!</strong> You have the
+                foundation to build amazing real-time web applications. The
+                Phoenix community is welcoming and helpful - don't hesitate to
+                ask questions on the Elixir Forum or Discord.
+            </div>
+
+            <div class="checkpoint">
+                <strong>🎯 Final Checklist - You've successfully:</strong>
+                <ul>
+                    <li>
+                        ✅ Created a Phoenix LiveView application from scratch
+                    </li>
+                    <li>
+                        ✅ Implemented user authentication and authorization
+                    </li>
+                    <li>
+                        ✅ Built a complete CRUD system with real-time updates
+                    </li>
+                    <li>✅ Learned database design with Ecto</li>
+                    <li>
+                        ✅ Understood Phoenix contexts and separation of
+                        concerns
+                    </li>
+                    <li>✅ Implemented security best practices</li>
+                    <li>✅ Added testing to ensure code quality</li>
+                    <li>
+                        ✅ Prepared your application for production deployment
+                    </li>
+                </ul>
+            </div>
+
+            <footer>
+                <p>
+                    Happy coding with Phoenix! 🧪✨<br />
+                    <small
+                        >This tutorial was created for developers learning
+                        Phoenix in 2025. For updates and corrections, please
+                        check the latest version.</small
+                    >
+                </p>
+            </footer>
+        </main>
+    </body>
+</html>
