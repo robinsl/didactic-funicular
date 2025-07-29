@@ -4,7 +4,7 @@
         <meta charset="utf-8" />
         <title>Phoenix Todo Tutorial - didactic-funicular</title>
         <meta name="viewport" content="width=device-width, initial-scale=1" />
-        <link rel="stylesheet" href="common-styles.css">
+        <link rel="stylesheet" href="../common-styles.css">
         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/styles/github.min.css">
         <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/highlight.min.js"></script>
         <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/languages/elixir.min.js"></script>
@@ -20,6 +20,99 @@
                 --secondary-color: #663399;
                 --secondary-dark: #4a2570;
                 --secondary-light: #8a5cc7;
+                
+                /* Category colors */
+                --elixir-color: #663399;
+                --ruby-color: #cc342d;
+                --tools-color: #f39c12;
+            }
+            
+            /* Top navigation menu - compact design */
+            .top-nav {
+                background: #000;
+                height: 2rem;
+                font-size: 0.85rem;
+                display: flex;
+                align-items: stretch;
+            }
+            
+            .top-nav-container {
+                display: flex;
+                align-items: stretch;
+                height: 100%;
+            }
+            
+            .top-nav a {
+                color: #fff;
+                text-decoration: none;
+                padding: 0 1rem;
+                transition: all 0.2s ease;
+                font-weight: 500;
+                display: flex;
+                align-items: center;
+                height: 100%;
+                border: none;
+                border-radius: 0;
+            }
+            
+            .top-nav a:hover {
+                background-color: rgba(255, 255, 255, 0.1);
+            }
+            
+            .top-nav a.elixir.current {
+                background-color: var(--elixir-color);
+            }
+            
+            .top-nav a.ruby:hover {
+                background-color: var(--ruby-color);
+            }
+            
+            .top-nav a.tools:hover {
+                background-color: var(--tools-color);
+            }
+            
+            /* Header with integrated hero */
+            header {
+                background: linear-gradient(135deg, var(--primary-color) 0%, var(--primary-dark) 100%);
+                color: #fff;
+                padding: 3rem 2rem;
+                text-align: center;
+                box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+            }
+            
+            .hero-title {
+                margin: 0 0 1rem 0;
+                color: white;
+                border: none;
+                font-size: 2.2rem;
+            }
+            
+            .hero-subtitle {
+                font-size: 1.1rem;
+                opacity: 0.9;
+                max-width: 700px;
+                margin: 0 auto 2rem auto;
+            }
+            
+            nav {
+                display: flex;
+                flex-wrap: wrap;
+                gap: 1rem;
+                justify-content: center;
+            }
+            
+            /* Viewport border */
+            .viewport-container {
+                border: 3px solid var(--primary-color);
+                border-top: none;
+                min-height: calc(100vh - 120px);
+            }
+            
+            /* Main content */
+            main {
+                padding: 2rem;
+                max-width: 1000px;
+                margin: auto;
             }
         </style>
         <script>
@@ -63,47 +156,31 @@
         </script>
     </head>
     <body>
-        <header>
-            <nav>
-                <a href="index.html">Home</a>
-                <a href="elixir-best-practice.html">Elixir Best Practices</a>
-                <a href="phoenix-best-practice.html">Phoenix Best Practices</a>
-                <a href="phoenix-todo-app.html" class="current">Phoenix Todo Tutorial</a>
-            </nav>
-        </header>
+        <!-- Top navigation menu -->
+        <div class="top-nav">
+            <div class="top-nav-container">
+                <a href="../index.html">didactic-funicular</a>
+                <a href="index.html" class="elixir current">elixir</a>
+                <a href="../ruby/" class="ruby">ruby</a>
+                <a href="../tools/" class="tools">tools</a>
+            </div>
+        </div>
+        
+        <div class="viewport-container">
+            <header>
+                <h1 class="hero-title">Phoenix Todo Tutorial</h1>
+                <p class="hero-subtitle">Build your first Phoenix LiveView application from scratch. Learn modern patterns, real-time features, and production deployment.</p>
+                <nav>
+                    <a href="index.html">Elixir Home</a>
+                    <a href="elixir-best-practice.html">Best Practices</a>
+                    <a href="phoenix-best-practice.html">Phoenix Guide</a>
+                    <a href="phoenix-todo-app.html" class="current">Todo Tutorial</a>
+                </nav>
+            </header>
 
         <main>
-            <h1>
-                Build Your First Phoenix LiveView App: A Complete Todo Tutorial
-            </h1>
-
-            <p>
-                Welcome to your Phoenix journey! In this comprehensive tutorial,
-                we'll build a real-time todo application from scratch. By the
-                end, you'll have a working app with user authentication,
-                database persistence, and real-time updates. Don't worry if
-                you're new to Phoenix – we'll explain everything step by step
-                with detailed command explanations.
-            </p>
-
-            <div class="beginner-tip">
-                <strong>🎯 What you'll learn:</strong>
-                <ul>
-                    <li>How to set up a Phoenix project with LiveView</li>
-                    <li>User authentication with <code>phx.gen.auth</code></li>
-                    <li>Database design with Ecto schemas and migrations</li>
-                    <li>Building interactive UIs with LiveView</li>
-                    <li>Real-time updates and form handling</li>
-                    <li>Security best practices and user data isolation</li>
-                    <li>Testing your Phoenix application</li>
-                    <li>
-                        Deployment preparation and production considerations
-                    </li>
-                </ul>
-            </div>
-
-            <div class="toc" id="table-of-contents">
-                <h3>📚 Table of Contents</h3>
+            <div class="toc">
+                <h3>Table of Contents</h3>
                 <ol>
                     <li><a href="#prerequisites">Prerequisites & Setup</a></li>
                     <li>
@@ -1710,6 +1787,7 @@ add :priority, :string, default: "medium"</code></pre>
                     </li>
                 </ul>
             </div>
+            </main>
 
             <footer>
                 <p>
@@ -1721,6 +1799,6 @@ add :priority, :string, default: "medium"</code></pre>
                     >
                 </p>
             </footer>
-        </main>
+        </div>
     </body>
 </html>

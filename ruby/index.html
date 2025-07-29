@@ -1,0 +1,273 @@
+<!doctype html>
+<html lang="en">
+    <head>
+        <meta charset="utf-8" />
+        <title>Ruby Learning Guide - didactic-funicular</title>
+        <meta name="viewport" content="width=device-width, initial-scale=1" />
+        <link rel="stylesheet" href="../common-styles.css">
+        <style>
+            /* Ruby page - Red Theme */
+            :root {
+                --primary-color: #cc342d;
+                --primary-dark: #a02622;
+                --primary-light: #d85650;
+                --secondary-color: #f39c12;
+                --secondary-dark: #d68910;
+                --secondary-light: #f5b041;
+                
+                /* Category colors */
+                --elixir-color: #663399;
+                --ruby-color: #cc342d;
+                --tools-color: #f39c12;
+            }
+            
+            /* Top navigation menu - compact design */
+            .top-nav {
+                background: #000;
+                height: 2rem;
+                font-size: 0.85rem;
+                display: flex;
+                align-items: stretch;
+            }
+            
+            .top-nav-container {
+                display: flex;
+                align-items: stretch;
+                height: 100%;
+            }
+            
+            .top-nav a {
+                color: #fff;
+                text-decoration: none;
+                padding: 0 1rem;
+                transition: all 0.2s ease;
+                font-weight: 500;
+                display: flex;
+                align-items: center;
+                height: 100%;
+                border: none;
+                border-radius: 0;
+            }
+            
+            .top-nav a:hover {
+                background-color: rgba(255, 255, 255, 0.1);
+            }
+            
+            .top-nav a.ruby.current {
+                background-color: var(--ruby-color);
+            }
+            
+            .top-nav a.elixir:hover {
+                background-color: var(--elixir-color);
+            }
+            
+            .top-nav a.tools:hover {
+                background-color: var(--tools-color);
+            }
+            
+            /* Header with integrated hero */
+            header {
+                background: linear-gradient(135deg, var(--primary-color) 0%, var(--primary-dark) 100%);
+                color: #fff;
+                padding: 3rem 2rem;
+                text-align: center;
+                box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+            }
+            
+            .hero-title {
+                margin: 0 0 1rem 0;
+                color: white;
+                border: none;
+                font-size: 2.2rem;
+            }
+            
+            .hero-subtitle {
+                font-size: 1.1rem;
+                opacity: 0.9;
+                max-width: 700px;
+                margin: 0 auto 2rem auto;
+            }
+            
+            nav {
+                display: flex;
+                flex-wrap: wrap;
+                gap: 1rem;
+                justify-content: center;
+            }
+            
+            /* Viewport border */
+            .viewport-container {
+                border: 3px solid var(--primary-color);
+                border-top: none;
+                min-height: calc(100vh - 120px);
+            }
+            
+            /* Main content */
+            main {
+                padding: 2rem;
+                max-width: 1000px;
+                margin: auto;
+            }
+            
+
+            
+            .coming-soon {
+                background: linear-gradient(135deg, #ffebee 0%, #ffcdd2 100%);
+                border-left: 4px solid var(--primary-color);
+                padding: 2rem;
+                margin: 2rem 0;
+                border-radius: 8px;
+                text-align: center;
+                box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
+            }
+            
+            .coming-soon h3 {
+                color: var(--primary-color);
+                margin-top: 0;
+                font-size: 1.5rem;
+            }
+            
+            .ruby-features {
+                display: grid;
+                grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+                gap: 1.5rem;
+                margin: 2rem 0;
+            }
+            
+            .ruby-feature {
+                background: var(--bg-secondary);
+                padding: 1.5rem;
+                border-radius: 8px;
+                border-left: 4px solid var(--primary-color);
+                box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
+            }
+            
+            .ruby-feature h3 {
+                color: var(--primary-color);
+                margin-top: 0;
+            }
+            
+            .ruby-feature ul {
+                margin: 0;
+                padding-left: 1.2rem;
+            }
+            
+            .ruby-feature li {
+                margin: 0.5rem 0;
+                color: var(--text-secondary);
+            }
+        </style>
+    </head>
+    <body>
+        <!-- Top navigation menu -->
+        <div class="top-nav">
+            <div class="top-nav-container">
+                <a href="../index.html">didactic-funicular</a>
+                <a href="../elixir/" class="elixir">elixir</a>
+                <a href="index.html" class="ruby current">ruby</a>
+                <a href="../tools/" class="tools">tools</a>
+            </div>
+        </div>
+        
+        <div class="viewport-container">
+            <header>
+                <h1 class="hero-title">💎 Master Ruby Development</h1>
+                <p class="hero-subtitle">Discover the elegant world of Ruby programming. From object-oriented fundamentals to Rails web development and beyond.</p>
+                <nav>
+                    <a href="index.html" class="current">Ruby Home</a>
+                </nav>
+            </header>
+
+            <main>
+
+                <div class="coming-soon">
+                    <h3>📋 Coming Soon</h3>
+                    <p>This comprehensive Ruby learning guide is currently being developed. It will cover everything from Ruby fundamentals to advanced Rails development and deployment strategies.</p>
+                </div>
+
+                <h2>What You'll Learn</h2>
+                <div class="ruby-features">
+                    <div class="ruby-feature">
+                        <h3>💎 Ruby Fundamentals</h3>
+                        <ul>
+                            <li>Object-oriented programming principles</li>
+                            <li>Ruby syntax and idioms</li>
+                            <li>Blocks, procs, and lambdas</li>
+                            <li>Metaprogramming basics</li>
+                        </ul>
+                    </div>
+                    
+                    <div class="ruby-feature">
+                        <h3>🚂 Rails Framework</h3>
+                        <ul>
+                            <li>MVC architecture patterns</li>
+                            <li>ActiveRecord and database design</li>
+                            <li>RESTful API development</li>
+                            <li>Authentication and authorization</li>
+                        </ul>
+                    </div>
+                    
+                    <div class="ruby-feature">
+                        <h3>🧪 Testing & Quality</h3>
+                        <ul>
+                            <li>RSpec and Minitest frameworks</li>
+                            <li>Test-driven development (TDD)</li>
+                            <li>Factory patterns and fixtures</li>
+                            <li>Code quality tools</li>
+                        </ul>
+                    </div>
+                    
+                    <div class="ruby-feature">
+                        <h3>🚀 Deployment & Performance</h3>
+                        <ul>
+                            <li>Production deployment strategies</li>
+                            <li>Performance optimization</li>
+                            <li>Caching and scaling</li>
+                            <li>Monitoring and debugging</li>
+                        </ul>
+                    </div>
+                    
+                    <div class="ruby-feature">
+                        <h3>💼 Professional Development</h3>
+                        <ul>
+                            <li>Ruby community best practices</li>
+                            <li>Gem development and publishing</li>
+                            <li>Code review and collaboration</li>
+                            <li>Career development paths</li>
+                        </ul>
+                    </div>
+                    
+                    <div class="ruby-feature">
+                        <h3>🔧 Modern Ruby Ecosystem</h3>
+                        <ul>
+                            <li>Ruby 3.x features and improvements</li>
+                            <li>Alternative frameworks (Sinatra, Hanami)</li>
+                            <li>Background job processing</li>
+                            <li>API-only applications</li>
+                        </ul>
+                    </div>
+                </div>
+
+                <h2>Why Ruby?</h2>
+                <ul>
+                    <li><strong>Developer Happiness</strong> - Ruby prioritizes readable, expressive code that's enjoyable to write</li>
+                    <li><strong>Rapid Development</strong> - Convention over configuration speeds up development cycles</li>
+                    <li><strong>Strong Community</strong> - Vibrant ecosystem with extensive gem library and helpful community</li>
+                    <li><strong>Proven Track Record</strong> - Powers major applications like GitHub, Shopify, and Basecamp</li>
+                    <li><strong>Full-Stack Capability</strong> - From web applications to APIs, scripting to data processing</li>
+                </ul>
+
+                <div class="example">
+                    <strong>Stay Tuned!</strong> This comprehensive Ruby guide will take you from beginner to professional Ruby developer, with hands-on projects and real-world examples throughout your learning journey.
+                </div>
+            </main>
+
+            <footer>
+                <p>
+                    💎 Ruby Learning Guide<br />
+                    <small>Part of didactic-funicular - AI-generated tech documentation</small>
+                </p>
+            </footer>
+        </div>
+    </body>
+</html>

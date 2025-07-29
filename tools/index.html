@@ -1,0 +1,264 @@
+<!doctype html>
+<html lang="en">
+    <head>
+        <meta charset="utf-8" />
+        <title>Development Tools Guide - didactic-funicular</title>
+        <meta name="viewport" content="width=device-width, initial-scale=1" />
+        <link rel="stylesheet" href="../common-styles.css">
+        <style>
+            /* Tools page - Orange Theme */
+            :root {
+                --primary-color: #f39c12;
+                --primary-dark: #d68910;
+                --primary-light: #f5b041;
+                --secondary-color: #3498db;
+                --secondary-dark: #2980b9;
+                --secondary-light: #5dade2;
+                
+                /* Category colors */
+                --elixir-color: #663399;
+                --ruby-color: #cc342d;
+                --tools-color: #f39c12;
+            }
+            
+            /* Top navigation menu - compact design */
+            .top-nav {
+                background: #000;
+                height: 2rem;
+                font-size: 0.85rem;
+                display: flex;
+                align-items: stretch;
+            }
+            
+            .top-nav-container {
+                display: flex;
+                align-items: stretch;
+                height: 100%;
+            }
+            
+            .top-nav a {
+                color: #fff;
+                text-decoration: none;
+                padding: 0 1rem;
+                transition: all 0.2s ease;
+                font-weight: 500;
+                display: flex;
+                align-items: center;
+                height: 100%;
+                border: none;
+                border-radius: 0;
+            }
+            
+            .top-nav a:hover {
+                background-color: rgba(255, 255, 255, 0.1);
+            }
+            
+            .top-nav a.tools.current {
+                background-color: var(--tools-color);
+            }
+            
+            .top-nav a.elixir:hover {
+                background-color: var(--elixir-color);
+            }
+            
+            .top-nav a.ruby:hover {
+                background-color: var(--ruby-color);
+            }
+            
+            /* Header with integrated hero */
+            header {
+                background: linear-gradient(135deg, var(--primary-color) 0%, var(--primary-dark) 100%);
+                color: #fff;
+                padding: 3rem 2rem;
+                text-align: center;
+                box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+            }
+            
+            .hero-title {
+                margin: 0 0 1rem 0;
+                color: white;
+                border: none;
+                font-size: 2.2rem;
+            }
+            
+            .hero-subtitle {
+                font-size: 1.1rem;
+                opacity: 0.9;
+                max-width: 700px;
+                margin: 0 auto 2rem auto;
+            }
+            
+            nav {
+                display: flex;
+                flex-wrap: wrap;
+                gap: 1rem;
+                justify-content: center;
+            }
+            
+            /* Viewport border */
+            .viewport-container {
+                border: 3px solid var(--primary-color);
+                border-top: none;
+                min-height: calc(100vh - 120px);
+            }
+            
+            /* Main content */
+            main {
+                padding: 2rem;
+                max-width: 1000px;
+                margin: auto;
+            }
+            
+
+            
+            .coming-soon {
+                background: linear-gradient(135deg, #fff8e1 0%, #ffecb3 100%);
+                border-left: 4px solid var(--primary-color);
+                padding: 2rem;
+                margin: 2rem 0;
+                border-radius: 8px;
+                text-align: center;
+                box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
+            }
+            
+            .coming-soon h3 {
+                color: var(--primary-color);
+                margin-top: 0;
+                font-size: 1.5rem;
+            }
+            
+            .tool-categories {
+                display: grid;
+                grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+                gap: 1.5rem;
+                margin: 2rem 0;
+            }
+            
+            .tool-category {
+                background: var(--bg-secondary);
+                padding: 1.5rem;
+                border-radius: 8px;
+                border-left: 4px solid var(--primary-color);
+                box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
+            }
+            
+            .tool-category h3 {
+                color: var(--primary-color);
+                margin-top: 0;
+            }
+            
+            .tool-category ul {
+                margin: 0;
+                padding-left: 1.2rem;
+            }
+            
+            .tool-category li {
+                margin: 0.5rem 0;
+                color: var(--text-secondary);
+            }
+        </style>
+    </head>
+    <body>
+        <!-- Top navigation menu -->
+        <div class="top-nav">
+            <div class="top-nav-container">
+                <a href="../index.html">didactic-funicular</a>
+                <a href="../elixir/" class="elixir">elixir</a>
+                <a href="../ruby/" class="ruby">ruby</a>
+                <a href="index.html" class="tools current">tools</a>
+            </div>
+        </div>
+        
+        <div class="viewport-container">
+            <header>
+                <h1 class="hero-title">🛠️ Essential Development Tools</h1>
+                <p class="hero-subtitle">Master the tools and workflows that make developers productive. From version control to deployment, monitoring to testing.</p>
+                <nav>
+                    <a href="index.html" class="current">Tools Home</a>
+                </nav>
+            </header>
+
+            <main>
+
+                <div class="coming-soon">
+                    <h3>📋 Coming Soon</h3>
+                    <p>This section is currently being developed. It will include comprehensive guides for essential development tools, utilities, and workflows that every developer should master.</p>
+                </div>
+
+                <h2>Planned Tool Categories</h2>
+                <div class="tool-categories">
+                    <div class="tool-category">
+                        <h3>🔧 Version Control</h3>
+                        <ul>
+                            <li>Git fundamentals and advanced workflows</li>
+                            <li>GitHub/GitLab best practices</li>
+                            <li>Branching strategies</li>
+                            <li>Code review processes</li>
+                        </ul>
+                    </div>
+                    
+                    <div class="tool-category">
+                        <h3>🧪 Testing & Quality</h3>
+                        <ul>
+                            <li>Unit testing frameworks</li>
+                            <li>Integration testing</li>
+                            <li>Code coverage tools</li>
+                            <li>Linting and formatting</li>
+                        </ul>
+                    </div>
+                    
+                    <div class="tool-category">
+                        <h3>🚀 Deployment & CI/CD</h3>
+                        <ul>
+                            <li>Continuous integration pipelines</li>
+                            <li>Docker containerization</li>
+                            <li>Cloud deployment strategies</li>
+                            <li>Infrastructure as code</li>
+                        </ul>
+                    </div>
+                    
+                    <div class="tool-category">
+                        <h3>📊 Monitoring & Debugging</h3>
+                        <ul>
+                            <li>Application monitoring</li>
+                            <li>Log aggregation</li>
+                            <li>Performance profiling</li>
+                            <li>Error tracking</li>
+                        </ul>
+                    </div>
+                    
+                    <div class="tool-category">
+                        <h3>💻 Development Environment</h3>
+                        <ul>
+                            <li>IDE and editor setup</li>
+                            <li>Terminal and shell configuration</li>
+                            <li>Package managers</li>
+                            <li>Development containers</li>
+                        </ul>
+                    </div>
+                    
+                    <div class="tool-category">
+                        <h3>🔒 Security Tools</h3>
+                        <ul>
+                            <li>Vulnerability scanning</li>
+                            <li>Dependency auditing</li>
+                            <li>Secret management</li>
+                            <li>Security testing</li>
+                        </ul>
+                    </div>
+                </div>
+
+                <div class="example">
+                    <strong>Stay Tuned!</strong> This comprehensive tools guide will help you build a professional development workflow and master the essential tools used in modern software development.
+                </div>
+            </main>
+
+            <footer>
+                <p>
+                    🛠️ Development Tools Guide<br />
+                    <small>Part of didactic-funicular - AI-generated tech documentation</small>
+                </p>
+            </footer>
+        </div>
+    </body>
+</html>

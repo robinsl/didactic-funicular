@@ -4,7 +4,7 @@
         <meta charset="utf-8" />
         <title>Phoenix Best Practices - didactic-funicular</title>
         <meta name="viewport" content="width=device-width, initial-scale=1" />
-        <link rel="stylesheet" href="common-styles.css">
+        <link rel="stylesheet" href="../common-styles.css">
         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/styles/github.min.css">
         <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/highlight.min.js"></script>
         <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/languages/elixir.min.js"></script>
@@ -20,6 +20,99 @@
                 --secondary-color: #663399;
                 --secondary-dark: #4a2570;
                 --secondary-light: #8a5cc7;
+                
+                /* Category colors */
+                --elixir-color: #663399;
+                --ruby-color: #cc342d;
+                --tools-color: #f39c12;
+            }
+            
+            /* Top navigation menu - compact design */
+            .top-nav {
+                background: #000;
+                height: 2rem;
+                font-size: 0.85rem;
+                display: flex;
+                align-items: stretch;
+            }
+            
+            .top-nav-container {
+                display: flex;
+                align-items: stretch;
+                height: 100%;
+            }
+            
+            .top-nav a {
+                color: #fff;
+                text-decoration: none;
+                padding: 0 1rem;
+                transition: all 0.2s ease;
+                font-weight: 500;
+                display: flex;
+                align-items: center;
+                height: 100%;
+                border: none;
+                border-radius: 0;
+            }
+            
+            .top-nav a:hover {
+                background-color: rgba(255, 255, 255, 0.1);
+            }
+            
+            .top-nav a.elixir.current {
+                background-color: var(--elixir-color);
+            }
+            
+            .top-nav a.ruby:hover {
+                background-color: var(--ruby-color);
+            }
+            
+            .top-nav a.tools:hover {
+                background-color: var(--tools-color);
+            }
+            
+            /* Header with integrated hero */
+            header {
+                background: linear-gradient(135deg, var(--primary-color) 0%, var(--primary-dark) 100%);
+                color: #fff;
+                padding: 3rem 2rem;
+                text-align: center;
+                box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+            }
+            
+            .hero-title {
+                margin: 0 0 1rem 0;
+                color: white;
+                border: none;
+                font-size: 2.2rem;
+            }
+            
+            .hero-subtitle {
+                font-size: 1.1rem;
+                opacity: 0.9;
+                max-width: 700px;
+                margin: 0 auto 2rem auto;
+            }
+            
+            nav {
+                display: flex;
+                flex-wrap: wrap;
+                gap: 1rem;
+                justify-content: center;
+            }
+            
+            /* Viewport border */
+            .viewport-container {
+                border: 3px solid var(--primary-color);
+                border-top: none;
+                min-height: calc(100vh - 120px);
+            }
+            
+            /* Main content */
+            main {
+                padding: 2rem;
+                max-width: 1000px;
+                margin: auto;
             }
         </style>
         <script>
@@ -56,34 +149,31 @@
         </script>
     </head>
     <body>
-        <header>
-            <nav>
-                <a href="index.html">Home</a>
-                <a href="elixir-best-practice.html">Elixir Best Practices</a>
-                <a href="phoenix-best-practice.html" class="current">Phoenix Best Practices</a>
-                <a href="phoenix-todo-app.html">Phoenix Todo Tutorial</a>
-            </nav>
-        </header>
+        <!-- Top navigation menu -->
+        <div class="top-nav">
+            <div class="top-nav-container">
+                <a href="../index.html">didactic-funicular</a>
+                <a href="index.html" class="elixir current">elixir</a>
+                <a href="../ruby/" class="ruby">ruby</a>
+                <a href="../tools/" class="tools">tools</a>
+            </div>
+        </div>
+        
+        <div class="viewport-container">
+            <header>
+                <h1 class="hero-title">Phoenix Best Practices</h1>
+                <p class="hero-subtitle">Build secure, maintainable, and high-performance Phoenix applications with modern patterns and production-ready techniques.</p>
+                <nav>
+                    <a href="index.html">Elixir Home</a>
+                    <a href="elixir-best-practice.html">Best Practices</a>
+                    <a href="phoenix-best-practice.html" class="current">Phoenix Guide</a>
+                    <a href="phoenix-todo-app.html">Todo Tutorial</a>
+                </nav>
+            </header>
 
         <main>
-            <h1>Phoenix 1.7+ Best Practices – Complete Guide (2025)</h1>
-
-            <p>
-                Welcome to Phoenix! This comprehensive guide will help you build secure,
-                maintainable, and high-performance Phoenix applications. Whether you want
-                to build traditional server-rendered websites or real-time applications
-                with LiveView, these practices will set you up for success.
-            </p>
-
-            <div class="beginner-tip">
-                <strong>New to Phoenix?</strong> Phoenix is a web framework built on Elixir
-                that excels at building both traditional web applications and real-time features.
-                Think of it like Rails for Ruby or Django for Python, but with superpowers
-                for handling thousands of concurrent users efficiently.
-            </div>
-
             <div class="toc">
-                <h3>📚 Table of Contents</h3>
+                <h3>Table of Contents</h3>
                 <ol>
                     <li><a href="#project-structure">Project Structure & Contexts</a></li>
                     <li><a href="#routing">Routing & Pipelines</a></li>
@@ -1558,3 +1648,14 @@ MIX_ENV=prod mix release # Build release</code></pre>
                     <li>Visit <code>http://localhost:4000</code> and start building!</li>
                 </ol>
             </div>
+            </main>
+
+            <footer>
+                <p>
+                    Happy Phoenix development! 🔥✨<br />
+                    <small>This guide covers Phoenix 1.7+ best practices for modern web development.</small>
+                </p>
+            </footer>
+        </div>
+    </body>
+</html>

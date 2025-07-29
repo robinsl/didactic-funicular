@@ -1,0 +1,226 @@
+<!doctype html>
+<html lang="en">
+    <head>
+        <meta charset="utf-8" />
+        <title>Elixir Learning Guide - didactic-funicular</title>
+        <meta name="viewport" content="width=device-width, initial-scale=1" />
+        <link rel="stylesheet" href="../common-styles.css">
+        <style>
+            /* Elixir page - Purple Theme */
+            :root {
+                --primary-color: #663399;
+                --primary-dark: #4a2570;
+                --primary-light: #8a5cc7;
+                --secondary-color: #ff6900;
+                --secondary-dark: #e55a00;
+                --secondary-light: #ff8533;
+                
+                /* Category colors */
+                --elixir-color: #663399;
+                --ruby-color: #cc342d;
+                --tools-color: #f39c12;
+            }
+            
+            /* Top navigation menu - compact design */
+            .top-nav {
+                background: #000;
+                height: 2rem;
+                font-size: 0.85rem;
+                display: flex;
+                align-items: stretch;
+            }
+            
+            .top-nav-container {
+                display: flex;
+                align-items: stretch;
+                height: 100%;
+            }
+            
+            .top-nav a {
+                color: #fff;
+                text-decoration: none;
+                padding: 0 1rem;
+                transition: all 0.2s ease;
+                font-weight: 500;
+                display: flex;
+                align-items: center;
+                height: 100%;
+                border: none;
+                border-radius: 0;
+            }
+            
+            .top-nav a:hover {
+                background-color: rgba(255, 255, 255, 0.1);
+            }
+            
+            .top-nav a.elixir.current {
+                background-color: var(--elixir-color);
+            }
+            
+            .top-nav a.ruby:hover {
+                background-color: var(--ruby-color);
+            }
+            
+            .top-nav a.tools:hover {
+                background-color: var(--tools-color);
+            }
+            
+            /* Header with integrated hero */
+            header {
+                background: linear-gradient(135deg, var(--primary-color) 0%, var(--primary-dark) 100%);
+                color: #fff;
+                padding: 3rem 2rem;
+                text-align: center;
+                box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+            }
+            
+            .hero-title {
+                margin: 0 0 1rem 0;
+                color: white;
+                border: none;
+                font-size: 2.2rem;
+            }
+            
+            .hero-subtitle {
+                font-size: 1.1rem;
+                opacity: 0.9;
+                max-width: 700px;
+                margin: 0 auto 2rem auto;
+            }
+            
+            nav {
+                display: flex;
+                flex-wrap: wrap;
+                gap: 1rem;
+                justify-content: center;
+            }
+            
+            /* Viewport border */
+            .viewport-container {
+                border: 3px solid var(--primary-color);
+                border-top: none;
+                min-height: calc(100vh - 120px);
+            }
+            
+            /* Main content */
+            main {
+                padding: 2rem;
+                max-width: 1000px;
+                margin: auto;
+            }
+            
+
+            
+            .nav-cards {
+                display: grid;
+                grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+                gap: 1.5rem;
+                margin: 2rem 0;
+            }
+            
+            .nav-card {
+                background: white;
+                border: 2px solid var(--border-color);
+                border-radius: 8px;
+                padding: 1.5rem;
+                text-decoration: none;
+                color: var(--text-primary);
+                transition: all 0.2s ease;
+                box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+            }
+            
+            .nav-card:hover {
+                border-color: var(--secondary-color);
+                transform: translateY(-2px);
+                box-shadow: 0 4px 8px rgba(0,0,0,0.15);
+                text-decoration: none;
+            }
+            
+            .nav-card h3 {
+                color: var(--primary-color);
+                margin: 0 0 0.5rem 0;
+            }
+            
+            .nav-card p {
+                margin: 0;
+                color: var(--text-secondary);
+            }
+        </style>
+    </head>
+    <body>
+        <!-- Top navigation menu -->
+        <div class="top-nav">
+            <div class="top-nav-container">
+                <a href="../index.html">didactic-funicular</a>
+                <a href="index.html" class="elixir current">elixir</a>
+                <a href="../ruby/" class="ruby">ruby</a>
+                <a href="../tools/" class="tools">tools</a>
+            </div>
+        </div>
+        
+        <div class="viewport-container">
+            <header>
+                <h1 class="hero-title">🧪 Master Elixir Development</h1>
+                <p class="hero-subtitle">Your comprehensive guide to functional programming with Elixir and Phoenix. From basic concepts to production-ready applications.</p>
+                <nav>
+                    <a href="index.html" class="current">Elixir Home</a>
+                    <a href="elixir-best-practice.html">Best Practices</a>
+                    <a href="phoenix-best-practice.html">Phoenix Guide</a>
+                    <a href="phoenix-todo-app.html">Todo Tutorial</a>
+                </nav>
+            </header>
+
+            <main>
+
+                <h2>Learning Path</h2>
+                <p>Follow this structured path to master Elixir development:</p>
+
+                <div class="nav-cards">
+                    <a href="elixir-best-practice.html" class="nav-card">
+                        <h3>1. Elixir Best Practices</h3>
+                        <p>Start here to learn functional programming concepts, pattern matching, processes, GenServers, and OTP behaviors. Essential foundation for all Elixir development.</p>
+                    </a>
+                    
+                    <a href="phoenix-best-practice.html" class="nav-card">
+                        <h3>2. Phoenix Best Practices</h3>
+                        <p>Master web development with Phoenix framework. Learn about contexts, LiveView, channels, testing, and building scalable web applications.</p>
+                    </a>
+                    
+                    <a href="phoenix-todo-app.html" class="nav-card">
+                        <h3>3. Phoenix Todo Tutorial</h3>
+                        <p>Put it all together with a complete hands-on tutorial. Build a real Todo application from scratch using modern Phoenix patterns.</p>
+                    </a>
+                </div>
+
+                <h2>What You'll Learn</h2>
+                <div class="features">
+                    <div class="feature">
+                        <h3>🧪 Functional Programming</h3>
+                        <p>Master immutability, pattern matching, and the pipeline operator that makes Elixir code elegant and readable.</p>
+                    </div>
+                    
+                    <div class="feature">
+                        <h3>⚡ Concurrency & Fault Tolerance</h3>
+                        <p>Learn the Actor model with lightweight processes, supervision trees, and the "let it crash" philosophy.</p>
+                    </div>
+                    
+                    <div class="feature">
+                        <h3>🌐 Web Development</h3>
+                        <p>Build modern web applications with Phoenix, including real-time features and production deployment.</p>
+                    </div>
+                </div>
+
+                <div class="beginner-tip">
+                    <strong>New to Functional Programming?</strong> Don't worry! This guide is designed for developers coming from object-oriented backgrounds. We'll help you make the mental shift with plenty of examples.
+                </div>
+            </main>
+
+            <footer>
+                <p>
+                    🧪 Elixir Learning Guide<br />
+                    <small>Part of didactic-funicular - AI-generated tech documentation</small>
+                </p>
+            </footer>
+        </div>
+    </body>
+</html>
