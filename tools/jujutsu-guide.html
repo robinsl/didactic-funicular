@@ -1,0 +1,923 @@
+<!doctype html>
+<html lang="en">
+    <head>
+        <meta charset="utf-8" />
+        <title>Jujutsu (jj) VCS Guide - didactic-funicular</title>
+        <meta name="viewport" content="width=device-width, initial-scale=1" />
+        <link rel="stylesheet" href="../common-styles.css">
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/styles/github.min.css">
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/highlight.min.js"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/languages/bash.min.js"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/languages/shell.min.js"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/languages/diff.min.js"></script>
+        <style>
+            /* Jujutsu Guide - Blue Theme */
+            :root {
+                --primary-color: #2f9fdf;
+                --primary-dark: #2485c7;
+                --primary-light: #4db3e8;
+                --secondary-color: #0e254f;
+                --secondary-dark: #0a1d3e;
+                --secondary-light: #1a3a6b;
+                
+                /* Category colors */
+                --elixir-color: #663399;
+                --ruby-color: #cc342d;
+                --tools-color: #f39c12;
+            }
+            
+            /* Top navigation menu - compact design */
+            .top-nav {
+                background: #000;
+                height: 2rem;
+                font-size: 0.85rem;
+                display: flex;
+                align-items: stretch;
+            }
+            
+            .top-nav-container {
+                display: flex;
+                align-items: stretch;
+                height: 100%;
+            }
+            
+            .top-nav a {
+                color: #fff;
+                text-decoration: none;
+                padding: 0 1rem;
+                transition: all 0.2s ease;
+                font-weight: 500;
+                display: flex;
+                align-items: center;
+                height: 100%;
+                border: none;
+                border-radius: 0;
+            }
+            
+            .top-nav a:hover {
+                background-color: rgba(255, 255, 255, 0.1);
+            }
+            
+            .top-nav a.elixir:hover {
+                background-color: var(--elixir-color);
+            }
+            
+            .top-nav a.ruby:hover {
+                background-color: var(--ruby-color);
+            }
+            
+            .top-nav a.tools.current {
+                background-color: var(--tools-color);
+            }
+            
+            /* Header with integrated hero */
+            header {
+                background: linear-gradient(135deg, var(--primary-color) 0%, var(--primary-dark) 100%);
+                color: #fff;
+                padding: 3rem 2rem;
+                text-align: center;
+                box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+            }
+            
+            .hero-title {
+                margin: 0 0 1rem 0;
+                color: white;
+                border: none;
+                font-size: 2.2rem;
+            }
+            
+            .hero-subtitle {
+                font-size: 1.1rem;
+                opacity: 0.9;
+                max-width: 700px;
+                margin: 0 auto 2rem auto;
+            }
+            
+            nav {
+                display: flex;
+                flex-wrap: wrap;
+                gap: 1rem;
+                justify-content: center;
+            }
+            
+            /* Viewport border */
+            .viewport-container {
+                border: 3px solid var(--primary-color);
+                border-top: none;
+                min-height: calc(100vh - 120px);
+            }
+            
+            /* Main content */
+            main {
+                padding: 2rem;
+                max-width: 1000px;
+                margin: auto;
+            }
+            
+            /* Jujutsu-specific styling */
+            .jj-command {
+                background: var(--secondary-color);
+                color: #ecf0f1;
+                padding: 0.2rem 0.5rem;
+                border-radius: 3px;
+                font-family: 'Courier New', monospace;
+                font-size: 0.9rem;
+            }
+            
+            .git-vs-jj {
+                display: grid;
+                grid-template-columns: 1fr 1fr;
+                gap: 1rem;
+                margin: 1rem 0;
+            }
+            
+            .git-side {
+                background: #f8f9fa;
+                padding: 1rem;
+                border-left: 4px solid #dc3545;
+                border-radius: 4px;
+            }
+            
+            .jj-side {
+                background: #f8f9fa;
+                padding: 1rem;
+                border-left: 4px solid var(--primary-color);
+                border-radius: 4px;
+            }
+            
+            .concept-comparison {
+                background: linear-gradient(135deg, #e8f5e8 0%, #f0f8ff 100%);
+                padding: 1.5rem;
+                border-radius: 8px;
+                margin: 1rem 0;
+                border-left: 4px solid var(--primary-color);
+            }
+            
+            .workflow-step {
+                background: #fff;
+                border: 1px solid #ddd;
+                border-radius: 6px;
+                padding: 1rem;
+                margin: 0.5rem 0;
+                box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+            }
+            
+            .workflow-step h4 {
+                color: var(--primary-color);
+                margin-top: 0;
+            }
+        </style>
+        <script>
+            document.addEventListener('DOMContentLoaded', (event) => {
+                // Configure highlight.js for Jujutsu guide (shell commands, diffs, etc.)
+                hljs.configure({
+                    languages: ['bash', 'shell', 'diff', 'javascript', 'html']
+                });
+                
+                // Manually set language for code blocks
+                document.querySelectorAll('pre code').forEach((block) => {
+                    const text = block.textContent;
+                    
+                    // Detect jj/git commands
+                    if (text.includes('jj ') || text.includes('git ') || text.includes('$ ') || 
+                        text.includes('mix ') || text.includes('cd ') || text.includes('#')) {
+                        block.className += ' language-bash';
+                    }
+                    // Detect diff output
+                    else if (text.includes('+++') || text.includes('---') || text.includes('@@')) {
+                        block.className += ' language-diff';
+                    }
+                    // Default to bash for command-line focused guide
+                    else if (!block.className.includes('language-') && !block.className.includes('hljs-')) {
+                        block.className += ' language-bash';
+                    }
+                });
+                
+                hljs.highlightAll();
+            });
+        </script>
+    </head>
+    <body>
+        <!-- Top navigation menu -->
+        <div class="top-nav">
+            <div class="top-nav-container">
+                <a href="../index.html">didactic-funicular</a>
+                <a href="../elixir/" class="elixir">elixir</a>
+                <a href="../ruby/" class="ruby">ruby</a>
+                <a href="index.html" class="tools current">tools</a>
+            </div>
+        </div>
+        
+        <div class="viewport-container">
+            <header>
+                <h1 class="hero-title">Jujutsu (jj) VCS: Complete Learning Guide</h1>
+                <p class="hero-subtitle">Master the next-generation version control system. Learn how jj simplifies Git workflows with automatic rebasing, conflict management, and operation history.</p>
+                <nav>
+                    <a href="index.html">Tools Home</a>
+                    <a href="jujutsu-guide.html" class="current">Jujutsu Guide</a>
+                </nav>
+            </header>
+
+            <main>
+                <div class="toc">
+                    <h3>Table of Contents</h3>
+                    <ol>
+                        <li><a href="#part-1">Quick Summary and Ecosystem Overview</a></li>
+                        <li><a href="#part-2">Differences with Git</a></li>
+                        <li><a href="#part-3">Deep Dive: Lifecycle and Features</a></li>
+                        <li><a href="#part-4">Complex Real-World Example</a></li>
+                    </ol>
+                </div>
+
+                <div style="text-align: center; margin: 2rem 0; padding: 1rem; background: linear-gradient(135deg, #e3f2fd 0%, #f1f8e9 100%); border-radius: 6px; border-left: 4px solid #2196f3;">
+                    <strong>💡 Quick Navigation Tip:</strong> Use Ctrl+F (Cmd+F on Mac) to search for specific topics throughout this guide.
+                </div>
+
+                <hr />
+
+                <h2 id="part-1">Part 1: Quick Summary and Ecosystem Overview</h2>
+
+                <div class="concept-comparison">
+                    <h3>What is Jujutsu?</h3>
+                    <p>Jujutsu (jj) is a modern, Git-compatible version control system designed to be both simple and powerful. It abstracts the user interface and version control algorithms from the storage systems, making it fundamentally different from traditional VCS tools.</p>
+                </div>
+
+                <h3>Key Philosophy</h3>
+                <ul>
+                    <li><strong>Working-copy-as-a-commit</strong>: Changes are automatically recorded as commits</li>
+                    <li><strong>Conflict-first design</strong>: Conflicts are first-class objects, not just textual diffs</li>
+                    <li><strong>Operation log</strong>: Every operation is recorded and can be undone</li>
+                    <li><strong>Automatic rebase</strong>: Descendants are automatically rebased when you modify commits</li>
+                </ul>
+
+                <h3>Quick Start Commands</h3>
+                <div class="step-by-step">
+                    <pre><code># Initialize a new repository
+jj git init my-project
+cd my-project
+
+# Clone an existing Git repository
+jj git clone https://github.com/user/repo.git
+
+# Basic workflow
+echo "Hello World" > file.txt
+jj describe -m "Add hello world"  # Set commit message
+jj new                            # Create new change
+echo "More content" >> file.txt
+jj describe -m "Add more content"
+
+# View history
+jj log
+
+# Push to remote
+jj git push</code></pre>
+                </div>
+
+                <h3>Ecosystem and Tools</h3>
+
+                <div class="workflow-step">
+                    <h4>Core Components</h4>
+                    <ul>
+                        <li><strong>jj CLI</strong>: The main command-line interface</li>
+                        <li><strong>Git backend</strong>: Uses Git repositories for storage (production-ready)</li>
+                        <li><strong>Operation store</strong>: Records all operations for undo/redo functionality</li>
+                    </ul>
+                </div>
+
+                <div class="workflow-step">
+                    <h4>Integration</h4>
+                    <ul>
+                        <li><strong>Git compatibility</strong>: Full interoperability with Git repositories and workflows</li>
+                        <li><strong>GitHub/GitLab</strong>: Works seamlessly with Git forges</li>
+                        <li><strong>Co-located repos</strong>: Can use both <span class="jj-command">jj</span> and <span class="jj-command">git</span> commands in the same repository</li>
+                    </ul>
+                </div>
+
+                <div class="workflow-step">
+                    <h4>Community Tools</h4>
+                    <ul>
+                        <li><strong>Editor integrations</strong>: VS Code, Vim, Emacs plugins available</li>
+                        <li><strong>Shell completions</strong>: Bash, Zsh, Fish support</li>
+                        <li><strong>CI/CD</strong>: Works with existing Git-based CI systems</li>
+                    </ul>
+                </div>
+
+                <h3>Installation</h3>
+                <pre><code># macOS
+brew install jj
+
+# Linux (cargo)
+cargo install --git https://github.com/jj-vcs/jj.git jj-cli
+
+# Windows
+winget install jj-vcs.jj</code></pre>
+
+                <hr />
+
+                <h2 id="part-2">Part 2: Differences with Git</h2>
+
+                <h3>Conceptual Differences</h3>
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Concept</th>
+                            <th>Git</th>
+                            <th>Jujutsu</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td><strong>Working Directory</strong></td>
+                            <td>Separate from commits</td>
+                            <td>Is a commit (automatically managed)</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Staging Area</strong></td>
+                            <td>Explicit index/staging</td>
+                            <td>No staging area - direct commits</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Branches</strong></td>
+                            <td>Named references</td>
+                            <td>Anonymous changes (bookmarks for naming)</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Conflicts</strong></td>
+                            <td>Blocking operations</td>
+                            <td>First-class objects, operations continue</td>
+                        </tr>
+                        <tr>
+                            <td><strong>History Rewriting</strong></td>
+                            <td>Complex, error-prone</td>
+                            <td>Safe, automatic rebasing</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Undo</strong></td>
+                            <td>Limited (reflog)</td>
+                            <td>Complete operation log</td>
+                        </tr>
+                    </tbody>
+                </table>
+
+                <h3>Command Comparison</h3>
+
+                <div class="git-vs-jj">
+                    <div class="git-side">
+                        <h4>Git Commands</h4>
+                        <pre><code># Initialize
+git init
+git clone &lt;url&gt;
+
+# Status and changes
+git status
+git diff
+git log
+
+# Committing
+git add .
+git commit -m "msg"
+
+# Branching
+git checkout -b feature
+git checkout main
+
+# Merging
+git merge feature
+git rebase main
+
+# Remote operations
+git push
+git pull</code></pre>
+                    </div>
+                    <div class="jj-side">
+                        <h4>Jujutsu Equivalents</h4>
+                        <pre><code># Initialize
+jj git init
+jj git clone &lt;url&gt;
+
+# Status and changes
+jj status
+jj diff
+jj log
+
+# Committing
+(automatic in jj)
+jj describe -m "msg"
+
+# Branching
+jj new -m "feature work"
+jj edit main
+
+# Merging
+jj rebase -d main (automatic)
+jj rebase -d main
+
+# Remote operations
+jj git push
+jj git fetch && jj rebase -d @-</code></pre>
+                    </div>
+                </div>
+
+                <h3>Advanced Operations</h3>
+                <div class="git-vs-jj">
+                    <div class="git-side">
+                        <h4>Git Advanced</h4>
+                        <pre><code># History editing
+git rebase -i HEAD~3
+git commit --amend
+git cherry-pick &lt;commit&gt;
+
+# Conflict resolution
+git merge --abort
+git rerere
+
+# Undo operations
+git reflog
+git reset --hard HEAD~1</code></pre>
+                    </div>
+                    <div class="jj-side">
+                        <h4>Jujutsu Advanced</h4>
+                        <pre><code># History editing
+jj split / jj squash / jj describe
+jj describe (works on any commit)
+jj rebase -r &lt;commit&gt; -d &lt;dest&gt;
+
+# Conflict resolution
+jj restore (conflicts don't block)
+(automatic conflict resolution propagation)
+
+# Undo operations
+jj op log
+jj undo</code></pre>
+                    </div>
+                </div>
+
+                <div class="concept-comparison">
+                    <h3>Mental Model Shift</h3>
+                    <p><strong>Git</strong>: Think in terms of snapshots, branches, and manual staging</p>
+                    <p><strong>Jujutsu</strong>: Think in terms of a continuous stream of changes with automatic management</p>
+                </div>
+
+                <hr />
+
+                <h2 id="part-3">Part 3: Deep Dive: Lifecycle and Features</h2>
+
+                <h3>The Jujutsu Lifecycle</h3>
+
+                <div class="workflow-step">
+                    <h4>1. Repository Initialization</h4>
+                    <pre><code># Create new repository
+jj git init my-project
+
+# Repository structure created:
+# .jj/           - Jujutsu metadata
+# .git/          - Git backend storage</code></pre>
+                </div>
+
+                <div class="workflow-step">
+                    <h4>2. Working Copy Management</h4>
+                    <pre><code># Working copy is always a commit
+jj status                  # Shows current working copy commit
+
+# Make changes - automatically snapshotted
+echo "content" > file.txt
+
+# Working copy commit is automatically updated
+jj log -r @                # @ represents working copy</code></pre>
+                </div>
+
+                <div class="workflow-step">
+                    <h4>3. Change Creation and Management</h4>
+                    <pre><code># Create new change on top of current
+jj new -m "New feature"
+
+# Edit specific commit
+jj edit &lt;commit-id&gt;
+
+# Describe any commit
+jj describe -r &lt;commit-id&gt; -m "Better message"</code></pre>
+                </div>
+
+                <div class="workflow-step">
+                    <h4>4. History Manipulation</h4>
+                    <pre><code># Split a commit
+jj split -r &lt;commit-id&gt;
+
+# Squash changes
+jj squash -r &lt;source&gt; -d &lt;dest&gt;
+
+# Move changes between commits
+jj move --from &lt;source&gt; --to &lt;dest&gt;</code></pre>
+                </div>
+
+                <h3>Core Features Deep Dive</h3>
+
+                <div class="workflow-step">
+                    <h4>1. Automatic Rebase</h4>
+                    <p>When you modify a commit, all descendants are automatically rebased:</p>
+                    <pre><code># Initial state: A -> B -> C
+jj describe -r B -m "Updated B"
+# Result: A -> B' -> C' (C automatically rebased onto B')</code></pre>
+                </div>
+
+                <div class="workflow-step">
+                    <h4>2. Conflict Management</h4>
+                    <p>Conflicts don't block operations:</p>
+                    <pre><code># Create conflicting changes
+jj new -m "Change 1"
+echo "version 1" > file.txt
+jj new -m "Change 2" 
+echo "version 2" > file.txt
+
+# Rebase creates conflict but doesn't fail
+jj rebase -r @ -d @--
+
+# Conflict is recorded in the commit
+jj log  # Shows conflict markers
+jj resolve  # Interactive conflict resolution</code></pre>
+                </div>
+
+                <div class="workflow-step">
+                    <h4>3. Operation Log and Undo</h4>
+                    <p>Every operation is recorded:</p>
+                    <pre><code># View operation history
+jj op log
+
+# Undo last operation
+jj undo
+
+# Undo specific operation
+jj undo --op &lt;operation-id&gt;
+
+# Restore to specific operation
+jj op restore &lt;operation-id&gt;</code></pre>
+                </div>
+
+                <div class="workflow-step">
+                    <h4>4. Revsets (Revision Selection)</h4>
+                    <p>Powerful query language for selecting commits:</p>
+                    <pre><code># Select commits
+jj log -r "main"           # Main bookmark
+jj log -r "@"              # Working copy
+jj log -r "@ | @-"         # Working copy and parent
+jj log -r "ancestors(@)"   # All ancestors
+jj log -r "descendants(main)" # All descendants of main
+jj log -r "author(alice)"  # Commits by alice
+jj log -r "description(fix)" # Commits with "fix" in message</code></pre>
+                </div>
+
+                <div class="workflow-step">
+                    <h4>5. Bookmarks (Branch Management)</h4>
+                    <pre><code># Create bookmark
+jj bookmark create feature
+
+# Move bookmark
+jj bookmark set main -r &lt;commit-id&gt;
+
+# List bookmarks
+jj bookmark list
+
+# Delete bookmark
+jj bookmark delete feature</code></pre>
+                </div>
+
+                <div class="workflow-step">
+                    <h4>6. Templates (Output Formatting)</h4>
+                    <p>Customize output format:</p>
+                    <pre><code># Custom log format
+jj log -T 'commit_id.short() ++ " " ++ description.first_line()'
+
+# Configure default template
+jj config set --user templates.log_oneline 'commit_id.short() ++ " " ++ description.first_line()'</code></pre>
+                </div>
+
+                <h3>Advanced Features</h3>
+
+                <div class="workflow-step">
+                    <h4>1. Sparse Checkouts</h4>
+                    <pre><code># Configure sparse patterns
+jj sparse set 'src/**' 'docs/**'
+
+# List sparse patterns
+jj sparse list</code></pre>
+                </div>
+
+                <div class="workflow-step">
+                    <h4>2. Concurrent Operations</h4>
+                    <p>Jujutsu is designed for safe concurrent access:</p>
+                    <ul>
+                        <li>Multiple users can work on the same repository</li>
+                        <li>Operations are atomic and safe</li>
+                        <li>Conflicts are resolved automatically when possible</li>
+                    </ul>
+                </div>
+
+                <div class="workflow-step">
+                    <h4>3. Custom Backends</h4>
+                    <p>While Git is the primary backend, Jujutsu's architecture supports:</p>
+                    <ul>
+                        <li>Future cloud-based backends</li>
+                        <li>Custom storage systems</li>
+                        <li>Hybrid approaches</li>
+                    </ul>
+                </div>
+
+                <hr />
+
+                <h2 id="part-4">Part 4: Complex Real-World Example</h2>
+
+                <div class="concept-comparison">
+                    <h3>Scenario: Feature Development with Team Collaboration</h3>
+                    <p>Let's walk through a complex real-world scenario involving multiple developers, feature branches, conflicts, and history rewriting.</p>
+                </div>
+
+                <div class="workflow-step">
+                    <h4>Setup: Multi-Developer Project</h4>
+                    <pre><code># Project lead initializes repository
+jj git init web-app
+cd web-app
+
+# Create initial structure
+mkdir -p src/{components,utils,api}
+echo "# Web App" > README.md
+echo "console.log('Hello World');" > src/main.js
+jj describe -m "Initial project structure"
+
+# Create remote repository and push
+jj git remote add origin https://github.com/team/web-app.git
+jj bookmark create main
+jj git push --bookmark main</code></pre>
+                </div>
+
+                <div class="workflow-step">
+                    <h4>Developer A: Authentication Feature</h4>
+                    <pre><code># Clone and start feature
+jj git clone https://github.com/team/web-app.git
+cd web-app
+
+# Create feature branch
+jj new -m "Start authentication feature"
+jj bookmark create auth-feature
+
+# Implement authentication
+mkdir src/auth
+cat > src/auth/login.js << 'EOF'
+export function login(username, password) {
+    // TODO: Implement login logic
+    return fetch('/api/login', {
+        method: 'POST',
+        body: JSON.stringify({ username, password })
+    });
+}
+EOF
+
+jj describe -m "Add login function skeleton"
+
+# Continue development
+cat > src/auth/auth.js << 'EOF'
+import { login } from './login.js';
+
+export class AuthManager {
+    constructor() {
+        this.token = localStorage.getItem('token');
+    }
+    
+    async authenticate(username, password) {
+        const response = await login(username, password);
+        if (response.ok) {
+            this.token = await response.text();
+            localStorage.setItem('token', this.token);
+        }
+        return response.ok;
+    }
+}
+EOF
+
+jj new -m "Add AuthManager class"
+
+# Realize we need to split the commit
+jj split -r @-
+# Interactive editor opens - select login.js for first commit
+# Second commit gets auth.js
+
+jj describe -r @-- -m "Add login function"
+jj describe -r @- -m "Add AuthManager class"</code></pre>
+                </div>
+
+                <div class="workflow-step">
+                    <h4>Developer B: UI Components (Parallel Development)</h4>
+                    <pre><code># Another developer clones
+jj git clone https://github.com/team/web-app.git
+cd web-app
+
+# Start UI work
+jj new -m "Start UI components"
+jj bookmark create ui-components
+
+# Create components
+mkdir src/components
+cat > src/components/Button.js << 'EOF'
+export function Button({ children, onClick, type = 'button' }) {
+    return `<button type="${type}" onclick="${onClick}">${children}</button>`;
+}
+EOF
+
+jj describe -m "Add Button component"
+
+# Add more components
+cat > src/components/Form.js << 'EOF'
+import { Button } from './Button.js';
+
+export function LoginForm() {
+    return `
+        <form id="login-form">
+            <input type="text" id="username" placeholder="Username" />
+            <input type="password" id="password" placeholder="Password" />
+            ${Button({ children: 'Login', type: 'submit' })}
+        </form>
+    `;
+}
+EOF
+
+jj new -m "Add LoginForm component"</code></pre>
+                </div>
+
+                <div class="workflow-step">
+                    <h4>Integration and Conflict Resolution</h4>
+                    <pre><code># Developer A pushes first
+jj git push --bookmark auth-feature
+
+# Developer B fetches and integrates
+jj git fetch
+jj rebase -d origin/auth-feature
+
+# Now both features are integrated, but we need to connect them
+jj new -m "Integrate auth with UI"
+
+# Create integration file
+cat > src/app.js << 'EOF'
+import { AuthManager } from './auth/auth.js';
+import { LoginForm } from './components/Form.js';
+
+const auth = new AuthManager();
+const loginForm = LoginForm();
+
+document.getElementById('app').innerHTML = loginForm;
+
+document.getElementById('login-form').addEventListener('submit', async (e) => {
+    e.preventDefault();
+    const username = document.getElementById('username').value;
+    const password = document.getElementById('password').value;
+    
+    const success = await auth.authenticate(username, password);
+    if (success) {
+        document.getElementById('app').innerHTML = '<h1>Welcome!</h1>';
+    } else {
+        alert('Login failed');
+    }
+});
+EOF
+
+jj describe -m "Integrate authentication with UI"</code></pre>
+                </div>
+
+                <div class="workflow-step">
+                    <h4>Code Review and Refinement</h4>
+                    <pre><code># Reviewer suggests improvements
+jj new -m "Address code review feedback"
+
+# Fix issues in previous commits without checking them out
+jj diffedit -r @---  # Edit the login function commit
+# Interactive editor opens showing the diff
+# Make improvements directly
+
+# Move some changes to a different commit
+jj squash -i --from @ --into @-
+# Interactive editor to select which changes to move
+
+# Split a large commit that does too much
+jj split -r @--</code></pre>
+                </div>
+
+                <div class="workflow-step">
+                    <h4>Handling Merge Conflicts</h4>
+                    <pre><code># Meanwhile, main branch has evolved
+jj git fetch
+
+# Rebase onto latest main creates conflicts
+jj rebase -d origin/main
+# Conflicts are recorded but operation succeeds
+
+# View conflicts
+jj log -r 'conflict()'
+
+# Resolve conflicts interactively
+jj resolve
+# Opens merge tool for each conflicted file
+
+# Or resolve manually
+jj status  # Shows conflicted files
+# Edit files to resolve conflicts
+jj describe -m "Resolve conflicts with main"</code></pre>
+                </div>
+
+                <div class="workflow-step">
+                    <h4>History Cleanup Before Merge</h4>
+                    <pre><code># Clean up commit messages
+jj describe -r @---- -m "feat: add user authentication system"
+jj describe -r @--- -m "feat: add login UI components"
+jj describe -r @-- -m "feat: integrate auth with UI"
+jj describe -r @- -m "fix: resolve conflicts with main branch"
+
+# Squash fixup commits
+jj squash -r @- -d @--
+
+# Final history looks clean
+jj log --oneline -r 'ancestors(@) ~ ancestors(origin/main)'</code></pre>
+                </div>
+
+                <div class="workflow-step">
+                    <h4>Advanced Operations During Development</h4>
+                    
+                    <h5>1. Experimental Branch</h5>
+                    <pre><code># Try experimental approach
+jj new -m "Experiment: OAuth integration"
+# ... implement OAuth ...
+
+# Decide to abandon experiment
+jj abandon @
+# Returns to previous commit, experiment is abandoned but preserved in op log</code></pre>
+
+                    <h5>2. Cherry-picking Changes</h5>
+                    <pre><code># Need a specific fix from another branch
+jj rebase -r &lt;commit-from-other-branch&gt; -d @</code></pre>
+
+                    <h5>3. Partial Changes</h5>
+                    <pre><code># Move only part of changes to another commit
+jj move --from @ --to @- --interactive
+# Interactive selection of hunks to move</code></pre>
+
+                    <h5>4. Backup and Recovery</h5>
+                    <pre><code># Something went wrong, check operation log
+jj op log
+
+# Restore to before the problematic operation
+jj op restore &lt;operation-id&gt;
+
+# Or undo specific operations
+jj undo --op &lt;operation-id&gt;</code></pre>
+                </div>
+
+                <div class="workflow-step">
+                    <h4>Final Integration</h4>
+                    <pre><code># Push final feature
+jj git push --bookmark ui-components
+
+# Create pull request (using GitHub CLI)
+gh pr create --title "feat: Add authentication system with UI" \
+             --body "Implements user authentication with login form"
+
+# After approval, merge
+jj git fetch
+jj bookmark set main -r origin/main
+jj git push --bookmark main --delete ui-components</code></pre>
+                </div>
+
+                <div class="success">
+                    <h3>Key Takeaways from the Example</h3>
+                    <ol>
+                        <li><strong>Seamless Collaboration</strong>: Multiple developers can work simultaneously without complex merge strategies</li>
+                        <li><strong>Safe History Rewriting</strong>: Commits can be modified, split, and reorganized safely</li>
+                        <li><strong>Conflict Management</strong>: Conflicts don't block progress and can be resolved incrementally</li>
+                        <li><strong>Operation Safety</strong>: Every operation is recorded and can be undone</li>
+                        <li><strong>Git Compatibility</strong>: Full integration with existing Git workflows and tools</li>
+                    </ol>
+                </div>
+
+                <div class="checkpoint">
+                    <h3>Best Practices Demonstrated</h3>
+                    <ul>
+                        <li>Use descriptive commit messages with conventional commit format</li>
+                        <li>Split large commits into logical pieces</li>
+                        <li>Resolve conflicts incrementally rather than all at once</li>
+                        <li>Use bookmarks for feature branches</li>
+                        <li>Leverage automatic rebasing for clean history</li>
+                        <li>Use operation log for debugging and recovery</li>
+                    </ul>
+                </div>
+
+                <div class="concept-comparison">
+                    <p>This example showcases how Jujutsu's unique features enable more flexible and safer version control workflows compared to traditional Git usage.</p>
+                </div>
+
+            </main>
+
+            <footer>
+                <p>
+                    Happy coding with Jujutsu! 🚀✨<br />
+                    <small>This guide was created to help developers transition from Git to Jujutsu. For updates and corrections, please check the official Jujutsu documentation.</small>
+                </p>
+            </footer>
+        </div>
+    </body>
+</html>
